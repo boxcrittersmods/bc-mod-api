@@ -18,7 +18,7 @@ app.use((req,res,next)=>{
 
 app.use((req,res,next)=>{      
     if(ttl<=0){
-        ttl = 1000;
+        ttl = 50;
         assetFolder.update().then((data)=>{
             api = data;
             next();
