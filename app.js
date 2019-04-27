@@ -1,5 +1,6 @@
 const express = require("express");
-const assetFolder = require('./assetfolder')
+const assetFolder = require('./assetfolder');
+var cors = require('cors');
 
 var app = express();
 var ttl = 0;
@@ -7,6 +8,8 @@ var api = {};
 assetFolder.update().then((data)=>{
     api = data;
 });
+
+app.use(cors());
 
 app.use((req,res,next)=>{
     res.type("application/json");
