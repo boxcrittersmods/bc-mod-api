@@ -112,6 +112,10 @@
     "description": "Added mobile portrait-mode"
   },
   {
+    "name":"37-fast",
+    "description":""
+  },
+  {
     "name": "38-moveit",
     "description": "Changed player-movement. Removed mobile portrait-mode"
   }
