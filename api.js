@@ -9,7 +9,7 @@ function getDate() {
 function update() {
     return new Promise((resolve,reject)=>{
         var proms = [];
-        proms.push(assetFolder.updat());
+        proms.push(assetFolder.update());
         
         proms.push(getDate());
         Promise.all(proms).then(output=>{
