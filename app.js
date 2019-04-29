@@ -1,11 +1,11 @@
 const express = require("express");
-const assetFolder = require('./assetfolder');
+const apiretrive = require('./api');
 var cors = require('cors');
 
 var app = express();
 var ttl = 0;
 var api = {};
-assetFolder.update().then((data)=>{
+apiretrive.update().then((data)=>{
     api = data;
 });
 
@@ -19,7 +19,7 @@ app.use((req,res,next)=>{
 app.use((req,res,next)=>{      
     if(ttl<=0){
         ttl = 50;
-        assetFolder.update().then((data)=>{
+        apiretrive.update().then((data)=>{
             api = data;
             next();
         });
@@ -28,6 +28,10 @@ app.use((req,res,next)=>{
         next();
     }
 })
+
+app.set('json spaces', 2);
+
+app.use('/scripts',express.static('public'));
 
 app.get("/",(req,res)=>{
     res.json(api);
