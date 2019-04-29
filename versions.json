@@ -13,19 +13,19 @@
   },
   {
     "name": "4",
-    "description": ""
+    "description": "Removed X and Y from getting sent to console."
   },
   {
     "name": "5",
-    "description": ""
+    "description": "Added code for inventory-system."
   },
   {
     "name": "6",
-    "description": ""
+    "description": "Removed players' X and Y-positions being printed in console"
   },
   {
     "name": "7",
-    "description": ""
+    "description": "Critter listed as Penguin changed to Raccoon."
   },
   {
     "name": "8",
@@ -93,7 +93,7 @@
   },
   {
     "name": "29-bunny",
-    "description": "Unknown"
+    "description": ""
   },
   {
     "name": "30-black",
@@ -101,7 +101,7 @@
   },
   {
     "name": "31-baseball",
-    "description": "Unknown"
+    "description": ""
   },
   {
     "name": "34-dark",
