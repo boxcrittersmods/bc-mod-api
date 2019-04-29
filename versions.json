@@ -5,11 +5,11 @@
   },
   {
     "name": "2",
-    "description": ""
+    "description": "Room and critter code improved. Hamster-design changed."
   },
   {
     "name": "3",
-    "description": ""
+    "description": "Added code for Penguin-critter. changed 'name' into 'critterId'"
   },
   {
     "name": "4",
