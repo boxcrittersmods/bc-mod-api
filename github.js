@@ -2,7 +2,7 @@ const Octokit = require('@octokit/rest');
 
 
 const octokit = new Octokit({
-   auth: '70bcb4238f5f4022c5be0d4fdf48f558656bf299'
+   auth: process.env.FEEDBACK_KEY
  })
 
 function sendFeedback(repo, title, body) {
