@@ -37,25 +37,30 @@ function getVerName(document){
     return ver;
 }
 
+function getVersionInfo(ver) {
+    var info = {};
+    var folder = mediastart + ver + "/";
+
+    info.assetsFolder = folder;
+    info.version = ver;
+    info.versionNum = ver.split("-")[0];
+    info.versionName = ver.split("-")[1];
+    return info;
+}
+
 function updateAssetsFolder() {
     return new Promise((resolve,reject)=>{
         getSiteText(bcurl).then(body=>{
-            var assets = {};
             var document = getSiteDocument(body);
             var ver = getVerName(document);
-            var folder = mediastart + ver + "/";
-
-            assets.assetsFolder = folder;
-            assets.version = ver;
-            assets.versionNum = ver.split("-")[0];
-            assets.versionName = ver.split("-")[1];
-
-            resolve(assets);
+            
+            resolve(getVersionInfo(ver));
         }).catch(reject);
     });
 }
 
 
 module.exports = {
-    update: updateAssetsFolder
+    update: updateAssetsFolder,
+    getVersionInfo
 }

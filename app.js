@@ -1,6 +1,9 @@
 const express = require("express");
+const cors = require('cors');
+
 const apiretrive = require('./api');
-var cors = require('cors');
+const feedback = require('./feedback');
+const version  = require('./version')
 
 var app = express();
 var ttl = 0;
@@ -9,16 +12,20 @@ apiretrive.update().then((data)=>{
     api = data;
 });
 
-app.use(cors());
 
+app.set('json spaces', 2);
+
+//middleware
+app.use('/scripts',express.static('public'));
+app.use(cors());
 app.use((req,res,next)=>{
     res.type("application/json");
     next();
 });
-
 app.use((req,res,next)=>{      
     if(ttl<=0){
         ttl = 50;
+        version.update();
         apiretrive.update().then((data)=>{
             api = data;
             next();
@@ -29,10 +36,19 @@ app.use((req,res,next)=>{
     }
 })
 
-app.set('json spaces', 2);
+//routers
+//app.use('/feedback',feedback);
+app.use('/version',version.router);
 
-app.use('/scripts',express.static('public'));
+app.get('/versions/:ver',(req,res)=>{
+    res.redirect('/version/git ' + req.params.ver);
+});
 
+
+//routes
+app.get('/versions',(req,res)=>{
+    res.json(version.getVersions());
+});
 app.get("/",(req,res)=>{
     res.json(api);
 });
