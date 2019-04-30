@@ -12,6 +12,7 @@ var error = {
 
 function update() {
     setupDone = false;
+    versions = [];
     github.loadVersions().then(({vers,psha})=>{
         versions.unshift(...vers);
         sha = psha;
