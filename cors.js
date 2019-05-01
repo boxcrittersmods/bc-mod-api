@@ -1,4 +1,5 @@
 const express = require("express");
+const request = require('request');
 const puppeteer = require("puppeteer");
 const absolutify = require("absolutify");
 
@@ -31,13 +32,37 @@ router.use(async (req,res)=>{
         return;
     }
     try {
-    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    /*const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
     await page.goto(`${url}`);
     var document = await page.evaluate(()=>document.documentElement.outerHTML);
     document = absolutify(document,`/cors/${getHostName(url)}`);
 
-    res.send(document);
+    res.send(document);*/
+
+    
+    request(url, function (error, response, body) {
+        /*const ctype = response.headers['content-type'];
+
+        if (ctype.includes('text/html')) {
+            try {
+            body = htmlmin(body, HTMLMIN_OPTIONS);
+            } catch (e) {
+
+            }
+        } else if (ctype.includes('json') && typeof body === 'string') {
+            try {
+            body = JSON.stringify(JSON.parse(body));
+            } catch (e) {
+
+            }
+        }
+        
+        body = absolutify(body,`/cors/${getHostName(url)}`);
+        res.header('content-type', ctype);
+        res.end(body);*/
+    }).pipe(res);
+
     } catch(e) {
         console.log(e);
         

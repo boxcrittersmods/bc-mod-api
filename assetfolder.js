@@ -11,7 +11,7 @@ function getSiteText(url) {
     return new Promise((resolve,reject)=>{
         request(url, function (error, response, body) {
             //console.log('error:', error); // Print the error if one occurred
-            //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+            console.log('UPDATED VERSION INFO statusCode:', response && response.statusCode); // Print the response status code if a response was received
             //console.log('body:', body);
             if(error){
                 reject(error);
