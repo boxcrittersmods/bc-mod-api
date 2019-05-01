@@ -2,6 +2,7 @@ const express = require("express");
 const request = require('request');
 const puppeteer = require("puppeteer");
 const absolutify = require("absolutify");
+const imageDataURI = require('image-data-uri')
 
 var router = express.Router();
 
@@ -24,6 +25,25 @@ router.use((req,res,next)=>{
     next();
 });
 
+router.use('/data',async (req,res)=>{
+    var url = req.path.substr(1);
+    console.log("URL:",url);
+    if(!url) {
+        res.send("No URL provided");
+        return;
+    }
+    try {
+    imageDataURI.encodeFromURL(url).then((data)=>{
+        res.json({url:data});
+    });
+    } catch(e) {
+        console.log(e);
+        
+        res.send("Error: " + e);
+        return;
+    }
+});
+
 router.use(async (req,res)=>{
     var url = req.path.substr(1);
     console.log("URL:",url);
@@ -39,29 +59,7 @@ router.use(async (req,res)=>{
     document = absolutify(document,`/cors/${getHostName(url)}`);
 
     res.send(document);*/
-
-    
-    request(url, function (error, response, body) {
-        /*const ctype = response.headers['content-type'];
-
-        if (ctype.includes('text/html')) {
-            try {
-            body = htmlmin(body, HTMLMIN_OPTIONS);
-            } catch (e) {
-
-            }
-        } else if (ctype.includes('json') && typeof body === 'string') {
-            try {
-            body = JSON.stringify(JSON.parse(body));
-            } catch (e) {
-
-            }
-        }
-        
-        body = absolutify(body,`/cors/${getHostName(url)}`);
-        res.header('content-type', ctype);
-        res.end(body);*/
-    }).pipe(res);
+    request(url).pipe(res);
 
     } catch(e) {
         console.log(e);
