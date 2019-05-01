@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const apiretrive = require('./api');
 const feedback = require('./feedback');
+const corsProxy = require('./cors')
 const version  = require('./version')
 
 var app = express();
@@ -39,7 +40,7 @@ app.use((req,res,next)=>{
 //routers
 //app.use('/feedback',feedback);
 app.use('/version',version.router);
-
+app.use('/cors',corsProxy);
 app.get('/versions/:ver',(req,res)=>{
     res.redirect('/version/git ' + req.params.ver);
 });
