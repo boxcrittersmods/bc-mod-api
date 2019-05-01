@@ -39,7 +39,7 @@ router.use(async (req,res)=>{
 
     res.send(document);
     } catch(e) {
-        res.send("No URL provided" + e);
+        res.send(e);
         return;
     }
 });
