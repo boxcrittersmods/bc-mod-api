@@ -23,9 +23,14 @@ app.use((req,res,next)=>{
     res.type("application/json");
     next();
 });
+app.use('/cors',corsProxy);
+app.use('/version',version.router);
+app.get('/versions/:ver',(req,res)=>{
+    res.redirect('/version/git ' + req.params.ver);
+});
 app.use((req,res,next)=>{      
     if(ttl<=0){
-        ttl = 50;
+        ttl = 100;
         version.update();
         apiretrive.update().then((data)=>{
             api = data;
@@ -39,11 +44,6 @@ app.use((req,res,next)=>{
 
 //routers
 //app.use('/feedback',feedback);
-app.use('/version',version.router);
-app.use('/cors',corsProxy);
-app.get('/versions/:ver',(req,res)=>{
-    res.redirect('/version/git ' + req.params.ver);
-});
 
 
 //routes
