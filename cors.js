@@ -27,7 +27,6 @@ router.use(async (req,res)=>{
     var url = req.path.substr(1);
     console.log("URL:",url);
     if(!url) {
-        res.end();
         res.send("No URL provided");
         return;
     }
@@ -40,7 +39,6 @@ router.use(async (req,res)=>{
 
     res.send(document);
     } catch(e) {
-        res.end();
         res.send("No URL provided" + e);
         return;
     }
