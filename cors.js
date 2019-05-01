@@ -39,6 +39,8 @@ router.use(async (req,res)=>{
 
     res.send(document);
     } catch(e) {
+        console.log(e);
+        
         res.send("Error: " + e);
         return;
     }
