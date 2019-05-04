@@ -11,6 +11,10 @@ var ttl = 0;
 var api = {};
 version.update();
 apiretrive.update().then((data)=>{
+    var vers = version.getVersions();
+    if(vers[vers.length-1]!=data.version) {
+        version.addVersion(data.version);
+    }
     api = data;
 });
 
