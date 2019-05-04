@@ -121,10 +121,12 @@
   },
   {
     "name": "39-monk",
-    "description": ""
+    "description": "Added Monk Robe",
+    "date":"04-05-2019"
   },
   {
     "name": "40-beaver",
-    "description": ""
+    "description": "Started to test the beaver Critter",
+    "date":"04-05-2019"
   }
 ]
