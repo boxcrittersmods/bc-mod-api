@@ -9,6 +9,7 @@ const version  = require('./version')
 var app = express();
 var ttl = 0;
 var api = {};
+version.update();
 apiretrive.update().then((data)=>{
     api = data;
 });
