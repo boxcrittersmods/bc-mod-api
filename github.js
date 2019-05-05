@@ -13,12 +13,12 @@ function sendFeedback(repo, title, body) {
         title = req.body.title + " - " + title;
     }
     var body = req.body.text;
-    octokit.issues.create({
+    return octokit.issues.create({
         owner,
         repo,
         title,
         body,
-    })
+    });
     
 }
 
