@@ -30,9 +30,7 @@ app.use((req,res,next)=>{
 });
 app.use('/cors',corsProxy);
 app.use('/version',version.router);
-app.get('/versions/:ver',(req,res)=>{
-    res.redirect('/version/' + req.params.ver);
-});
+
 app.use((req,res,next)=>{      
     if(ttl<=0){
         ttl = 100;
@@ -57,6 +55,9 @@ app.get('/versions',(req,res)=>{
 });
 app.get('/versions/url',(req,res)=>{
     res.json(version.getVersions().map(v=>{version:v,url:req.hostname + "/version/" + v + "/"}));
+});
+app.get('/versions/:ver',(req,res)=>{
+    res.redirect('/version/' + req.params.ver);
 });
 app.get("/",(req,res)=>{
     res.json(api);
