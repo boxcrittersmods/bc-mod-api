@@ -26,7 +26,8 @@ function update() {
 function addVersion(version) {
     var ver = {
         name:version,
-        description: ""
+        description: "",
+        date: moment().format(DD-MM-YYYY');
     };
     versions.push(ver);
     if(setupDone) {

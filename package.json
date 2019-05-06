@@ -12,6 +12,7 @@
     "express": "^4.16.4",
     "image-data-uri": "^2.0.0",
     "jsdom": "^15.0.0",
+    "moment": "^2.24.0",
     "puppeteer": "^1.15.0",
     "request": "^2.88.0",
     "webserver": "^1.0.0"
