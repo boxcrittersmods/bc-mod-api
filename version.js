@@ -13,6 +13,7 @@ var error = {
 
 function update() {
     setupDone = false;
+    tosave = false;
     versions = [];
     github.loadVersions().then(({vers,psha})=>{
         versions.unshift(...vers);
@@ -20,6 +21,7 @@ function update() {
         setupDone = true;
         if(tosave) {
             github.saveVersions(vers,sha);
+            tosave = false;
         }
     });
 }
@@ -60,11 +62,6 @@ var router = express.Router();
 router.get('/',(req,res)=>{
     res.redirect('/versions');
 });
-
-router.get('/forcesave',(req,res)=>{
-    github.saveVersions(versions,sha);
-    res.json({done:true});
-})
 
 router.get('/:ver',(req,res)=>{
     var ver = req.params.ver;
