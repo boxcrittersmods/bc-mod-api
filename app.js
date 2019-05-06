@@ -55,6 +55,9 @@ app.use('/feedback',feedback);
 app.get('/versions',(req,res)=>{
     res.json(version.getVersions());
 });
+app.get('/versions/url',(req,res)=>{
+    res.json(version.getVersions().map(v=>{version:v,url:req.hostname + "/version/" + v + "/"}));
+});
 app.get("/",(req,res)=>{
     res.json(api);
 });
