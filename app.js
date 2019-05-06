@@ -31,7 +31,7 @@ app.use((req,res,next)=>{
 app.use('/cors',corsProxy);
 app.use('/version',version.router);
 app.get('/versions/:ver',(req,res)=>{
-    res.redirect('/version/git ' + req.params.ver);
+    res.redirect('/version/ ' + req.params.ver);
 });
 app.use((req,res,next)=>{      
     if(ttl<=0){
