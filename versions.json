@@ -2,12 +2,12 @@
   {
     "name": "1",
     "description": "Initial release",
-    "date":"08-02-2019"
+    "date": "08-02-2019"
   },
   {
     "name": "2",
     "description": "Room and critter code improved. Hamster-design changed.",
-    "date":"21-02-2019"
+    "date": "21-02-2019"
   },
   {
     "name": "3",
@@ -68,97 +68,97 @@
   {
     "name": "17-EX2",
     "description": "",
-    "date":"10-04-2019"
+    "date": "10-04-2019"
   },
   {
     "name": "18-EX2",
     "description": "",
-    "date":"10-04-2019"
+    "date": "10-04-2019"
   },
   {
     "name": "19-EX2",
     "description": "Experiment 2 started. Version names.",
-    "date":"10-04-2019"
+    "date": "10-04-2019"
   },
   {
     "name": "20-party",
     "description": "Added Party Hat.",
-    "date":"11-04-2019"
+    "date": "11-04-2019"
   },
   {
     "name": "22-easter",
     "description": "Added easter-hunt",
-    "date":"16-04-2019"
+    "date": "16-04-2019"
   },
   {
     "name": "23-beep",
     "description": "Added beep-icon",
-    "date":"17-04-2019"
+    "date": "17-04-2019"
   },
   {
     "name": "24-tech",
     "description": "Each version now has their own icons-folder.",
-    "date":"18-04-2019"
+    "date": "18-04-2019"
   },
   {
     "name": "25-egghunt",
     "description": "Added Egghunt-items",
-    "date":"18-04-2019"
+    "date": "18-04-2019"
   },
   {
     "name": "27-eggstatic",
     "description": "Added Egghunt-items",
-    "date":"18-04-2019"
+    "date": "18-04-2019"
   },
   {
     "name": "28-blue",
     "description": "Added Egghunt-items",
-    "date":"19-04-2019"
+    "date": "19-04-2019"
   },
   {
     "name": "29-bunny",
     "description": "",
-    "date":"19-04-2019"
+    "date": "19-04-2019"
   },
   {
     "name": "30-black",
     "description": "Added baseball-caps",
-    "date":"21-04-2019"
+    "date": "21-04-2019"
   },
   {
     "name": "31-baseball",
     "description": "",
-    "date":"22-04-2019"
+    "date": "22-04-2019"
   },
   {
     "name": "32-dark",
     "description": "Added dark-mode and Pot.",
-    "date":"28-04-2019"
+    "date": "28-04-2019"
   },
   {
     "name": "33-dark",
     "description": "Added dark-mode and Pot.",
-    "date":"28-04-2019"
+    "date": "28-04-2019"
   },
   {
     "name": "34-dark",
     "description": "Added dark-mode and Pot.",
-    "date":"28-04-2019"
+    "date": "28-04-2019"
   },
   {
     "name": "36-click",
     "description": "Added mobile portrait-mode",
-    "date":"29-04-2019"
+    "date": "29-04-2019"
   },
   {
     "name": "37-fast",
     "description": "",
-    "date":"29-04-2019"
+    "date": "29-04-2019"
   },
   {
     "name": "38-moveit",
     "description": "Changed player-movement. Removed mobile portrait-mode",
-    "date":"29-04-2019"
+    "date": "29-04-2019"
   },
   {
     "name": "39-monk",
