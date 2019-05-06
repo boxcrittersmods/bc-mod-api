@@ -48,7 +48,7 @@ app.use((req,res,next)=>{
 })
 
 //routers
-//app.use('/feedback',feedback);
+app.use('/feedback',feedback);
 
 
 //routes

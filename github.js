@@ -1,24 +1,32 @@
-const Octokit = require('@octokit/rest');
+const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry'));
 
 
 const octokit = new Octokit({
    auth: process.env.FEEDBACK_KEY
  })
 
-function sendFeedback(repo, title, body) {
-    var owner = "boxcritters";
-    var repo = req.params.repo;
-    var title = "Feedback Submission";
-    if(req.body.title){
-        title = req.body.title + " - " + title;
+ octokit.request('/').catch(error => {
+    if (error.request.request.retryCount) {
+      console.log(`request failed after ${error.request.request.retryCount} retries`)
     }
-    var body = req.body.text;
-    return octokit.issues.create({
+  
+    console.error(error)
+  })
+
+async function sendFeedback(repo, text, summary) {
+    var owner = "boxcritters";
+    var repo = "bc-mod-api";
+    var title = "Feedback Submission";
+    if(summary){
+        title = summary + " - " + title;
+    }
+    var body = text;
+    return (await octokit.issues.create({
         owner,
         repo,
         title,
-        body,
-    });
+        body
+    })).data;
     
 }
 
@@ -35,7 +43,7 @@ function loadVersions() {
             var raw = Buffer.from(o.data.content, o.data.encoding).toString()
             var vers = JSON.parse(raw);
             resolve({vers,psha:o.data.sha});
-        }).catch(reject);
+        });
         
     })
 }
