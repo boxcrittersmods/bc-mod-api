@@ -25,10 +25,6 @@ app.set('json spaces', 2);
 //middleware
 app.use('/scripts',express.static('public'));
 app.use(cors());
-app.use((req,res,next)=>{
-    res.type("application/json");
-    next();
-});
 app.use('/cors',corsProxy);
 app.use('/version',version.router);
 
@@ -51,6 +47,10 @@ app.use('/description',desc);
 app.use('/feedback',feedback);
 
 
+app.use((req,res,next)=>{
+    res.type("application/json");
+    next();
+});
 //routes
 app.get('/versions',(req,res)=>{
     res.json(version.getVersions());
