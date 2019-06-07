@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require('cors');
+const adminLogin = require('bc-admin-login')
 
 const apiretrive = require('./api');
 const feedback = require('./feedback');
@@ -43,6 +44,7 @@ app.use((req,res,next)=>{
 })
 
 //routers
+app.use('/admin',adminLogin);
 app.use('/description',desc);
 app.use('/feedback',feedback);
 

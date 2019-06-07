@@ -7,6 +7,7 @@
     "@octokit/plugin-retry": "^2.2.0",
     "@octokit/rest": "^16.25.0",
     "absolutify": "^0.1.0",
+    "bc-admin-login": "github:boxcritters/bc-admin-login",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
