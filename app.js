@@ -24,7 +24,6 @@ apiretrive.update().then((data)=>{
 app.set('json spaces', 2);
 
 //middleware
-app.use('/admin',adminLogin);
 app.use('/scripts',express.static('public'));
 app.use(cors());
 app.use('/cors',corsProxy);
@@ -66,5 +65,6 @@ app.get('/versions/:ver',(req,res)=>{
 app.get("/",(req,res)=>{
     res.json(api);
 });
+app.use(adminLogin);
 
 module.exports = app;
