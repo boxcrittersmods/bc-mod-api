@@ -24,6 +24,7 @@ apiretrive.update().then((data)=>{
 app.set('json spaces', 2);
 
 //middleware
+app.use('/admin',adminLogin);
 app.use('/scripts',express.static('public'));
 app.use(cors());
 app.use('/cors',corsProxy);
@@ -44,7 +45,6 @@ app.use((req,res,next)=>{
 })
 
 //routers
-app.use('/admin',adminLogin);
 app.use('/description',desc);
 app.use('/feedback',feedback);
 
