@@ -26,7 +26,7 @@ app.set('json spaces', 2);
 //middleware
 app.use(cors());
 app.use('/scripts',express.static('public'));
-//app.use(adminLogin);
+app.use('/admin',adminLogin);
 app.use('/cors',corsProxy);
 app.use('/version',version.router);
 
