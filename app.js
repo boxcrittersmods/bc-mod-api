@@ -7,7 +7,7 @@ const feedback = require('./feedback');
 const corsProxy = require('./cors');
 const version  = require('./version');
 const desc = require('./description');
-const textureData = require('/texture-data.json')
+const textureData = require('./texture-data.json')
 
 var app = express();
 var ttl = 0;
