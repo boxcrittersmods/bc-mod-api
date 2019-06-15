@@ -7,6 +7,7 @@ const feedback = require('./feedback');
 const corsProxy = require('./cors');
 const version  = require('./version');
 const desc = require('./description');
+const textureData = require('/texture-data.json')
 
 var app = express();
 var ttl = 0;
@@ -62,6 +63,9 @@ app.get('/versions/url',(req,res)=>{
 });
 app.get('/versions/:ver',(req,res)=>{
     res.redirect('/version/' + req.params.ver);
+});
+app.get('/texture-data',(req,res)=>{
+    res.json(textureData);
 });
 app.get("/",(req,res)=>{
     res.json(api);
