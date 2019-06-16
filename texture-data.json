@@ -1,5 +1,4 @@
 [
-    {"category":"test"},
     {"name": "name","required": true,"label": "Name","category": "info"},
     {"name": "author","required": true,"label": "Author","category": "info"},
     {"name": "readonly","hidden": true,"category": "info"},
