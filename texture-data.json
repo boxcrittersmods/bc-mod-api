@@ -92,9 +92,10 @@
     {"name": "space_blue","label": "Blue Space Suit","default": "icons/space_blue.png","category": "icons/body/spaceSuit"},
     {"name": "space_orange","label":"Orange Space Suit","category": "icons/body/spaceSuit"},
     {"name": "space_red","label": "Red Space Suit","default": "icons/space_red.png","category": "icons/body/spaceSuit"},
-    {"name": "space_pack_white","label": "White Spacepack","category": "icons/pack"},
     {"name": "space_suit_white","label": "White Space Suit","category": "icons/body"},
     {"name": "tshirt_white","label": "White T-shirt","default": "icons/tshirt_white.png","category": "icons/body"},
+    
+    {"name": "space_pack_white","label": "White Spacepack","category": "icons/pack"},
     {"name": "green_backpack","label": "Green Backpack","category": "icons/pack"},
 
 
