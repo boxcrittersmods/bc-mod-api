@@ -47,7 +47,7 @@
     {"name": "easteregg_a","label": "Easter Egg A","default": "icons/easteregg_a.png","category": "icons/head"},
     {"name": "easteregg_b","label": "Easter Egg B","default": "icons/easteregg_b.png","category": "icons/head"},
     {"name": "easteregg_c","label": "Easter Egg C","default": "icons/easteregg_c.png","category": "icons/head"},
-    {"name": "fishing_green","label": "Green Fishing Hat","default": "icons/fishing_green","category": "icons/head"},
+    {"name": "fishing_green","label": "Green Fishing Hat","default": "icons/fishing_green.png","category": "icons/head"},
     {"name": "paperhat","label": "Paper Hat","default": "icons/paperhat.png","category": "icons/head"},
     {"name": "party_green","label": "Party Hat","default": "icons/party_green.png","category": "icons/head"},
     {"name": "pickle","label": "Pickle","default":"icons/pickle.png","category": "icons/head"},
