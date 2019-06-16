@@ -40,7 +40,7 @@
     {"name": "ballcap_green","label": "Green Baseball Cap","default": "icons/ballcap_green.png","category": "icons/head/baseballCap"},
     {"name": "ballcap_yellow","label": "Yellow Baseball Cap","category": "icons/head/baseballCap"},
     {"name": "bandana_red","label": "Red Bandana","category": "icons/head"},
-    {"name": "box_hat_brown","label": "Brown Box Hat","category": "icons/head"},
+    {"name": "box_hat_brown","label": "Brown Box Hat","default":"icons/box_hat_brown.png","category": "icons/head"},
     {"name": "bunny_blue","label": "Blue Bunny Ears","default": "icons/bunny_blue.png","category": "icons/head/bunnyEars"},
     {"name": "bunny_pink","label": "Pink Bunny Ears","default": "icons/bunny_pink.png","category": "icons/head/bunnyEars"},
     {"name": "bunny_white","label": "White Bunny Ears","default": "icons/bunny_white.png","category": "icons/head/bunnyEars"},
@@ -121,5 +121,7 @@
     {"name": "tavernFG","label": "Tavern Foreground","default": "/rooms/tavern_fg.png","category": "rooms/PirateIsland/tavern"},
     {"category": "rooms/PirateIsland/Outpost"},
     {"category": "rooms/PirateIsland/Dock"},
-    {"category": "rooms/PirateIsland/VolcanoOfDoom"}
+    {"category": "rooms/PirateIsland/VolcanoOfDoom"},
+
+    {"category": "rooms/BoxCrittersLiveYouTubeStudio"}
 ]
