@@ -1,5 +1,4 @@
 [
-    {"category": "YAY"},
     {"name": "name","required": true,"label": "Name","category": "info"},
     {"name": "author","required": true,"label": "Author","category": "info"},
     {"name": "readonly","hidden": true,"category": "info"},
@@ -64,7 +63,7 @@
     {"name": "toque_white","label": "White Toque","default": "icons/toque_white.png","category": "icons/head"},
     {"name": "viking","label": "Viking Helmet","default": "icons/viking.png","category": "icons/head"},
 
-    {"name":"guitar_blue","label":"Blue Guitar","category":"icons/hand"},
+    {"name":"guitar_blue","label":"Blue Guitar","guitar_blue":"icons/guitar_blue.png","category":"icons/hand"},
 
     {"name": "float_yellow","label": "Yellow Duck Floatie","default": "icons/float_yellow.png","category": "icons/belt"},
 
