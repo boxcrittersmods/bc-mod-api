@@ -20,12 +20,12 @@ router.use(function(req, res, next) {
 });
 
 
-router.use('/data', function(req, res) {
-    res.redirect('/imgdata');
+router.use((req,res,next)=>{
+    res.type("html");
+    next();
 });
 
-
-router.use('/imgdata',async (req,res)=>{
+router.use('/data',async (req,res)=>{
     var url = req.path.substr(1);
     console.log("URL:",url);
     if(!url) {
