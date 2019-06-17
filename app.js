@@ -26,12 +26,6 @@ app.set('json spaces', 2);
 
 //middleware
 app.use(cors());
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
 app.use('/scripts',express.static('public'));
 app.use(adminLogin);
 app.use('/cors',corsProxy);
