@@ -82,7 +82,7 @@
     {"name": "hoodie_white","label": "White Hoodie","category": "icons/body/hoodie"},
     {"name": "monk","label": "Monk Outfit","default": "icons/monk.png","category": "icons/body"},
     {"name": "overalls_orange","label":"Orange Construction Overalls","category": "icons/body"},
-    {"name": "lifejacket_red","label":"Red Life Jacket"," default":"icons/lifejacket_red.png","category": "icons/body"},
+    {"name": "lifejacket_red","label":"Red Life Jacket","default":"icons/lifejacket_red.png","category": "icons/body"},
     {"name": "pirate_capt_black","label": "Pirate Captain Jacket","default": "icons/pirate_capt_black.png","category": "icons/body"},
     {"name": "pirate_capt_red","label": "Pirate Captain Red","category": "icons/body"},
     {"name": "pirate_belt_blue","label": "Pirate Belt Blue","category": "icons/body"},
