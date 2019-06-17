@@ -2,7 +2,7 @@ const express = require("express");
 const request = require('request');
 const puppeteer = require("puppeteer");
 const absolutify = require("absolutify");
-const imageDataURI = require('image-data-uri')
+const imageDataURI = require('image-data-uri');
 
 var router = express.Router();
 
@@ -20,10 +20,6 @@ router.use(function(req, res, next) {
 });
 
 
-router.use((req,res,next)=>{
-    res.type("html");
-    next();
-});
 router.use('/data', function(req, res) {
     res.redirect('/imgdata');
 });
@@ -46,6 +42,40 @@ router.use('/imgdata',async (req,res)=>{
         res.send("Error: " + e);
         return;
     }
+});
+
+router.use("/file",(req,res,next)=>{
+    res.type("text/plain");
+    next();
+});
+
+router.use("/file",async (req,res)=>{
+    var url = req.path.substr(1);
+    console.log("URL:",url);
+    if(!url) {
+        res.send("No URL provided");
+        return;
+    }
+    var reqfile = ()=>new Promise((resolve,reject)=>{
+        request(url, (err, res, body) => {
+            if(err) {
+                console.log(error)
+                reject(error);
+                return;
+            }
+            resolve(body);
+        });
+
+    });
+
+    var filecont = await reqfile();
+    res.send(filecont);
+
+
+});
+router.use((req,res,next)=>{
+    res.type("html");
+    next();
 });
 
 router.use(async (req,res)=>{
