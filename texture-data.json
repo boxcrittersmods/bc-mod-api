@@ -32,7 +32,7 @@
     {"name": "sunglasses_square_black","label": "Black Square Sunglasses","category": "icons/eyes"},
     {"name": "pirate_patch","label": "Pirate Patch","default": "icons/pirate_patch.png","category": "icons/eyes"},
 
-    {"name": "headphones_black","label": "Black Headphones","default": "icons/headphones_blacke.png","category": "icons/ears/headphones"},
+    {"name": "headphones_black","label": "Black Headphones","default": "icons/headphones_black.png","category": "icons/ears/headphones"},
     {"name": "headphones_white","label": "Discord Headphones","default": "icons/headphones_white.png","category": "icons/ears/headphones"},
 
     {"name": "ballcap_black","label": "Black Baseball Cap","default": "icons/ballcap_black.png","category": "icons/head/baseballCap"},
