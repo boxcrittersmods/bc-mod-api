@@ -55,7 +55,7 @@
     {"name": "pirate_hat_blue","label": "Blue Pirate Hat","category": "icons/head"},
     {"name": "pot","label": "Pot Helm","default": "icons/pot.png","category": "icons/head"},
     {"name": "propeller","label": "Propeller Cap","default": "icons/propeller.png","category": "icons/head/propellerCap"},
-    {"name": "propeller_blue","label":"Blue Propeller Cap","category": "icons/head/propellerCap"},
+    {"name": "propeller_blue","label":"Blue Propeller Cap","default": "icons/propeller_blue.png","category": "icons/head/propellerCap"},
     {"name": "propeller_pink","label":"Pink Propeller Cap","category": "icons/head/propellerCap"},
     {"name": "propeller_gold","label":"Gold Propeller Cap","category": "icons/head/propellerCap"},
     {"name": "sleeping","label": "Sleeping Hat","default": "icons/sleeping.png","category": "icons/head"},
