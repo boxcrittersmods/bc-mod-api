@@ -125,6 +125,6 @@
     {"category": "rooms/PirateIsland/Dock"},
     {"category": "rooms/PirateIsland/VolcanoOfDoom"},
 
-    {"category": "rooms/BoxCrittersLiveYouTubeStudio"},
-    {"category":"rooms/BulletinStudio"}
+    {"category":"rooms/SpecialisedRooms/BoxCrittersLiveYouTubeStudio"},
+    {"category":"rooms/SpecialisedRooms/BulletinStudio"}
 ]
