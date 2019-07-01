@@ -67,6 +67,7 @@
     {"name": "viking","label": "Viking Helmet","default": "icons/viking.png","category": "icons/head"},
 
     {"name":"cone","label":"Critter Cone","default":"icons/cone.png","category":"icons/neck"},
+    {"name":"lei_red","label":"Red0 Hawaiian Lei","default":"icons/lei_red.png","category":"icons/neck"},
 
     {"name":"guitar_blue","label":"Blue Guitar","default":"icons/guitar_blue.png","category":"icons/hand/instruments"},
     {"label":"Ukulele","category":"icons/hand/instruments"},
