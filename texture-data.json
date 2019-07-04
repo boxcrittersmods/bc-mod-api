@@ -1,7 +1,6 @@
 [
     {"name": "name","required": true,"label": "Name","category": "info"},
     {"name": "author","required": true,"label": "Author","category": "info"},
-    {"name": "readonly","hidden": true,"category": "info"},
     {"name": "date","hidden": true,"label": "Date","category": "info"},
     {"name": "packVersion","hidden": true,"category": "info"},
     {"name": "description","label": "Description","category": "info"},
