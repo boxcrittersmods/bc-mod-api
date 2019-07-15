@@ -7,7 +7,8 @@ const feedback = require('./feedback');
 const corsProxy = require('./cors');
 const version  = require('./version');
 const desc = require('./description');
-const textureData = require('./texture-data.json')
+const textureData = require('./texture-data.json');
+const sitesData = require('./sites.json');
 
 var app = express();
 var ttl = 0;
@@ -66,6 +67,9 @@ app.get('/versions/:ver',(req,res)=>{
 });
 app.get('/texture-data',(req,res)=>{
     res.json(textureData);
+});
+app.get('/sites',(req,res)=>{
+    res.json(sitesData);
 });
 app.get("/",(req,res)=>{
     res.json(api);
