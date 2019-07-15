@@ -38,7 +38,7 @@
     {"name": "ballcap_blue","label": "Blue Baseball Cap","default": "icons/ballcap_blue.png","category": "icons/head/baseballCap"},
     {"name": "ballcap_green","label": "Green Baseball Cap","default": "icons/ballcap_green.png","category": "icons/head/baseballCap"},
     {"name": "ballcap_yellow","label": "Yellow Baseball Cap","category": "icons/head/baseballCap"},
-    {"name": "bandana_red","label": "Red Bandana","category": "icons/head"},
+    {"name": "bandana_red","label": "Red Bandana","default":"icons/bandana_red.png","category": "icons/head"},
     {"name": "box_hat_brown","label": "Brown Box Hat","default":"icons/box_hat_brown.png","category": "icons/head"},
     {"name": "bunny_blue","label": "Blue Bunny Ears","default": "icons/bunny_blue.png","category": "icons/head/bunnyEars"},
     {"name": "bunny_pink","label": "Pink Bunny Ears","default": "icons/bunny_pink.png","category": "icons/head/bunnyEars"},
@@ -63,6 +63,7 @@
     {"name": "toque_pink","label": "Pink Toque","default": "icons/toque_pink.png","category": "icons/head/toque"},
     {"name": "toque_purple","label": "Purple Toque","default": "icons/toque_purple.png","category": "icons/head/toque"},
     {"name": "toque_white","label": "White Toque","default": "icons/toque_white.png","category": "icons/head/toque"},
+    {"name":"unclesam","label":"July 4th Hat","default":"icons/unclesam.png","category":"icons/head"}
     {"name": "viking","label": "Viking Helmet","default": "icons/viking.png","category": "icons/head"},
 
     {"name":"cone","label":"Critter Cone","default":"icons/cone.png","category":"icons/neck"},
@@ -95,13 +96,16 @@
     {"name": "space_orange","label":"Orange Space Suit","category": "icons/body/spaceSuit"},
     {"name": "space_red","label": "Red Space Suit","default": "icons/space_red.png","category": "icons/body/spaceSuit"},
     {"name": "space_suit_white","label": "White Space Suit","category": "icons/body"},
-    {"name": "tshirt_white","label": "White T-shirt","default": "icons/tshirt_white.png","category": "icons/body"},
+    
+    {"name": "tshirt_black","label": "Black T-shirt","default": "icons/tshirt_black.png","category": "icons/body/tshirt"},
+    {"name": "tshirt_white","label": "White T-shirt","default": "icons/tshirt_white.png","category": "icons/body/tshirt"},
     
     {"name": "space_pack_white","label": "White Spacepack","category": "icons/pack"},
     {"name": "green_backpack","label": "Green Backpack","category": "icons/pack"},
 
 
     {"name": "items","label": "Items","default": "items/items.png","category": "items"},
+    {"name": "items-1","label": "Items 1","default": "items/items-1.png","category": "items"},
     
 
     {"name": "ux","label": "User Interface","default": "/ux/ux.png","category": "ux"},
