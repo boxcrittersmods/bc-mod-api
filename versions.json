@@ -319,5 +319,10 @@
     "name": "87-rework",
     "description": "",
     "date": "27-07-2019"
+  },
+  {
+    "name": "../lib/client88-rework",
+    "description": "",
+    "date": "27-07-2019"
   }
 ]
