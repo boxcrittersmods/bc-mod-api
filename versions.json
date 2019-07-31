@@ -344,5 +344,10 @@
     "name": "../lib/client92-extras",
     "description": "",
     "date": "31-07-2019"
+  },
+  {
+    "name": "../lib/client94-items",
+    "description": "",
+    "date": "31-07-2019"
   }
 ]
