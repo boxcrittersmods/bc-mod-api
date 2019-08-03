@@ -38,7 +38,7 @@ function getSiteDocument(sitetext) {
 function getVerName(document,scriptinfo){
     var scripts = Array.from(document.scripts);
     var script = scripts.find(s=>{
-        return s.src.startsWith('../');
+        return s.src.startsWith(scriptinfo.pre);
     })
     var url = script.src;
     var ver = url.replace(scriptinfo.pre,"").replace(scriptinfo.post,"");
