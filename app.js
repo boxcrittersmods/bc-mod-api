@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const adminLogin = require('bc-admin-login')
 
-const apiretrive = require('./api');
+const assetfolder = require('./assetfolder');
 const feedback = require('./feedback');
 const corsProxy = require('./cors');
 const version  = require('./version');
@@ -14,10 +14,26 @@ var app = express();
 var ttl = 0;
 var api = {};
 version.update();
-apiretrive.update().then((data)=>{
+/*
+data:
+    version => clientVersion
+    versionNum => clientVersionNum
+    versionName => clientVersionName
+    NEW => itemsVersion
+    assetsFolder => REMOVED
+
+*/
+assetfolder.update().then((data)=>{
     var vers = version.getVersions();
-    if(vers[vers.length-1]!=data.version) {
-        version.addVersion(data.version);
+    var versionInfo = {
+        client:data.clientVersion,
+        items:data.itemsVersion
+    };
+    if(vers[vers.length-1]!=data.clientVersion) {
+        version.addVersion(versionInfo);
+    }
+    if(vers[vers.length-1]!=data.itemsVersion) {
+        version.addVersion(versionInfo);
     }
     api = data;
 });
@@ -36,7 +52,7 @@ app.use((req,res,next)=>{
     if(ttl<=0){
         ttl = 100;
         version.update();
-        apiretrive.update().then((data)=>{
+        assetfolder.update().then((data)=>{
             api = data;
             next();
         });

@@ -28,7 +28,8 @@ function update() {
 
 function addVersion(version) {
     var ver = {
-        name:version,
+        clientName:version.client,
+        itemsVersion:version.items,
         description: "",
         date: moment().format('DD-MM-YYYY')
     };
@@ -41,20 +42,41 @@ function addVersion(version) {
         
 }
 
-function versionExists(ver) {
-    return versions.map(v=>v.name.toLowerCase()).indexOf(ver.toLowerCase()) >-1;
+function versionExists(ver,type="client") {
+    switch (type) {
+        case "items":
+            return versions.map(v=>v.itemsVersionName.toLowerCase()).indexOf(ver.toLowerCase()) >-1;
+        case "client":
+        default:
+            return versions.map(v=>v.clientVersionName.toLowerCase()).indexOf(ver.toLowerCase()) >-1;
+    }
 }
 
-function getDescription(ver) {
-    var id = versions.map(v=>v.name.toLowerCase()).indexOf(ver.toLowerCase());
+function getDescription(ve,type="client") {
+    var id = -1;
+    switch (type) {          
+        case "items":
+            id = versions.map(v=>v.itemsVersionName.toLowerCase()).indexOf(ver.toLowerCase());
+            break;
+        case "client":
+        default:
+            id = versions.map(v=>v.clientVersionName.toLowerCase()).indexOf(ver.toLowerCase());
+            break;
+    }
     if(id>-1){
     var desc = versions[id].description;
     return desc;
     }
 }
 
-function getVersions() {
-    return versions.map(v=>v.name)
+function getVersions(type="client") {
+    switch (type) {
+        case "items":
+            return versions.map(v=>v.itemsVersionName);
+        case "client":
+        default:
+            return versions.map(v=>v.clientVersionName);
+    }
 }
 
 var router = express.Router();
@@ -62,6 +84,23 @@ var router = express.Router();
 router.get('/',(req,res)=>{
     res.redirect('/versions');
 });
+
+router.get('/items',(req,res)=>{
+    res.redirect('/versions/items');
+});
+
+
+router.get('/items/:ver',(req,res)=>{
+    var ver = req.params.ver;
+    if(versionExists(ver,"items")) {
+        var info = assetFolder.getVersionInfo(ver,"items");
+        info.description = getDescription(ver,"items");
+        res.json(info);
+    } else {
+        res.json(error);
+    }
+});
+
 
 router.get('/:ver',(req,res)=>{
     var ver = req.params.ver;

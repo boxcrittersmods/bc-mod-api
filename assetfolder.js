@@ -56,6 +56,15 @@ function getVersionInfo(ver) {
     return info;
 }
 
+/*
+{
+    version => clientVersion
+    versionNum => clientVersionNum
+    versionName => clientVersionName
+    NEW => itemsVersion
+    assetsFolder => REMOVED
+
+*/
 function updateVersionNames() {
     return new Promise((resolve,reject)=>{
         getSiteText(bcurl).then(body=>{
