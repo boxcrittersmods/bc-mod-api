@@ -1,4 +1,26 @@
 [
-    {"name":"boxcritters","url":"https://boxcritters.com","assets":"/media"},
-    {"name":"critterball","url":"https://critterball.herokuapp.com", "media":"/img"}
+    {
+        "name": "boxcritters",
+        "url": "https://boxcritters.com",
+        "media": {
+            "cards": "/media/cards",
+            "critters": "/media/critters",
+            "icons": "/media/icons",
+            "items": "/media/items",
+            "rooms": "/media/rooms",
+            "ui": "/media/ui",
+            "ux": "/media/ux"
+        },
+        "js": "/lib"
+    },
+    {
+        "name": "critterball",
+        "url": "https://critterball.herokuapp.com",
+        "media": "/img",
+        "js": {
+            "public": "/public",
+            "game": "/pubic/game",
+            "shared": "/shared"
+        }
+    }
 ]

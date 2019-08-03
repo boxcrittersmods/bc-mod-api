@@ -1,0 +1,126 @@
+name                        ,label                             ,required ,hidden ,site        ,type  ,category                                            ,default
+name                        ,Name                              ,TRUE     ,       ,            ,      ,info                                                ,
+author                      ,Author                            ,TRUE     ,       ,            ,      ,info                                                ,
+date                        ,Date                              ,         ,TRUE   ,            ,      ,info                                                ,
+packVersion                 ,                                  ,         ,TRUE   ,            ,      ,info                                                ,
+description                 ,Description                       ,         ,       ,            ,      ,info                                                ,
+client-script               ,                                  ,         ,TRUE   ,boxcritters ,js    ,                                                    ,client{CLIENTVER}.js
+items-script                ,                                  ,         ,TRUE   ,boxcritters ,js    ,                                                    ,items-{ITEMVER}.js
+bridge                      ,The Bridge                        ,         ,       ,boxcritters ,media ,cards/oomm                                          ,cards/oomm/bridge.png
+ghost_ship                  ,Ghost Ship                        ,         ,       ,boxcritters ,media ,cards/oomm                                          ,cards/oomm/ghost_ship.png
+beaver                      ,Beaver                            ,         ,       ,boxcritters ,media ,critters                                            ,critters/beaver.png
+fox                         ,Fox                               ,         ,       ,boxcritters ,media ,critters                                            ,
+hamster                     ,Hamster                           ,         ,       ,boxcritters ,media ,critters                                            ,critters/hamster.png
+lizard                      ,Lizard                            ,         ,       ,boxcritters ,media ,critters                                            ,critters/lizard.png
+otter                       ,Otter                             ,         ,       ,boxcritters ,media ,critters                                            ,
+racoon                      ,Racoon                            ,         ,       ,boxcritters ,media ,critters                                            ,
+sock_monkey                 ,Sock Monkey                       ,         ,       ,boxcritters ,media ,critters                                            ,
+unicorn                     ,Unicorn                           ,         ,       ,boxcritters ,media ,critters                                            ,
+snail                       ,Rocket Snail                      ,         ,       ,boxcritters ,media ,critters/mascots                                    ,critters/snail.png
+3d_black                    ,Black 3D Glasses                  ,         ,       ,boxcritters ,media ,icons/eyes/3DGlasses                                ,icons/3d_black.png
+3d_white                    ,White 3D Glasses                  ,         ,       ,boxcritters ,media ,icons/eyes/3DGlasses                                ,icons/3d_white.png
+aviator_goggles_brown"      ,Aviator Goggles                   ,         ,       ,boxcritters ,media ,icons/eyes/goggles                                  ,
+goggles_black               ,Black Goggles                     ,         ,       ,boxcritters ,media ,icons/eyes/goggles                                  ,icons/goggles_black.png
+goggles_white               ,White Goggles                     ,         ,       ,boxcritters ,media ,icons/eyes/goggles                                  ,
+snorkel_blue                ,Blue Snorkel                      ,         ,       ,boxcritters ,media ,icons/eyes                                          ,
+sunglasses_square_black     ,Black Square Sunglasses           ,         ,       ,boxcritters ,media ,icons/eyes/glasses                                  ,
+sun_orange                  ,Black Sunglasses With Orange Lens ,         ,       ,boxcritters ,media ,icons/eyes/glasses                                  ,
+pirate_patch                ,Pirate Patch                      ,         ,       ,boxcritters ,media ,icons/eyes                                          ,icons/pirate_patch.png
+headphones_black            ,Black Headphones                  ,         ,       ,boxcritters ,media ,icons/ears/headphones                               ,icons/headphones_black.png
+headphones_white            ,Discord Headphones                ,         ,       ,boxcritters ,media ,icons/ears/headphones                               ,icons/headphones_white.png
+ballcap_black               ,Black Baseball Cap                ,         ,       ,boxcritters ,media ,icons/head/baseballCap                              ,icons/ballcap_black.png
+ballcap_blue                ,Blue Baseball Cap                 ,         ,       ,boxcritters ,media ,icons/head/baseballCap                              ,icons/ballcap_blue.png
+ballcap_green               ,Green Baseball Cap                ,         ,       ,boxcritters ,media ,icons/head/baseballCap                              ,icons/ballcap_green.png
+ballcap_yellow              ,Yellow Baseball Cap               ,         ,       ,boxcritters ,media ,icons/head/baseballCap                              ,
+box_hat_brown               ,Brown Box Hat                     ,         ,       ,boxcritters ,media ,icons/head/box                                      ,icons/box_hat_brown.png
+box_hat_purple              ,Purple Box Hat                    ,         ,       ,boxcritters ,media ,icons/head/box                                      ,
+bunny_blue                  ,Blue Bunny Ears                   ,         ,       ,boxcritters ,media ,icons/head/bunnyEars                                ,icons/bunny_blue.png
+bunny_pink                  ,Pink Bunny Ears                   ,         ,       ,boxcritters ,media ,icons/head/bunnyEars                                ,icons/bunny_pink.png
+bunny_white                 ,White Bunny Ears                  ,         ,       ,boxcritters ,media ,icons/head/bunnyEars                                ,icons/bunny_white.png
+easteregg_a                 ,Easter Egg A                      ,         ,       ,boxcritters ,media ,icons/head/easterEgg                                ,icons/easteregg_a.png
+easteregg_b                 ,Easter Egg B                      ,         ,       ,boxcritters ,media ,icons/head/easterEgg                                ,icons/easteregg_b.png
+easteregg_c                 ,Easter Egg C                      ,         ,       ,boxcritters ,media ,icons/head/easterEgg                                ,icons/easteregg_c.png
+propeller                   ,Propeller Cap                     ,         ,       ,boxcritters ,media ,icons/head/propellerCap                             ,icons/propeller.png
+propeller_blue              ,Blue Propeller Cap                ,         ,       ,boxcritters ,media ,icons/head/propellerCap                             ,icons/propeller_blue.png
+propeller_pink              ,Pink Propeller Cap                ,         ,       ,boxcritters ,media ,icons/head/propellerCap                             ,
+propeller_gold              ,Gold Propeller Cap                ,         ,       ,boxcritters ,media ,icons/head/propellerCap                             ,
+toque_blue                  ,Blue Toque                        ,         ,       ,boxcritters ,media ,icons/head/toque                                    ,icons/toque_blue.png
+toque_pink                  ,Pink Toque                        ,         ,       ,boxcritters ,media ,icons/head/toque                                    ,icons/toque_pink.png
+space_helmet_white          ,White Space Helmet                ,         ,       ,boxcritters ,media ,icons/head                                          ,
+bandana_red                 ,Red Bandana                       ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/bandana_red.png
+fishing_green               ,Green Fishing Hat                 ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/fishing_green.png
+paperhat                    ,Paper Hat                         ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/paperhat.png
+party_green                 ,Party Hat                         ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/party_green.png
+pickle                      ,Pickle                            ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/pickle.png
+pirate_hat                  ,Pirate Hat                        ,         ,       ,boxcritters ,media ,icons/head                                          ,
+pirate_hat_blue             ,Blue Pirate Hat                   ,         ,       ,boxcritters ,media ,icons/head                                          ,
+pot                         ,Pot Helm                          ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/pot.png
+sleeping                    ,Sleeping Hat                      ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/sleeping.png
+toque_purple                ,Purple Toque                      ,         ,       ,boxcritters ,media ,icons/head/toque                                    ,icons/toque_purple.png
+toque_white                 ,White Toque                       ,         ,       ,boxcritters ,media ,icons/head/toque                                    ,icons/toque_white.png
+unclesam                    ,July 4th Hat                      ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/unclesam.png
+viking                      ,Viking Helmet                     ,         ,       ,boxcritters ,media ,icons/head                                          ,icons/viking.png
+cone                        ,Critter Cone                      ,         ,       ,boxcritters ,media ,icons/neck                                          ,icons/cone.png
+lei_red                     ,Red0 Hawaiian Lei                 ,         ,       ,boxcritters ,media ,icons/neck                                          ,icons/lei_red.png
+super_cape_red              ,Super Red Cape                    ,         ,       ,boxcritters ,media ,icons/cape                                          ,
+guitar_blue                 ,Blue Guitar                       ,         ,       ,boxcritters ,media ,icons/hand/instruments                              ,icons/guitar_blue.png
+                            ,Ukulele                           ,         ,       ,boxcritters ,media ,icons/hand/instruments                              ,
+grass_yellow                ,Hawaiian Grass Skirt              ,         ,       ,boxcritters ,media ,belt                                                ,
+float_yellow                ,Yellow Duck Floatie               ,         ,       ,boxcritters ,media ,icons/belt                                          ,icons/float_yellow.png
+                            ,                                  ,         ,       ,boxcritters ,media ,icons/mask                                          ,
+hawaii_orange               ,Orange Hawaiian Shirt             ,         ,       ,boxcritters ,media ,icons/body                                          ,icons/hawaii_orange.png
+hoodie_black                ,Black Hoodie                      ,         ,       ,boxcritters ,media ,icons/body/hoodie                                   ,icons/hoodie_black.png
+hoodie_blue                 ,Blue Hoodie                       ,         ,       ,boxcritters ,media ,icons/body/hoodie                                   ,icons/hoodie_blue.png
+hoodie_green                ,Green Hoodie                      ,         ,       ,boxcritters ,media ,icons/body/hoodie                                   ,icons/hoodie_green.png
+hoodie_pink                 ,Pink Hoodie                       ,         ,       ,boxcritters ,media ,icons/body/hoodie                                   ,icons/hoodie_pink.png
+hoodie_purple               ,Purple Hoodie                     ,         ,       ,boxcritters ,media ,icons/body/hoodie                                   ,
+hoodie_white                ,White Hoodie                      ,         ,       ,boxcritters ,media ,icons/body/hoodie                                   ,
+monk                        ,Monk Outfit                       ,         ,       ,boxcritters ,media ,icons/body                                          ,icons/monk.png
+overalls_orange             ,Orange Construction Overalls      ,         ,       ,boxcritters ,media ,icons/body                                          ,
+lifejacket_red              ,Red Life Jacket                   ,         ,       ,boxcritters ,media ,icons/body                                          ,icons/lifejacket_red.png
+pirate_capt_black           ,Pirate Captain Jacket             ,         ,       ,boxcritters ,media ,icons/body                                          ,icons/pirate_capt_black.png
+pirate_capt_red             ,Pirate Captain Red                ,         ,       ,boxcritters ,media ,icons/body                                          ,
+pirate_belt_blue            ,Pirate Belt Blue                  ,         ,       ,boxcritters ,media ,icons/body                                          ,
+plaid_blue                  ,Blue Plaid Shirt                  ,         ,       ,boxcritters ,media ,icons/body/plaid                                    ,
+plaid_red                   ,Red Plaid Shirt                   ,         ,       ,boxcritters ,media ,icons/body/plaid                                    ,icons/plaid_red.png
+space_black                 ,Black Space Suit                  ,         ,       ,boxcritters ,media ,icons/body/spaceSuit                                ,
+space_blue                  ,Blue Space Suit                   ,         ,       ,boxcritters ,media ,icons/body/spaceSuit                                ,icons/space_blue.png
+space_orange                ,Orange Space Suit                 ,         ,       ,boxcritters ,media ,icons/body/spaceSuit                                ,
+space_red                   ,Red Space Suit                    ,         ,       ,boxcritters ,media ,icons/body/spaceSuit                                ,icons/space_red.png
+space_suit_white            ,White Space Suit                  ,         ,       ,boxcritters ,media ,icons/body                                          ,
+tshirt_black                ,Black T-shirt                     ,         ,       ,boxcritters ,media ,icons/body/tshirt                                   ,icons/tshirt_black.png
+tshirt_white                ,White T-shirt                     ,         ,       ,boxcritters ,media ,icons/body/tshirt                                   ,icons/tshirt_white.png
+space_pack_white            ,White Spacepack                   ,         ,       ,boxcritters ,media ,icons/pack                                          ,
+green_backpack              ,Green Backpack                    ,         ,       ,boxcritters ,media ,icons/pack                                          ,
+items                       ,Items                             ,         ,       ,boxcritters ,media ,items                                               ,items/items.png
+items-1                     ,Items 1                           ,         ,       ,boxcritters ,media ,items                                               ,items/items-1.png
+ux                          ,User Interface                    ,         ,       ,boxcritters ,media ,ux                                                  ,/ux/ux.png
+bridgeBackground            ,Bridge Background                 ,         ,       ,boxcritters ,media ,rooms/StarShip/bridge                               ,/rooms/bridge_bg.png
+bridgeProps                 ,Bridge Props                      ,         ,       ,boxcritters ,media ,rooms/StarShip/bridge                               ,/rooms/bridge_ss.png
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/engine                               ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/Teleporter                           ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/Cargo                                ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/Security                             ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/SickBay                              ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/ScienceLab                           ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/Armory                               ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/StarShip/Exterior                             ,
+tavernProps                 ,Tavern Props                      ,         ,       ,boxcritters ,media ,rooms/PirateIsland/tavern                           ,/rooms/tavern_ss.png
+tavernBG                    ,Tavern Background                 ,         ,       ,boxcritters ,media ,rooms/PirateIsland/tavern                           ,/rooms/tavern_bg.png
+tavernFG                    ,Tavern Foreground                 ,         ,       ,boxcritters ,media ,rooms/PirateIsland/tavern                           ,/rooms/tavern_fg.png
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/PirateIsland/Outpost                          ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/PirateIsland/Dock                             ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/PirateIsland/VolcanoOfDoom                    ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/SpecialisedRooms/BoxCrittersLiveYouTubeStudio ,
+                            ,                                  ,         ,       ,boxcritters ,media ,rooms/SpecialisedRooms/BulletinStudio               ,
+critterball_sprites_512x512 ,Sprites 512x512                   ,         ,       ,critterball ,media ,sprites                                             ,critterball_sprites_512x512.png
+player_1                    ,Player 1                          ,         ,       ,critterball ,media ,players                                             ,player_1.png
+player_2                    ,Player 2                          ,         ,       ,critterball ,media ,players                                             ,player_2.png
+player_3                    ,Player 3                          ,         ,       ,critterball ,media ,players                                             ,player_3.png
+player_4                    ,Player 4                          ,         ,       ,critterball ,media ,players                                             ,player_4.png
+player_5                    ,Player 5                          ,         ,       ,critterball ,media ,players                                             ,player_5.png
+player_6                    ,Player 6                          ,         ,       ,critterball ,media ,players                                             ,player_6.png
+player_7                    ,Player 7                          ,         ,       ,critterball ,media ,players                                             ,player_7.png
+player_8                    ,Player 8                          ,         ,       ,critterball ,media ,players                                             ,player_8.png
+player_9                    ,Player 9                          ,         ,       ,critterball ,media ,players                                             ,player_9.png
+player_10                   ,Player 10                         ,         ,       ,critterball ,media ,players                                             ,player_10.png
