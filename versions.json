@@ -359,5 +359,10 @@
     "name": "../lib/client96-coins",
     "description": "",
     "date": "02-08-2019"
+  },
+  {
+    "name": "../lib/client97-big",
+    "description": "",
+    "date": "03-08-2019"
   }
 ]
