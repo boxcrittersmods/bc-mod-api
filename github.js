@@ -4,6 +4,7 @@ const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry')
 const octokit = new Octokit({
    auth: process.env.FEEDBACK_KEY
  })
+ var lastSaved = [];
 
  octokit.request('/').catch(error => {
     if (error.request.request.retryCount) {
@@ -42,6 +43,7 @@ function loadVersions() {
         }).then((o)=>{            
             var raw = Buffer.from(o.data.content, o.data.encoding).toString()
             var vers = JSON.parse(raw);
+            lastSaved = vers;
             resolve({vers,psha:o.data.sha});
         });
         
@@ -49,6 +51,9 @@ function loadVersions() {
 }
 
 function saveVersions(versions,sha) {
+    if(lastSaved==versions) {
+        return;
+    }
     var versionText = JSON.stringify(versions,"",2);
 
     var owner = "boxcritters";
@@ -56,6 +61,8 @@ function saveVersions(versions,sha) {
     var path = "versions.json"
     var message = "Updated Versions";
     var content = Buffer.from(versionText).toString('base64');
+    lastSaved = versions;
+
     octokit.repos.updateFile({
         owner,
         repo,

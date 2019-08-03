@@ -321,47 +321,47 @@
     "date": "27-07-2019"
   },
   {
-    "name": "../lib/client88-rework",
+    "name": "88-rework",
     "description": "",
     "date": "27-07-2019"
   },
   {
-    "name": "../lib/client89-effects",
+    "name": "89-effects",
     "description": "",
     "date": "28-07-2019"
   },
   {
-    "name": "../lib/client90-cache",
+    "name": "90-cache",
     "description": "",
     "date": "30-07-2019"
   },
   {
-    "name": "../lib/client91-items",
+    "name": "91-items",
     "description": "",
     "date": "30-07-2019"
   },
   {
-    "name": "../lib/client92-extras",
+    "name": "92-extras",
     "description": "",
     "date": "31-07-2019"
   },
   {
-    "name": "../lib/client94-items",
+    "name": "94-items",
     "description": "",
     "date": "31-07-2019"
   },
   {
-    "name": "../lib/client95-coins",
+    "name": "95-coins",
     "description": "",
     "date": "02-08-2019"
   },
   {
-    "name": "../lib/client96-coins",
+    "name": "96-coins",
     "description": "",
     "date": "02-08-2019"
   },
   {
-    "name": "../lib/client97-big",
+    "name": "97-big",
     "description": "",
     "date": "03-08-2019"
   }

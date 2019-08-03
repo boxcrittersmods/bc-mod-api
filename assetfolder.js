@@ -3,9 +3,17 @@ const { JSDOM } = require("jsdom");
 
 var bcurl = "https://boxcritters.com/play/index.html";
 
-var scriptpre = "../scripts/client";
-var scriptpost = ".min.js"
-var mediastart = "https://boxcritters.com/media/";
+var scripts = ["client","items"];
+var scriptinfo = {
+    client:{
+        pre:"../lib/client",
+        post:".min.js"
+    },
+    items:{
+        pre: "../lib/items-",
+        post: ".js"
+    },
+};
 
 function getSiteText(url) {
     return new Promise((resolve,reject)=>{
@@ -27,13 +35,13 @@ function getSiteDocument(sitetext) {
     return document;
 }
 
-function getVerName(document){
+function getVerName(document,scriptinfo){
     var scripts = Array.from(document.scripts);
     var script = scripts.find(s=>{
         return s.src.startsWith('../');
     })
     var url = script.src;
-    var ver = url.replace(scriptpre,"").replace(scriptpost,"");
+    var ver = url.replace(scriptinfo.pre,"").replace(scriptinfo.post,"");
     return ver;
 }
 
@@ -41,18 +49,21 @@ function getVersionInfo(ver) {
     var info = {};
     var folder = mediastart + ver + "/";
 
-    info.assetsFolder = folder;
-    info.version = ver;
-    info.versionNum = ver.split("-")[0];
-    info.versionName = ver.split("-")[1];
+    info.clientVersion = ver.client;
+    info.clientVersionNum = ver.client.split("-")[0];
+    info.clientVersionName = ver.client.split("-")[1];
+    info.itemsVersion = ver.items;
     return info;
 }
 
-function updateAssetsFolder() {
+function updateVersionNames() {
     return new Promise((resolve,reject)=>{
         getSiteText(bcurl).then(body=>{
             var document = getSiteDocument(body);
-            var ver = getVerName(document);
+            var ver = {
+                client: getVerName(document,scriptinfo.client),
+                items: getVerName(document,scriptinfo.items)
+            };
             
             resolve(getVersionInfo(ver));
         }).catch(reject);
@@ -61,6 +72,6 @@ function updateAssetsFolder() {
 
 
 module.exports = {
-    update: updateAssetsFolder,
-    getVersionInfo
+    update: updateVersionNames,
+    getVersionInfo: getVersionInfo
 }
