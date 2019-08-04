@@ -47,11 +47,10 @@ function getVerName(document,scriptinfo){
 
 function getVersionInfo(ver) {
     var info = {};
-    var folder = mediastart + ver + "/";
 
     info.clientVersion = ver.client;
-    info.clientVersionNum = ver.client.split("-")[0];
-    info.clientVersionName = ver.client.split("-")[1];
+    info.clientVersionNum = ver.client.split("-")[0]|undefined;
+    info.clientVersionName = ver.client.split("-")[1]||undefined;
     info.itemsVersion = ver.items;
     return info;
 }
@@ -81,6 +80,5 @@ function updateVersionNames() {
 
 
 module.exports = {
-    update: updateVersionNames,
-    getVersionInfo: getVersionInfo
+    update: updateVersionNames
 }

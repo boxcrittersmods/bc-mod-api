@@ -1,6 +1,7 @@
 const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry'));
+const DISABLE_GITHUB = false;
 
-
+if(!DISABLE_GITHUB){
 const octokit = new Octokit({
    auth: process.env.FEEDBACK_KEY
  })
@@ -12,9 +13,11 @@ const octokit = new Octokit({
     }
   
     console.error(error)
-  })
+  });
+}
 
 async function sendFeedback(repo, text, summary) {
+    if(DISABLE_GITHUB) return;
     var owner = "boxcritters";
     var repo = "bc-mod-api";
     var title = "Feedback Submission";
@@ -32,10 +35,12 @@ async function sendFeedback(repo, text, summary) {
 }
 
 function loadVersions() {
+    if(DISABLE_GITHUB) return;
     return new Promise((resolve,reject)=>{
         var owner = "boxcritters";
         var repo  = "bc-mod-api";
-        var path = "versions.json"
+        var path = "versions.json";
+
         octokit.repos.getContents({
             owner,
             repo,
@@ -51,6 +56,7 @@ function loadVersions() {
 }
 
 function saveVersions(versions,sha) {
+    if(DISABLE_GITHUB) return;
     if(lastSaved==versions) {
         return;
     }

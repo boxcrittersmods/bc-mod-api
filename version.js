@@ -1,6 +1,5 @@
 const express = require("express");
 const github = require('./github');
-const assetFolder = require('./assetfolder');
 const moment = require('moment');
 
 var versions = [];
@@ -15,7 +14,7 @@ function update() {
     setupDone = false;
     tosave = false;
     versions = [];
-    github.loadVersions().then(({vers,psha})=>{
+    github.loadVersions().then(({vers,psha})=>{        
         versions.unshift(...vers);
         sha = psha;
         setupDone = true;
@@ -28,7 +27,7 @@ function update() {
 
 function addVersion(version) {
     var ver = {
-        clientName:version.client,
+        clientVersion:version.client,
         itemsVersion:version.items,
         description: "",
         date: moment().format('DD-MM-YYYY')
@@ -45,22 +44,23 @@ function addVersion(version) {
 function versionExists(ver,type="client") {
     switch (type) {
         case "items":
-            return versions.map(v=>v.itemsVersionName.toLowerCase()).indexOf(ver.toLowerCase()) >-1;
+            return versions.map(v=>v.itemsVersion.toLowerCase()).indexOf(ver.toLowerCase()) >-1;
         case "client":
         default:
-            return versions.map(v=>v.clientVersionName.toLowerCase()).indexOf(ver.toLowerCase()) >-1;
+            return versions.map(v=>(v.clientVersion||v.name).toLowerCase()).indexOf(ver.toLowerCase()) >-1;
     }
 }
 
-function getDescription(ve,type="client") {
+function getDescription(ver,type="client") {
+    
     var id = -1;
     switch (type) {          
         case "items":
-            id = versions.map(v=>v.itemsVersionName.toLowerCase()).indexOf(ver.toLowerCase());
+            id = versions.map(v=>v.itemsVersion.toLowerCase()).indexOf(ver.toLowerCase());
             break;
         case "client":
         default:
-            id = versions.map(v=>v.clientVersionName.toLowerCase()).indexOf(ver.toLowerCase());
+            id = versions.map(v=>(v.clientVersion||v.name).toLowerCase()).indexOf(ver.toLowerCase());
             break;
     }
     if(id>-1){
@@ -72,12 +72,31 @@ function getDescription(ve,type="client") {
 function getVersions(type="client") {
     switch (type) {
         case "items":
-            return versions.map(v=>v.itemsVersionName);
+            return versions.map(v=>v.itemsVersion);
         case "client":
         default:
-            return versions.map(v=>v.clientVersionName);
+            return versions.map(v=>(v.clientVersion||v.name));
     }
 }
+
+
+function getVersionInfo(ver,type="client") {
+    
+    var id = -1;
+    switch (type) {          
+        case "items":
+            id = versions.find(v=>v.itemsVersion.toLowerCase()).indexOf(ver.toLowerCase());
+            break;
+        case "client":
+        default:
+            id = versions.find(v=>(v.clientVersion||v.name).toLowerCase()).indexOf(ver.toLowerCase());
+            break;
+    }
+    if(id>-1){
+        return versions[id];
+    }
+}
+
 
 var router = express.Router();
 
@@ -93,7 +112,7 @@ router.get('/items',(req,res)=>{
 router.get('/items/:ver',(req,res)=>{
     var ver = req.params.ver;
     if(versionExists(ver,"items")) {
-        var info = assetFolder.getVersionInfo(ver,"items");
+        var info = getVersionInfo(ver,"items");
         info.description = getDescription(ver,"items");
         res.json(info);
     } else {
@@ -105,7 +124,7 @@ router.get('/items/:ver',(req,res)=>{
 router.get('/:ver',(req,res)=>{
     var ver = req.params.ver;
     if(versionExists(ver)) {
-        var info = assetFolder.getVersionInfo(ver);
+        var info = getVersionInfo(ver,"client");
         info.description = getDescription(ver);
         res.json(info);
     } else {
