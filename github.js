@@ -1,10 +1,9 @@
 const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry'));
 const DISABLE_GITHUB = false;
 
-if(!DISABLE_GITHUB){
 const octokit = new Octokit({
    auth: process.env.FEEDBACK_KEY
- })
+ });
  var lastSaved = [];
 
  octokit.request('/').catch(error => {
@@ -14,7 +13,6 @@ const octokit = new Octokit({
   
     console.error(error)
   });
-}
 
 async function sendFeedback(repo, text, summary) {
     if(DISABLE_GITHUB) return;
