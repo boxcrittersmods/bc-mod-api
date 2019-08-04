@@ -5,7 +5,7 @@
  */
 console.log("getTextureUrl Function Loaded")
 //TODO: create Texture url generation
-function getTextureUrl(texture, sites,versionInfo) {
+function getTextureURL(texture, sites,versionInfo) {
     console.log("GET_TEXTURE_URL");
     return "";
 }
