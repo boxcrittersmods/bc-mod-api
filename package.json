@@ -16,6 +16,7 @@
     "moment": "^2.24.0",
     "puppeteer": "^1.15.0",
     "request": "^2.88.0",
+    "serve-index": "^1.9.1",
     "webserver": "^1.0.0"
   },
   "devDependencies": {},

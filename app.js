@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
-const adminLogin = require('bc-admin-login')
+const adminLogin = require('bc-admin-login');
+var serveIndex = require('serve-index');
 
 const assetfolder = require('./assetfolder');
 const feedback = require('./feedback');
@@ -43,7 +44,7 @@ app.set('json spaces', 2);
 
 //middleware
 app.use(cors());
-app.use('/scripts',express.static('public'));
+app.use('/scripts',express.static('public'),serveIndex('public', {'icons': true}));
 app.use(adminLogin);
 app.use('/cors',corsProxy);
 app.use('/version',version.router);
