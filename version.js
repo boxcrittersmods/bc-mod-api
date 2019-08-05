@@ -1,6 +1,7 @@
 const express = require("express");
 const github = require('./github');
 const moment = require('moment');
+const tracker = require('./tracker');
 
 var versions = [];
 var sha = "";
@@ -9,6 +10,9 @@ var tosave = false;
 var error = {
     "error":"Version does not exist"
 }
+
+var versionTracker = new tracker("Box Critters Version Tracker");
+versionTracker.AddListener("https://discordapp.com/api/webhooks/608026798864728096/A47zYsCyGvFaLuT6CiDE6YzrSPbXWbNSLe5BChbKSRKUmADnQNeVbpNy6vfFD0d2hp6v");
 
 function update() {
     setupDone = false;
@@ -34,6 +38,7 @@ function removeDuplicates(arr) {
 }
 
 function addVersion(version) {
+    ver lastVersions = versions;
     var ver = {
         clientVersion:version.client,
         itemsVersion:version.items,
@@ -42,6 +47,17 @@ function addVersion(version) {
     };
     versions.push(ver);
     versions = removeDuplicates(versions);
+    if(lastVersions.length < versions.length) {
+        currver = versions[versions.length-1];
+        prevver = versions[versions.length-2];
+
+        if(currver.itemsVersion != prevver.itemsVersion) {
+            versionTracker.Invoke("Rocket Snail just released a new Items version of: `" + currver.itemsVersion + "`");
+        }
+        if(currver.clientVersion != prevver.clientVersion) {
+            versionTracker.Invoke("Rocket Snail just released a new Client version of: `" + currver.clientVersion + "`");
+        }
+    }
     
     if(setupDone) {
         github.saveVersions(versions,sha);
