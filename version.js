@@ -26,7 +26,11 @@ function update() {
 }
 
 function removeDuplicates(arr) {
-    return [...new Set(arr)];
+    return arr.filter((item,index) => {
+  return index === arr.findIndex(obj => {
+    return JSON.stringify(obj) === JSON.stringify(item);
+  });
+});
 }
 
 function addVersion(version) {
