@@ -38,7 +38,7 @@ function removeDuplicates(arr) {
 }
 
 function addVersion(version) {
-    ver lastVersions = versions;
+    var lastVersions = versions;
     var ver = {
         clientVersion:version.client,
         itemsVersion:version.items,
