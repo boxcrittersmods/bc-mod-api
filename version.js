@@ -25,6 +25,10 @@ function update() {
     });
 }
 
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}
+
 function addVersion(version) {
     var ver = {
         clientVersion:version.client,
@@ -33,6 +37,8 @@ function addVersion(version) {
         date: moment().format('DD-MM-YYYY')
     };
     versions.push(ver);
+    versions = removeDuplicates(versions);
+    
     if(setupDone) {
         github.saveVersions(versions,sha);
     } else {
