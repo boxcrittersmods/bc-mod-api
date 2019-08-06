@@ -58,11 +58,13 @@ function addVersion(version) {
             versionTracker.Invoke("Rocket Snail just released a new Client version of: `" + currver.clientVersion + "`");
         }
     }
+    if(lastVersions.length != versions.length) {
     
-    if(setupDone) {
-        github.saveVersions(versions,sha);
-    } else {
-        tosave = true;
+        if(setupDone) {
+            github.saveVersions(versions,sha);
+        } else {
+            tosave = true;
+        }
     }
         
 }
