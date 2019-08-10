@@ -11,7 +11,7 @@
             "ui": "/media/ui/",
             "ux": "/media/ux/"
         },
-        "js": "/lib"
+        "js": "/lib/"
     },
     {
         "name": "critterball",
