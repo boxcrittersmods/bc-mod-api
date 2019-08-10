@@ -32,6 +32,9 @@ function update() {
 function removeDuplicates(arr) {
     return arr.filter((item,index) => {
   return index === arr.findIndex(obj => {
+      if(obj.name||item.name) {
+          return false;
+      }
       return obj.clientVersion===item.clientVersion && obj.itemsVersion===item.itemsVersion
         //return JSON.stringify(obj) === JSON.stringify(item);
   });
