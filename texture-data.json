@@ -967,7 +967,7 @@
     "site": "boxcritters",
     "type": "media",
     "category": "rooms/StarShip/bridge",
-    "filename": ""
+    "filename": "bridge_bg.png"
   },
   {
     "name": "bridgeProps",
@@ -977,7 +977,7 @@
     "site": "boxcritters",
     "type": "media",
     "category": "rooms/StarShip/bridge",
-    "filename": ""
+    "filename": "bridge_ss.png"
   },
   {
     "name": "",
@@ -1067,7 +1067,7 @@
     "site": "boxcritters",
     "type": "media",
     "category": "rooms/PirateIsland/tavern",
-    "filename": ""
+    "filename": "tavern_ss.png"
   },
   {
     "name": "tavernBG",
@@ -1077,7 +1077,7 @@
     "site": "boxcritters",
     "type": "media",
     "category": "rooms/PirateIsland/tavern",
-    "filename": ""
+    "filename": "tavern_bg.png"
   },
   {
     "name": "tavernFG",
@@ -1087,7 +1087,7 @@
     "site": "boxcritters",
     "type": "media",
     "category": "rooms/PirateIsland/tavern",
-    "filename": ""
+    "filename": "tavern_fg.png"
   },
   {
     "name": "",

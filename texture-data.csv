@@ -95,8 +95,8 @@ green_backpack,Green Backpack,,,boxcritters,media,icons/pack,
 items,Items,,,boxcritters,media,items,
 items-1,Items 1,,,boxcritters,media,items,
 ux,User Interface,,,boxcritters,media,ux,
-bridgeBackground,Bridge Background,,,boxcritters,media,rooms/StarShip/bridge,
-bridgeProps,Bridge Props,,,boxcritters,media,rooms/StarShip/bridge,
+bridgeBackground,Bridge Background,,,boxcritters,media,rooms/StarShip/bridge,bridge_bg.png
+bridgeProps,Bridge Props,,,boxcritters,media,rooms/StarShip/bridge,bridge_ss.png
 ,,,,boxcritters,media,rooms/StarShip/engine,
 ,,,,boxcritters,media,rooms/StarShip/Teleporter,
 ,,,,boxcritters,media,rooms/StarShip/Cargo,
@@ -105,9 +105,9 @@ bridgeProps,Bridge Props,,,boxcritters,media,rooms/StarShip/bridge,
 ,,,,boxcritters,media,rooms/StarShip/ScienceLab,
 ,,,,boxcritters,media,rooms/StarShip/Armory,
 ,,,,boxcritters,media,rooms/StarShip/Exterior,
-tavernProps,Tavern Props,,,boxcritters,media,rooms/PirateIsland/tavern,
-tavernBG,Tavern Background,,,boxcritters,media,rooms/PirateIsland/tavern,
-tavernFG,Tavern Foreground,,,boxcritters,media,rooms/PirateIsland/tavern,
+tavernProps,Tavern Props,,,boxcritters,media,rooms/PirateIsland/tavern,tavern_ss.png
+tavernBG,Tavern Background,,,boxcritters,media,rooms/PirateIsland/tavern,tavern_bg.png
+tavernFG,Tavern Foreground,,,boxcritters,media,rooms/PirateIsland/tavern,tavern_fg.png
 ,,,,boxcritters,media,rooms/PirateIsland/Outpost,
 ,,,,boxcritters,media,rooms/PirateIsland/Dock,
 ,,,,boxcritters,media,rooms/PirateIsland/VolcanoOfDoom,
