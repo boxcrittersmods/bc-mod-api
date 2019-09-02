@@ -930,7 +930,7 @@
     "filename": ""
   },
   {
-    "name": "items",
+    "name": "items1",
     "label": "Items",
     "required": "",
     "hidden": "",
@@ -940,7 +940,7 @@
     "filename": ""
   },
   {
-    "name": "items-1",
+    "name": "items2-work",
     "label": "Items 1",
     "required": "",
     "hidden": "",
