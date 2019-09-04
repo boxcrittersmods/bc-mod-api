@@ -240,13 +240,13 @@
     "filename": ""
   },
   {
-    "name": "sunglasses_square_black",
+    "name": "sun_square",
     "label": "Black Square Sunglasses",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
     "type": "media",
-    "category": "icons/eyes/glasses",
+    "category": "icons/eyes/sunglasses",
     "filename": ""
   },
   {
@@ -256,7 +256,7 @@
     "hidden": "",
     "site": "boxcritters",
     "type": "media",
-    "category": "icons/eyes/glasses",
+    "category": "icons/eyes/sunglasses",
     "filename": ""
   },
   {
