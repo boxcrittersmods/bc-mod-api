@@ -2,7 +2,7 @@
   {
     "name": "name",
     "label": "Name",
-    "required": "TRUE",
+    "required": true,
     "hidden": "",
     "site": "",
     "type": "",
@@ -12,7 +12,7 @@
   {
     "name": "author",
     "label": "Author",
-    "required": "TRUE",
+    "required": true,
     "hidden": "",
     "site": "",
     "type": "",
@@ -23,7 +23,7 @@
     "name": "date",
     "label": "Date",
     "required": "",
-    "hidden": "TRUE",
+    "hidden": true,
     "site": "",
     "type": "",
     "category": "info",
@@ -33,7 +33,7 @@
     "name": "packVersion",
     "label": "",
     "required": "",
-    "hidden": "TRUE",
+    "hidden": true,
     "site": "",
     "type": "",
     "category": "info",
@@ -53,7 +53,7 @@
     "name": "client-script",
     "label": "",
     "required": "",
-    "hidden": "TRUE",
+    "hidden": true,
     "site": "boxcritters",
     "type": "js",
     "category": "",
@@ -63,7 +63,7 @@
     "name": "items-script",
     "label": "",
     "required": "",
-    "hidden": "TRUE",
+    "hidden": true,
     "site": "boxcritters",
     "type": "js",
     "category": "",
@@ -320,6 +320,16 @@
     "filename": ""
   },
   {
+    "name": "ballcap_pink",
+    "label": "Pink Baseball Cao",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
     "name": "ballcap_yellow",
     "label": "Yellow Baseball Cap",
     "required": "",
@@ -432,6 +442,16 @@
   {
     "name": "propeller_pink",
     "label": "Pink Propeller Cap",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/propellerCap",
+    "filename": ""
+  },
+  {
+    "name": "propeller_silver",
+    "label": "Silver Propeller Cap",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
@@ -556,12 +576,32 @@
     "hidden": "",
     "site": "boxcritters",
     "type": "media",
-    "category": "icons/head",
+    "category": "icons/head/pot",
+    "filename": ""
+  },
+  {
+    "name": "pot_black",
+    "label": "Black Pot",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/pot",
     "filename": ""
   },
   {
     "name": "sleeping",
     "label": "Sleeping Hat",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "sombrero_yellow",
+    "label": "Yellow Sombrero",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
@@ -680,8 +720,8 @@
     "filename": ""
   },
   {
-    "name": "",
-    "label": "",
+    "name": "super_mask_black",
+    "label": "Super Black Mask",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
@@ -740,6 +780,16 @@
     "filename": ""
   },
   {
+    "name": "hoodie_orange",
+    "label": "Orange Hoodie",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
     "name": "hoodie_purple",
     "label": "Purple Hoodie",
     "required": "",
@@ -757,6 +807,16 @@
     "site": "boxcritters",
     "type": "media",
     "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "kit_yellow",
+    "label": "Yellow And Green Kit",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
     "filename": ""
   },
   {
@@ -820,6 +880,16 @@
     "filename": ""
   },
   {
+    "name": "plaid_black",
+    "label": "Black Plaid Shirt",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/plaid",
+    "filename": ""
+  },
+  {
     "name": "plaid_blue",
     "label": "Blue Plaid Shirt",
     "required": "",
@@ -837,6 +907,16 @@
     "site": "boxcritters",
     "type": "media",
     "category": "icons/body/plaid",
+    "filename": ""
+  },
+  {
+    "name": "school_navy_b",
+    "label": "School Navy Uniform",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
     "filename": ""
   },
   {
@@ -920,8 +1000,28 @@
     "filename": ""
   },
   {
-    "name": "green_backpack",
+    "name": "backpack_green",
     "label": "Green Backpack",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/pack",
+    "filename": ""
+  },
+  {
+    "name": "rocket_red",
+    "label": "Rocket",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/pack",
+    "filename": ""
+  },
+  {
+    "name": "school_pack_orange",
+    "label": "Orange Backpack",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
