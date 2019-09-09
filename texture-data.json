@@ -910,6 +910,16 @@
     "filename": ""
   },
   {
+    "name": "school_navy_a",
+    "label": "School Navy Uniform",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
     "name": "school_navy_b",
     "label": "School Navy Uniform",
     "required": "",
