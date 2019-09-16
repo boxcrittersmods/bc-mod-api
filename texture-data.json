@@ -610,6 +610,16 @@
     "filename": ""
   },
   {
+    "name": "tinfoil_hat",
+    "label": "Tinfoil Hat",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
     "name": "toque_purple",
     "label": "Purple Toque",
     "required": "",
