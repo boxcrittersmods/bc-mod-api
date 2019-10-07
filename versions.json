@@ -412,5 +412,9 @@
     "itemsVersion": "work",
     "description": "",
     "date": "01-09-2019"
+  },
+  {
+    "clientVersion": "117",
+    "date": "07-10-2019"
   }
 ]
