@@ -330,6 +330,16 @@
     "filename": ""
   },
   {
+    "name": "ballcap_red",
+    "label": "Red Ball Cap",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
     "name": "ballcap_yellow",
     "label": "Yellow Baseball Cap",
     "required": "",
@@ -490,6 +500,46 @@
     "filename": ""
   },
   {
+    "name": "toque_purple",
+    "label": "Purple Toque",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/toque",
+    "filename": ""
+  },
+  {
+    "name": "toque_white",
+    "label": "White Toque",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/toque",
+    "filename": ""
+  },
+  {
+    "name": "pot",
+    "label": "Pot Helm",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/pot",
+    "filename": ""
+  },
+  {
+    "name": "pot_black",
+    "label": "Black Pot",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/pot",
+    "filename": ""
+  },
+  {
     "name": "space_helmet_white",
     "label": "White Space Helmet",
     "required": "",
@@ -570,23 +620,13 @@
     "filename": ""
   },
   {
-    "name": "pot",
-    "label": "Pot Helm",
+    "name": "pumpkin",
+    "label": "Pumpkin",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
     "type": "media",
-    "category": "icons/head/pot",
-    "filename": ""
-  },
-  {
-    "name": "pot_black",
-    "label": "Black Pot",
-    "required": "",
-    "hidden": "",
-    "site": "boxcritters",
-    "type": "media",
-    "category": "icons/head/pot",
+    "category": "icons/head",
     "filename": ""
   },
   {
@@ -617,26 +657,6 @@
     "site": "boxcritters",
     "type": "media",
     "category": "icons/head",
-    "filename": ""
-  },
-  {
-    "name": "toque_purple",
-    "label": "Purple Toque",
-    "required": "",
-    "hidden": "",
-    "site": "boxcritters",
-    "type": "media",
-    "category": "icons/head/toque",
-    "filename": ""
-  },
-  {
-    "name": "toque_white",
-    "label": "White Toque",
-    "required": "",
-    "hidden": "",
-    "site": "boxcritters",
-    "type": "media",
-    "category": "icons/head/toque",
     "filename": ""
   },
   {
@@ -671,7 +691,17 @@
   },
   {
     "name": "lei_red",
-    "label": "Red0 Hawaiian Lei",
+    "label": "Red Hawaiian Lei",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/neck",
+    "filename": ""
+  },
+  {
+    "name": "scarf_black",
+    "label": "Black Scarf",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
@@ -712,6 +742,16 @@
   {
     "name": "grass_yellow",
     "label": "Hawaiian Grass Skirt",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/belt",
+    "filename": ""
+  },
+  {
+    "name": "messenger_brown",
+    "label": "Messenger Bag",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
