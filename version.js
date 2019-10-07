@@ -12,7 +12,6 @@ var error = {
 }
 
 var versionTracker = new tracker("Box Critters Version Tracker");
-versionTracker.AddListener("https://discordapp.com/api/webhooks/608026798864728096/A47zYsCyGvFaLuT6CiDE6YzrSPbXWbNSLe5BChbKSRKUmADnQNeVbpNy6vfFD0d2hp6v");
 
 function update() {
     setupDone = false;
@@ -45,8 +44,8 @@ function addVersion(version) {
     var lastVersions = versions;
     var ver = {
         clientVersion:version.client,
-        itemsVersion:version.items,
-        description: "",
+        //itemsVersion:version.items,
+        //description: "",
         date: moment().format('DD-MM-YYYY')
     };
     versions.push(ver);
@@ -56,10 +55,10 @@ function addVersion(version) {
         prevver = versions[versions.length-2];
 
         if(currver.itemsVersion != prevver.itemsVersion) {
-            versionTracker.Invoke("Rocket Snail just released a new Items version of: `" + currver.itemsVersion + "`");
+            //versionTracker.Invoke("Rocket Snail just released a new Items version of: `" + currver.itemsVersion + "`");
         }
         if(currver.clientVersion != prevver.clientVersion) {
-            versionTracker.Invoke("Rocket Snail just released a new Client version of: `" + currver.clientVersion + "`");
+            //versionTracker.Invoke("Rocket Snail just released a new Client version of: `" + currver.clientVersion + "`");
         }
     }
     if(lastVersions.length != versions.length) {

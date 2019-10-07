@@ -3,16 +3,16 @@ const { JSDOM } = require("jsdom");
 
 var bcurl = "https://boxcritters.com/play/index.html";
 
-var scripts = ["client","items"];
+var scripts = ["client"/*,"items"*/];
 var scriptinfo = {
     client:{
         pre:"../lib/client",
         post:".min.js"
-    },
+    }/*,
     items:{
         pre: "../lib/items-",
         post: ".js"
-    },
+    },*/
 };
 
 function getSiteText(url) {
@@ -51,7 +51,7 @@ function getVersionInfo(ver) {
     info.clientVersion = ver.client;
     info.clientVersionNum = ver.client.split("-")[0]|undefined;
     info.clientVersionName = ver.client.split("-")[1]||undefined;
-    info.itemsVersion = ver.items;
+    //info.itemsVersion = ver.items;
     return info;
 }
 
@@ -69,8 +69,8 @@ function updateVersionNames() {
         getSiteText(bcurl).then(body=>{
             var document = getSiteDocument(body);
             var ver = {
-                client: getVerName(document,scriptinfo.client),
-                items: getVerName(document,scriptinfo.items)
+                client: getVerName(document,scriptinfo.client)//,
+                //items: getVerName(document,scriptinfo.items)
             };
             
             resolve(getVersionInfo(ver));
