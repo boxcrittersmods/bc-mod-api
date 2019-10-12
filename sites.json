@@ -12,7 +12,7 @@
             "ux": "/media/ux/"
         },
         "js": "/lib/",
-        "website":"/play/"
+        "script":"/play/"
     },
     {
         "name": "critterball",
