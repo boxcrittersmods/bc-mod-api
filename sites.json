@@ -9,7 +9,8 @@
             "items": "/media/items/",
             "rooms": "/media/rooms/",
             "ui": "/media/ui/",
-            "ux": "/media/ux/"
+            "ux": "/media/ux/",
+            "website":"/play/"
         },
         "js": "/lib/"
     },
