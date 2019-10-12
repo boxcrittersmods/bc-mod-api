@@ -53,10 +53,10 @@
     "name": "client-script",
     "label": "",
     "required": "",
-    "hidden": "",
+    "hidden": true,
     "site": "boxcritters",
     "type": "js",
-    "category": "script",
+    "category": "",
     "filename": "client{CLIENTVER}.js"
   },
   {
