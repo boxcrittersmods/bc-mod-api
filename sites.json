@@ -9,10 +9,10 @@
             "items": "/media/items/",
             "rooms": "/media/rooms/",
             "ui": "/media/ui/",
-            "ux": "/media/ux/",
-            "website":"/play/"
+            "ux": "/media/ux/"
         },
-        "js": "/lib/"
+        "js": "/lib/",
+        "website":"/play/"
     },
     {
         "name": "critterball",
