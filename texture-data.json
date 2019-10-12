@@ -70,14 +70,14 @@
     "filename": "items-{ITEMVER}.js"
   },
   {
-    "name": "index.html",
+    "name": "index",
     "label": "Index.html",
     "required": "",
     "hidden": "",
     "site": "boxcritters",
-    "type": "script",
-    "category": "script",
-    "filename": ""
+    "type": "website",
+    "category": "",
+    "filename": "index.html"
   },
   {
     "name": "bridge",
