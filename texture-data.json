@@ -70,6 +70,16 @@
     "filename": "items-{ITEMVER}.js"
   },
   {
+    "name": "index",
+    "label": "Index.html",
+    "required": "",
+    "hidden": "",
+    "site": "boxcritters",
+    "type": "html",
+    "category": "Website",
+    "filename": ""
+  },
+  {
     "name": "bridge",
     "label": "The Bridge",
     "required": "",
