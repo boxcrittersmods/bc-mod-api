@@ -70,7 +70,7 @@
     "filename": "items-{ITEMVER}.js"
   },
   {
-    "name": "index",
+    "name": "index.html",
     "label": "Index.html",
     "required": "",
     "hidden": "",
