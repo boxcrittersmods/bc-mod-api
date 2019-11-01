@@ -1,11 +1,12 @@
 name,label,required,hidden,site,type,category,filename
-name,Name,TRUE,,,,info,
-author,Author,TRUE,,,,info,
-date,Date,,TRUE,,,info,
-packVersion,,,TRUE,,,info,
+name,Name,true,,,,info,
+author,Author,true,,,,info,
+date,Date,,true,,,info,
+packVersion,,,true,,,info,
 description,Description,,,,,info,
-client-script,,,TRUE,boxcritters,js,,client{CLIENTVER}.js
-items-script,,,TRUE,boxcritters,js,,items-{ITEMVER}.js
+client-script,,,true,boxcritters,js,,client{CLIENTVER}.js
+items-script,,,true,boxcritters,js,,items-{ITEMVER}.js
+index,Index.html,,,boxcritters,website,,index.html
 bridge,The Bridge,,,boxcritters,media,cards/oomm,
 ghost_ship,Ghost Ship,,,boxcritters,media,cards/oomm,
 beaver,Beaver,,,boxcritters,media,critters,
@@ -61,7 +62,7 @@ party_green,Party Hat,,,boxcritters,media,icons/head,
 pickle,Pickle,,,boxcritters,media,icons/head,
 pirate_hat,Pirate Hat,,,boxcritters,media,icons/head,
 pirate_hat_blue,Blue Pirate Hat,,,boxcritters,media,icons/head,
-pumpkin ,Pumpkin,,,boxcritters,media,icons/head,
+pumpkin,Pumpkin,,,boxcritters,media,icons/head,
 sleeping,Sleeping Hat,,,boxcritters,media,icons/head,
 sombrero_yellow,Yellow Sombrero,,,boxcritters,media,icons/head,
 tinfoil_hat,Tinfoil Hat,,,boxcritters,media,icons/head,
@@ -69,12 +70,12 @@ unclesam,July 4th Hat,,,boxcritters,media,icons/head,
 viking,Viking Helmet,,,boxcritters,media,icons/head,
 cone,Critter Cone,,,boxcritters,media,icons/neck,
 lei_red,Red Hawaiian Lei,,,boxcritters,media,icons/neck,
-scarf_black ,Black Scarf ,,,boxcritters,media,icons/neck,
+scarf_black,Black Scarf,,,boxcritters,media,icons/neck,
 super_cape_red,Super Red Cape,,,boxcritters,media,icons/cape,
 guitar_blue,Blue Guitar,,,boxcritters,media,icons/hand/instruments,
 ,Ukulele,,,boxcritters,media,icons/hand/instruments,
 grass_yellow,Hawaiian Grass Skirt,,,boxcritters,media,icons/belt,
-messenger_brown,Messenger Bag ,,,boxcritters,media,icons/belt,
+messenger_brown,Messenger Bag,,,boxcritters,media,icons/belt,
 float_yellow,Yellow Duck Floatie,,,boxcritters,media,icons/belt,
 super_mask_black,Super Black Mask,,,boxcritters,media,icons/mask,
 hawaii_orange,Orange Hawaiian Shirt,,,boxcritters,media,icons/body,
@@ -105,7 +106,7 @@ space_suit_white,White Space Suit,,,boxcritters,media,icons/body,
 tshirt_black,Black T-shirt,,,boxcritters,media,icons/body/tshirt,
 tshirt_white,White T-shirt,,,boxcritters,media,icons/body/tshirt,
 space_pack_white,White Spacepack,,,boxcritters,media,icons/pack,
-backpack_green ,Green Backpack,,,boxcritters,media,icons/pack,
+backpack_green,Green Backpack,,,boxcritters,media,icons/pack,
 rocket_red,Rocket,,,boxcritters,media,icons/pack,
 school_pack_orange,Orange Backpack,,,boxcritters,media,icons/pack,
 items1,Items,,,boxcritters,media,items,
@@ -124,6 +125,9 @@ bridgeProps,Bridge Props,,,boxcritters,media,rooms/StarShip/bridge,bridge_ss.png
 tavernProps,Tavern Props,,,boxcritters,media,rooms/PirateIsland/tavern,tavern_ss.png
 tavernBG,Tavern Background,,,boxcritters,media,rooms/PirateIsland/tavern,tavern_bg.png
 tavernFG,Tavern Foreground,,,boxcritters,media,rooms/PirateIsland/tavern,tavern_fg.png
+tavernPropsHaloween,Tavern Props,,,boxcritters,media,roomsHalloween/PirateIsland/tavern,tavern_ss.png
+tavernBGHalloween,Tavern Background,,,boxcritters,media,roomsHalloween/PirateIsland/tavern,tavern_bg.png
+tavernFGHalloween,Tavern Foreground,,,boxcritters,media,roomsHalloween/PirateIsland/tavern,tavern_fg.png
 ,,,,boxcritters,media,rooms/PirateIsland/Outpost,
 ,,,,boxcritters,media,rooms/PirateIsland/Dock,
 ,,,,boxcritters,media,rooms/PirateIsland/VolcanoOfDoom,
