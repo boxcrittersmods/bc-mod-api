@@ -420,5 +420,9 @@
   {
     "clientVersion": "119",
     "date": "21-10-2019"
+  },
+  {
+    "clientVersion": "124",
+    "date": "01-11-2019"
   }
 ]
