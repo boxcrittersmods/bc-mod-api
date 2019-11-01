@@ -5,11 +5,9 @@
         "media": {
             "cards": "/media/cards/",
             "critters": "/media/critters/",
-            "effects":"/media/effects/",
             "icons": "/media/icons/",
             "items": "/media/items/",
             "rooms": "/media/rooms/",
-            "halloweenRooms": "/media/rooms/halloween",
             "ui": "/media/ui/",
             "ux": "/media/ux/"
         },
