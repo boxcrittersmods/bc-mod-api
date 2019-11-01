@@ -1,11 +1,11 @@
 name,label,required,hidden,site,type,category,filename
-name,Name,true,,,,info,
-author,Author,true,,,,info,
-date,Date,,true,,,info,
-packVersion,,,true,,,info,
+name,Name,TRUE,,,,info,
+author,Author,TRUE,,,,info,
+date,Date,,TRUE,,,info,
+packVersion,,,TRUE,,,info,
 description,Description,,,,,info,
-client-script,,,true,boxcritters,js,,client{CLIENTVER}.js
-items-script,,,true,boxcritters,js,,items-{ITEMVER}.js
+client-script,,,TRUE,boxcritters,js,,client{CLIENTVER}.js
+items-script,,,TRUE,boxcritters,js,,items-{ITEMVER}.js
 index,Index.html,,,boxcritters,website,,index.html
 bridge,The Bridge,,,boxcritters,media,cards/oomm,
 ghost_ship,Ghost Ship,,,boxcritters,media,cards/oomm,
