@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const request = require('request');
 const puppeteer = require("puppeteer");
 const absolutify = require("absolutify");
@@ -13,6 +14,13 @@ function getHostName(url) {
     return hostname;
 }
 
+
+/**
+ * Middleware
+ */
+
+//enable CORS
+router.use(cors());
 router.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -20,11 +28,22 @@ router.use(function(req, res, next) {
 });
 
 
-router.use((req,res,next)=>{
+router.use('/',(req,res,next)=>{
     res.type("html");
     next();
 });
 
+router.use("/file",(req,res,next)=>{
+    res.type("text/plain");
+    next();
+});
+
+
+/**
+ * Paths
+ */
+
+// /cors/data/(url)
 router.use('/data',async (req,res)=>{
     var url = req.path.substr(1);
     console.log("URL:",url);
@@ -44,11 +63,7 @@ router.use('/data',async (req,res)=>{
     }
 });
 
-router.use("/file",(req,res,next)=>{
-    res.type("text/plain");
-    next();
-});
-
+// /cors/file/(url)
 router.use("/file",async (req,res)=>{
     var url = req.path.substr(1);
     console.log("URL:",url);
@@ -73,12 +88,9 @@ router.use("/file",async (req,res)=>{
 
 
 });
-router.use((req,res,next)=>{
-    res.type("html");
-    next();
-});
 
-router.use(async (req,res)=>{
+// /cors/(url)
+router.use('/', async (req,res)=>{
     var url = req.path.substr(1);
     console.log("URL:",url);
     if(!url) {

@@ -1,5 +1,9 @@
 const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry'));
-const DISABLE_GITHUB = false;
+const DISABLE_GITHUB = true;
+
+if(DISABLE_GITHUB) {
+    console.log("Github connection is disabled for testing")
+}
 
 const octokit = new Octokit({
    auth: process.env.FEEDBACK_KEY
@@ -37,7 +41,7 @@ function loadVersions() {
     return new Promise((resolve,reject)=>{
         var owner = "boxcritters";
         var repo  = "bc-mod-api";
-        var path = "versions.json";
+        var path = "data/versions.json";
 
         octokit.repos.getContents({
             owner,
@@ -62,7 +66,7 @@ function saveVersions(versions,sha) {
 
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
-    var path = "versions.json"
+    var path = "data/versions.json"
     var message = "Updated Versions";
     var content = Buffer.from(versionText).toString('base64');
     lastSaved = versions;

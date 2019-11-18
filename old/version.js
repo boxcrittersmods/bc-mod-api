@@ -1,7 +1,6 @@
 const express = require("express");
 const github = require('./github');
 const moment = require('moment');
-const tracker = require('./tracker');
 
 var versions = [];
 var sha = "";
@@ -10,8 +9,6 @@ var tosave = false;
 var error = {
     "error":"Version does not exist"
 }
-
-var versionTracker = new tracker("Box Critters Version Tracker");
 
 function update() {
     setupDone = false;

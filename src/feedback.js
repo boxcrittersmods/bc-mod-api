@@ -4,10 +4,22 @@ const gh = require("./github");
 
 var router = express.Router();
 
+
+/**
+ * Settings
+ */
+
+/**
+ * Middleware
+ */
 router.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 router.use(bodyParser.json())
+
+/**
+ * Routers
+ */
 
 router.post('/:repo',(req,res)=>{
     
