@@ -452,5 +452,9 @@
   {
     "clientVersion": "137",
     "date": "17-11-2019"
+  },
+  {
+    "clientVersion": "138",
+    "date": "18-11-2019"
   }
 ]
