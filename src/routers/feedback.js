@@ -1,13 +1,8 @@
 const express = require("express");
 var bodyParser = require('body-parser');
-const gh = require("./github");
+const gh = require("#src/util/github");
 
 var router = express.Router();
-
-
-/**
- * Settings
- */
 
 /**
  * Middleware

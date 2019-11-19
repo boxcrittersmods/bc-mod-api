@@ -2,7 +2,7 @@ const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry')
 const DISABLE_GITHUB = true;
 
 if(DISABLE_GITHUB) {
-    console.log("Github connection is disabled for testing")
+    console.warn("Github connection is disabled for testing")
 }
 
 const octokit = new Octokit({

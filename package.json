@@ -14,16 +14,25 @@
     "image-data-uri": "^2.0.0",
     "jsdom": "^15.0.0",
     "moment": "^2.24.0",
+    "node-cache": "^5.0.2",
     "puppeteer": "^1.15.0",
     "request": "^2.88.0",
+    "request-promise": "^4.2.5",
     "serve-index": "^1.9.1",
     "webhook-discord": "^3.2.0",
     "webserver": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "link-module-alias": "^1.2.0"
+  },
   "scripts": {
+    "postinstall": "link-module-alias",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "_moduleAliases": {
+    "#data": "data",
+    "#src": "src"
   },
   "repository": {
     "type": "git",

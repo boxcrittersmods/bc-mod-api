@@ -3,14 +3,14 @@ const serveIndex = require('serve-index');
 const adminLogin = require('bc-admin-login');
 
 //routers
-const versions = require('./versions');
-const feedback = require('./feedback');
-const corsProxy = require('./cors');
-const desc = require('./description');
+const versions = require('./routers/versions');
+const feedback = require('./routers/feedback');
+const corsProxy = require('./routers/cors');
+const desc = require('./routers/description');
 
 //data
-const textureData = require(global.config.json.textureData);
-const sitesData = require(global.config.json.sites);
+const textureData = require('#data/texture-data.json');
+const sitesData = require('#data/sites.json');
 
 var app = express();
 
@@ -29,6 +29,7 @@ app.set("json spaces", 2);
 /**
  * Routers
  */
+app.use('/versions',versions);
 app.use(
 	"/scripts",
 	express.static("public"),
@@ -49,6 +50,11 @@ app.get('/texture-data',(req,res)=>{
 app.get('/sites',(req,res)=>{
     res.type("application/json");
     res.json(sitesData);
+});
+
+app.get('/',(req,res)=>{
+    res.type("application/json");
+    res.redirect('/versions/latest')
 });
 
 module.exports = app;

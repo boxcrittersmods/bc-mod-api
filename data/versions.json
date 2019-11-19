@@ -366,99 +366,99 @@
     "date": "03-08-2019"
   },
   {
-    "clientVersion": "100-ride",
+    "name": "100-ride",
     "itemsVersion": "ride",
     "description": "",
     "date": "04-08-2019"
   },
   {
-    "clientVersion": "104-items",
+    "name": "104-items",
     "itemsVersion": "ride",
     "description": "",
     "date": "05-08-2019"
   },
   {
-    "clientVersion": "107-back",
+    "name": "107-back",
     "itemsVersion": "ride",
     "description": "",
     "date": "05-08-2019"
   },
   {
-    "clientVersion": "108-beep",
+    "name": "108-beep",
     "itemsVersion": "ride",
     "description": "",
     "date": "09-08-2019"
   },
   {
-    "clientVersion": "109-pop",
+    "name": "109-pop",
     "itemsVersion": "ride",
     "description": "",
     "date": "11-08-2019"
   },
   {
-    "clientVersion": "110-free",
+    "name": "110-free",
     "itemsVersion": "rocket",
     "description": "",
     "date": "15-08-2019"
   },
   {
-    "clientVersion": "111-alert",
+    "name": "111-alert",
     "itemsVersion": "rocket",
     "description": "",
     "date": "15-08-2019"
   },
   {
-    "clientVersion": "112-news",
+    "name": "112-news",
     "itemsVersion": "work",
     "description": "",
     "date": "01-09-2019"
   },
   {
-    "clientVersion": "117",
+    "name": "117",
     "date": "07-10-2019"
   },
   {
-    "clientVersion": "119",
+    "name": "119",
     "date": "21-10-2019"
   },
   {
-    "clientVersion": "124",
+    "name": "124",
     "date": "01-11-2019"
   },
   {
-    "clientVersion": "130",
+    "name": "130",
     "date": "07-11-2019"
   },
   {
-    "clientVersion": "131",
+    "name": "131",
     "date": "07-11-2019"
   },
   {
-    "clientVersion": "132",
+    "name": "132",
     "date": "08-11-2019"
   },
   {
-    "clientVersion": "134",
+    "name": "134",
     "date": "12-11-2019"
   },
   {
-    "clientVersion": "135",
+    "name": "135",
     "date": "13-11-2019"
   },
   {
-    "clientVersion": "136",
+    "name": "136",
     "date": "17-11-2019"
   },
   {
-    "clientVersion": "137",
+    "name": "137",
     "date": "17-11-2019"
   },
   {
-    "clientVersion": "138",
+    "name": "138",
     "date": "18-11-2019"
   },
   {
-    "clientVersion": "139",
+    "name": "139",
     "date": "18-11-2019"
   }
 ]
