@@ -1,14 +1,18 @@
-const Octokit = require('@octokit/rest').plugin(require('@octokit/plugin-retry'));
-const DISABLE_GITHUB = true;
+const Octokit = require('@octokit/rest')
+                .plugin(require('@octokit/plugin-retry'));
+const NodeCache = require("node-cache");
 
-if(DISABLE_GITHUB) {
-    console.warn("Github connection is disabled for testing")
-}
+const DISABLE_GITHUB = true;
 
 const octokit = new Octokit({
    auth: process.env.FEEDBACK_KEY
  });
- var lastSaved = [];
+
+
+ if(DISABLE_GITHUB) {
+     console.warn("Github connection is disabled for testing")
+ }
+ 
 
  octokit.request('/').catch(error => {
     if (error.request.request.retryCount) {

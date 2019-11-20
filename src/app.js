@@ -7,6 +7,7 @@ const versions = require('./routers/versions');
 const feedback = require('./routers/feedback');
 const corsProxy = require('./routers/cors');
 const desc = require('./routers/description');
+const items = require('./routers/items');
 
 //data
 const textureData = require('#data/texture-data.json');
@@ -30,6 +31,7 @@ app.set("json spaces", 2);
  * Routers
  */
 app.use('/versions',versions);
+app.use('/items',items);
 app.use(
 	"/scripts",
 	express.static("public"),
