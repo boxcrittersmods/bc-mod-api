@@ -17,11 +17,10 @@ router.use(bodyParser.json())
  */
 
 router.post('/:repo',(req,res)=>{
-    
     gh.sendFeedback(req.params.repo,req.body.text,req.body.title).then((issue)=>{
         console.log("issue url",issue.html_url);
         res.redirect(issue.html_url)
-    }).catch(console.error)
+    }).catch(console.error);
 });
 
 module.exports = router;

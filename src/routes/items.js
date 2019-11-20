@@ -1,5 +1,5 @@
 const express = require("express");
-const Site = require("#src/util/site.js");
+const BC = require("#src/boxcritters/bc-site.js");
 
 var router = express.Router();
 
@@ -17,7 +17,7 @@ router.use((req, res, next) => {
  */
 // /versions
 router.get("/", async (req, res) => {
-	res.write(await Site.GetItemsFolder());
+	res.write(await BC.GetItemsFolder());
 });
 
 module.exports = router;
