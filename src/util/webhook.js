@@ -1,6 +1,6 @@
 const Webhook = require("webhook-discord");
 
-class TrackerEvent {
+class WebhookManager {
     listeners;
     msg;
     constructor(name) {
@@ -23,4 +23,4 @@ class TrackerEvent {
     }
 }
 
-module.exports = TrackerEvent;
+module.exports = WebhookManager;
