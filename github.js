@@ -37,7 +37,7 @@ function loadVersions() {
     return new Promise((resolve,reject)=>{
         var owner = "boxcritters";
         var repo  = "bc-mod-api";
-        var path = "versions.json";
+        var path = "data/versions.json";
 
         octokit.repos.getContents({
             owner,
@@ -62,7 +62,7 @@ function saveVersions(versions,sha) {
 
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
-    var path = "versions.json"
+    var path = "data/versions.json"
     var message = "Updated Versions";
     var content = Buffer.from(versionText).toString('base64');
     lastSaved = versions;
