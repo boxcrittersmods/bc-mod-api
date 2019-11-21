@@ -1,9 +1,11 @@
-const webhook = require("webhook-discord");
+const Webhook = require("webhook-discord");
 
 class TrackerEvent {
+    listeners;
+    msg;
     constructor(name) {
         this.listeners = [];
-        this.msg = new webhook.MessageBuilder()
+        this.msg = new Webhook.MessageBuilder()
         .setName(name)
         .setColor("#ffffff");
     }
@@ -12,9 +14,9 @@ class TrackerEvent {
         this.listeners.push(new webhook.Webhook(url));
     }
 
-    Invoke(msg) {
+    Invoke(...msg) {
         var sendMSG = this.msg
-        .setText(msg)
+        .setText(msg.join(" "))
         .setTime();
 
         this.listeners.forEach(l=>l.send(sendMSG));
