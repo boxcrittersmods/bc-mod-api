@@ -22,9 +22,7 @@
     "webhook-discord": "^3.2.0",
     "webserver": "^1.0.0"
   },
-  "devDependencies": {
-    "link-module-alias": "^1.2.0"
-  },
+  "devDependencies": {},
   "scripts": {
     "postinstall": "link-module-alias",
     "preinstall": "command -v link-module-alias && link-module-alias clean || true",
