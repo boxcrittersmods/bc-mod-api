@@ -27,6 +27,7 @@
   },
   "scripts": {
     "postinstall": "link-module-alias",
+    "preinstall": "command -v link-module-alias && link-module-alias clean || true",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

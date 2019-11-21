@@ -58,13 +58,8 @@ function saveVersions(versions,sha) {
 
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
-<<<<<<< Updated upstream:src/util/github.js
     var path = "data/versions.json"
     var message = "Updated Versions";
-=======
-    var path = "data/test.json"
-    var message = "[TEST]Updated Versions";
->>>>>>> Stashed changes:github.js
     var content = Buffer.from(versionText).toString('base64');
     lastSaved = versions;
 console.log("meep")
