@@ -37,6 +37,9 @@ async function GetManifests() {
 	}
 	return manifests;
 }
+(async () => {
+	console.log(await GetManifests())	
+})()
 
 async function GetItemsFolder() {
 	var itemsfolder = bcCache.get("itemsfolder");

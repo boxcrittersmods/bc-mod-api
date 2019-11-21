@@ -9,12 +9,24 @@ Version Format
     name: "",
     items: ""
 }
+
+Events
+newClient
+newItems
 */
 var versions = [];
 var versionEvents = new EventHandler();
 
 function GetDate() {
 	return moment().format("DD-MM-YYYY");
+}
+
+function SetVersions(v) {
+    versions = v;
+}
+
+function GetVersions() {
+    return versions;
 }
 
 function CreateVersion(name,items) {
@@ -38,13 +50,14 @@ async function CheckForNewVersion() {
 
     if(l != undefined){
         if(l.name == n && l.items == i) return;
-        
+
         var newClient = l.name != n;
         var newItems = l.items != i;
         if (newClient) versionEvents.dispatchEvent("newClient", n);
-        if (newItems) versionEvents.dispatchEvent("newItems", i);
+        else if (newItems) versionEvents.dispatchEvent("newItems", i);
     }
     
+	console.log(l)
 	var v = CreateVersion(n, i);
 	versions.push(v);
 }
@@ -53,5 +66,7 @@ module.exports = {
     versionEvents,
     CheckForNewVersion,
     GetLatest,
-    GetVersion
+    GetVersion,
+    SetVersions,
+    GetVersions
 }

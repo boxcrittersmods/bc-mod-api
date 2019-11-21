@@ -1,5 +1,9 @@
 const express = require("express");
 const bcVersions = require("#src/boxcritters/versions");
+const listener = require('#src/listeners/versionListener')
+listener.Init().catch((e)=>{
+	console.log(e)
+});
 
 var router = express.Router();
 
@@ -18,15 +22,22 @@ router.use(async (req, res, next) => {
  */
 // /versions
 router.get("/", (req, res) => {
-	res.json("LIST VERSIONS");
+	var list = bcVersions.GetVersions().map(v=>v.name);
+	res.json(list||"LIST VERSIONS");
+});
+router.get("/all", (req, res) => {
+	var list = bcVersions.GetVersions();
+	res.json(list||"LIST VERSIONS");
 });
 // /versions/latest
 router.get("/latest",(req, res) => {
-	res.json(bcVersions.GetLatest()||"LATEST VERSION");
+	var version = bcVersions.GetLatest();
+	res.json(version||"LATEST VERSION");
 });
 // /versions/(version)
 router.get("/:ver", (req, res) => {
-	res.json(bcVersions.GetVersion(req.params.ver)[0]||"VERSION " + req.params.ver);
+	var version = bcVersions.GetVersion(req.params.ver)[0];
+	res.json(version||"VERSION " + req.params.ver);
 });
 
 module.exports = router;

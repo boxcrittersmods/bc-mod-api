@@ -1,11 +1,10 @@
 const Octokit = require('@octokit/rest')
                 .plugin(require('@octokit/plugin-retry'));
-const NodeCache = require("node-cache");
 
-const DISABLE_GITHUB = true;
+const DISABLE_GITHUB = false;
 
 const octokit = new Octokit({
-   auth: process.env.FEEDBACK_KEY
+    auth: process.env.FEEDBACK_KEY
  });
 
 
@@ -40,41 +39,50 @@ async function sendFeedback(repo, text, summary) {
     
 }
 
-function loadVersions() {
+async function loadVersions() {
     if(DISABLE_GITHUB) return;
+<<<<<<< Updated upstream:src/util/github.js
     return new Promise((resolve,reject)=>{
         var owner = "boxcritters";
         var repo  = "bc-mod-api";
         var path = "data/versions.json";
+=======
+    var owner = "boxcritters";
+    var repo  = "bc-mod-api";
+    var path = "data/test.json";
+>>>>>>> Stashed changes:github.js
 
-        octokit.repos.getContents({
-            owner,
-            repo,
-            path
-        }).then((o)=>{            
-            var raw = Buffer.from(o.data.content, o.data.encoding).toString()
-            var vers = JSON.parse(raw);
-            lastSaved = vers;
-            resolve({vers,psha:o.data.sha});
-        });
-        
-    })
+    var o = await octokit.repos.getContents({
+        owner,
+        repo,
+        path
+    });
+    var raw = Buffer.from(o.data.content, o.data.encoding).toString()
+    var vers = JSON.parse(raw);
+    lastSaved = vers;
+    return {v:vers,s:o.data.sha};
 }
 
 function saveVersions(versions,sha) {
     if(DISABLE_GITHUB) return;
-    if(lastSaved==versions) {
+    /*if(lastSaved==versions) {
         return;
-    }
+    }*/
+    console.log("hi")
     var versionText = JSON.stringify(versions,"",2);
 
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
+<<<<<<< Updated upstream:src/util/github.js
     var path = "data/versions.json"
     var message = "Updated Versions";
+=======
+    var path = "data/test.json"
+    var message = "[TEST]Updated Versions";
+>>>>>>> Stashed changes:github.js
     var content = Buffer.from(versionText).toString('base64');
     lastSaved = versions;
-
+console.log("meep")
     octokit.repos.updateFile({
         owner,
         repo,
