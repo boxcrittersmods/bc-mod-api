@@ -20,14 +20,14 @@ function SaveToGithub(v) {
 
 var listeners = (() => {
     function NewClient(n, v) {
-        webhook.Invoke("", {
+        webhook.Invoke("New Client Version", {
             "client": v.n,
             "itemsFolder":v.i
         })
         SaveToGithub(v);
     }
     function NewItems(i,v) {
-        webhook.Invoke("New ItemsFolder", {
+        webhook.Invoke("New Items Folder", {
             "client": v.n,
             "itemsFolder":v.i
         });
