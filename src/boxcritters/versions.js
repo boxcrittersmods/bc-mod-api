@@ -56,7 +56,6 @@ async function CheckForNewVersion() {
         if (newClient) versionEvents.dispatchEvent("newClient", n,{n,i});
         else if (newItems) versionEvents.dispatchEvent("newItems", i, {n,i});
     }
-    versionEvents.dispatchEvent("newClient",n, {n,i});
 	var v = CreateVersion(n, i);
 	versions.push(v);
 }

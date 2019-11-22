@@ -55,7 +55,6 @@ function saveVersions(versions,sha) {
     /*if(lastSaved==versions) {
         return;
     }*/
-    console.log("hi")
     var versionText = JSON.stringify(versions,"",2);
 
     var owner = "boxcritters";
