@@ -28,7 +28,10 @@ var listeners = (() => {
         SaveToGithub();
     }
     function NewItems(i,v) {
-        webhook.Invoke("New Items",v);
+        webhook.Invoke("New ItemsFolder", {
+            "client": v.n,
+            "itemsFolder":v.i
+        });
         SaveToGithub();
     }
     return {
