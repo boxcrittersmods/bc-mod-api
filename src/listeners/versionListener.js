@@ -14,8 +14,7 @@ async function Init() {
     bcVersions.SetVersions(v);
 }
 
-function SaveToGithub() {
-    var v = bcVersions.GetVersions();
+function SaveToGithub(v) {
     github.saveVersions(v,_sha);
 }
 
@@ -25,14 +24,14 @@ var listeners = (() => {
             "client": v.n,
             "itemsFolder":v.i
         })
-        SaveToGithub();
+        SaveToGithub(v);
     }
     function NewItems(i,v) {
         webhook.Invoke("New ItemsFolder", {
             "client": v.n,
             "itemsFolder":v.i
         });
-        SaveToGithub();
+        SaveToGithub(v);
     }
     return {
         NewClient,
