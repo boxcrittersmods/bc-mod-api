@@ -14,7 +14,7 @@ async function Init() {
     bcVersions.SetVersions(v);
 }
 
-function SaveToGithub(v) {
+function SaveToGithub() {
     var v = bcVersions.GetVersions();
     github.saveVersions(v,_sha);
 }
@@ -32,7 +32,7 @@ var listeners = (() => {
             "client": v.n,
             "itemsFolder":v.i
         });
-        SaveToGithub(v);
+        SaveToGithub();
     }
     return {
         NewClient,
