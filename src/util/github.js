@@ -1,17 +1,11 @@
 const Octokit = require('@octokit/rest')
                 .plugin(require('@octokit/plugin-retry'));
 
-const DISABLE_GITHUB = false;
-
 const octokit = new Octokit({
     auth: process.env.FEEDBACK_KEY
  });
-
-
- if(DISABLE_GITHUB) {
-     console.warn("Github connection is disabled for testing")
- }
  
+var DISABLE_GITHUB = true;
 
  octokit.request('/').catch(error => {
     if (error.request.request.retryCount) {
@@ -40,17 +34,10 @@ async function sendFeedback(repo, text, summary) {
 }
 
 async function loadVersions() {
-    if(DISABLE_GITHUB) return;
-<<<<<<< Updated upstream:src/util/github.js
-    return new Promise((resolve,reject)=>{
-        var owner = "boxcritters";
-        var repo  = "bc-mod-api";
-        var path = "data/versions.json";
-=======
+    if(DISABLE_GITHUB) return {};
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
-    var path = "data/test.json";
->>>>>>> Stashed changes:github.js
+    var path = "data/versions.json";
 
     var o = await octokit.repos.getContents({
         owner,
@@ -73,13 +60,8 @@ function saveVersions(versions,sha) {
 
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
-<<<<<<< Updated upstream:src/util/github.js
     var path = "data/versions.json"
     var message = "Updated Versions";
-=======
-    var path = "data/test.json"
-    var message = "[TEST]Updated Versions";
->>>>>>> Stashed changes:github.js
     var content = Buffer.from(versionText).toString('base64');
     lastSaved = versions;
 console.log("meep")
