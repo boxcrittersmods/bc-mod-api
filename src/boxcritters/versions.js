@@ -50,14 +50,15 @@ async function CheckForNewVersion() {
 
     if(l != undefined){
         if(l.name == n && l.items == i) return;
-
+    }
+	var v = CreateVersion(n, i);
+    versions.push(v);
+    if (l != undefined) {
         var newClient = l.name != n;
         var newItems = l.items != i;
         if (newClient) versionEvents.dispatchEvent("newClient", n,{n,i});
         else if (newItems) versionEvents.dispatchEvent("newItems", i, {n,i});
     }
-	var v = CreateVersion(n, i);
-	versions.push(v);
 }
 
 module.exports = {

@@ -15,6 +15,7 @@ async function Init() {
 }
 
 function SaveToGithub(v) {
+    var v = bcVersions.GetVersions();
     github.saveVersions(v,_sha);
 }
 

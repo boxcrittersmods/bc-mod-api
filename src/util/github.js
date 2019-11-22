@@ -63,7 +63,7 @@ function saveVersions(versions,sha) {
     var message = "Updated Versions";
     var content = Buffer.from(versionText).toString('base64');
     lastSaved = versions;
-    octokit.repos.updateFile({
+    octokit.repos.createOrUpdateFile({
         owner,
         repo,
         path,
