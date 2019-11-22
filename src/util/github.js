@@ -5,6 +5,7 @@ const octokit = new Octokit({
     auth: process.env.FEEDBACK_KEY
  });
  
+var DISABLE_GITHUB = true;
 
  octokit.request('/').catch(error => {
     if (error.request.request.retryCount) {
@@ -15,6 +16,7 @@ const octokit = new Octokit({
   });
 
 async function sendFeedback(repo, text, summary) {
+    if(DISABLE_GITHUB) return;
     var owner = "boxcritters";
     var repo = "bc-mod-api";
     var title = "Feedback Submission";
@@ -32,7 +34,7 @@ async function sendFeedback(repo, text, summary) {
 }
 
 async function loadVersions() {
-    if(DISABLE_GITHUB) return;
+    if(DISABLE_GITHUB) return {};
     var owner = "boxcritters";
     var repo  = "bc-mod-api";
     var path = "data/versions.json";

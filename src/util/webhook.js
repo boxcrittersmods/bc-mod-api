@@ -11,13 +11,18 @@ class WebhookManager {
     }
 
     AddListener(url) {
-        this.listeners.push(new webhook.Webhook(url));
+        this.listeners.push(new Webhook.Webhook(url));
     }
 
-    Invoke(...msg) {
+    Invoke(msg,fields) {
         var sendMSG = this.msg
-        .setText(msg.join(" "))
-        .setTime();
+            .setText(msg);
+        
+        for (var title in fields) {
+            var text = fields[title];
+            sendMSG = sendMSG.addField(title, text);
+        }
+        sendMSG = sendMSG.setTime();
 
         this.listeners.forEach(l=>l.send(sendMSG));
     }

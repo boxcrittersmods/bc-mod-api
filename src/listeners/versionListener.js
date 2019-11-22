@@ -1,14 +1,15 @@
 const bcVersions = require("#src/boxcritters/versions");
 const github = require('#src/util/github');
-const WebhookManager = require('#src/util/webhook')
+const WebhookManager = require('#src/util/webhook');
 
 var _sha = "";
-var whUrl = "https://discordapp.com/api/webhooks/647210509971619840/6Dy2FFKFWgxCrv_t_Myg-IDCO9cBARwAlIfp63mpS5dUvb2aNmvDS53LsiL6j2gLtFlA;"
+var whUrl = process.env.DISCORD_WEBHOOK
 var webhook = new WebhookManager("versions");
 webhook.AddListener(whUrl);
 
 async function Init() {
-    var {v,s} = await github.loadVersions();
+    var { v, s } = await github.loadVersions();
+    if (!v) return;
     _sha = s;
     bcVersions.SetVersions(v);
 }
@@ -19,13 +20,16 @@ function SaveToGithub() {
 }
 
 var listeners = (() => {
-    function NewClient(n) {
+    function NewClient(n, v) {
+        webhook.Invoke("", {
+            "client": v.n,
+            "itemsFolder":v.i
+        })
         SaveToGithub();
-        webhook.Invoke("New Version",n)
     }
-    function NewItems(i) {
+    function NewItems(i,v) {
+        webhook.Invoke("New Items",v);
         SaveToGithub();
-        webhook.Invoke("New Items", i);
     }
     return {
         NewClient,
