@@ -1,7 +1,7 @@
 [
 	{"name": "name","label": "Name","required": true,"category": "info"},
 	{"name": "author","label": "Author","required": true,"category": "info"},
-	{"name": "date","label": "Date","hidden": true,"category": "info"},
+	{"name": "date",    "label": "Date","hidden": true,"category": "info"},
 	{"name": "packVersion","hidden": true,"category": "info"},
 	{"name": "description","label": "Description","category": "info"},
 	{"name": "client-script","hidden": true,"site": "boxcritters","type": "js","filename": "client{CLIENTVER}.js"},
@@ -18,5 +18,756 @@
 	{"name": "player_7","label": "Player 7","site": "critterball","type": "media","category": "players"},
 	{"name": "player_8","label": "Player 8","site": "critterball","type": "media","category": "players"},
 	{"name": "player_9","label": "Player 9","site": "critterball","type": "media","category": "players"},
-	{"name": "player_10","label": "Player 10","site": "critterball","type": "media","category": "players"}
+  {"name": "player_10","label": "Player 10","site": "critterball","type": "media","category": "players"},
+  
+  {
+    "name": "bridge",
+    "label": "The Bridge",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "cards/oomm",
+    "filename": ""
+  },
+  {
+    "name": "ghost_ship",
+    "label": "Ghost Ship",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "cards/oomm",
+    "filename": ""
+  },
+  {
+    "name":"crash_site",
+    "label":"Crash Site",
+    "site":"boxcritters",
+    "filename":""
+  },
+  {
+    "name": "3d_black",
+    "label": "Black 3D Glasses",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/3DGlasses",
+    "filename": ""
+  },
+  {
+    "name": "3d_white",
+    "label": "White 3D Glasses",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/3DGlasses",
+    "filename": ""
+  },
+  {
+    "name": "aviator_goggles_brown",
+    "label": "Aviator Goggles",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/goggles",
+    "filename": ""
+  },
+  {
+    "name": "goggles_black",
+    "label": "Black Goggles",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/goggles",
+    "filename": ""
+  },
+  {
+    "name": "goggles_white",
+    "label": "White Goggles",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/goggles",
+    "filename": ""
+  },
+  {
+    "name": "snorkel_blue",
+    "label": "Blue Snorkel",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes",
+    "filename": ""
+  },
+  {
+    "name": "sun_square",
+    "label": "Black Square Sunglasses",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/sunglasses",
+    "filename": ""
+  },
+  {
+    "name": "sun_orange",
+    "label": "Black Sunglasses With Orange Lens",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes/sunglasses",
+    "filename": ""
+  },
+  {
+    "name": "pirate_patch",
+    "label": "Pirate Patch",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/eyes",
+    "filename": ""
+  },
+  {
+    "name": "headphones_black",
+    "label": "Black Headphones",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/ears/headphones",
+    "filename": ""
+  },
+  {
+    "name": "headphones_white",
+    "label": "Discord Headphones",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/ears/headphones",
+    "filename": ""
+  },
+  {
+    "name": "ballcap_black",
+    "label": "Black Baseball Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
+    "name": "ballcap_blue",
+    "label": "Blue Baseball Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
+    "name": "ballcap_green",
+    "label": "Green Baseball Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
+    "name": "ballcap_pink",
+    "label": "Pink Baseball Cao",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
+    "name": "ballcap_red",
+    "label": "Red Ball Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
+    "name": "ballcap_yellow",
+    "label": "Yellow Baseball Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/baseballCap",
+    "filename": ""
+  },
+  {
+    "name": "box_hat_brown",
+    "label": "Brown Box Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/box",
+    "filename": ""
+  },
+  {
+    "name": "box_hat_purple",
+    "label": "Purple Box Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/box",
+    "filename": ""
+  },
+  {
+    "name": "bunny_blue",
+    "label": "Blue Bunny Ears",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/bunnyEars",
+    "filename": ""
+  },
+  {
+    "name": "bunny_pink",
+    "label": "Pink Bunny Ears",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/bunnyEars",
+    "filename": ""
+  },
+  {
+    "name": "bunny_white",
+    "label": "White Bunny Ears",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/bunnyEars",
+    "filename": ""
+  },
+  {
+    "name": "easteregg_a",
+    "label": "Easter Egg A",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/easterEgg",
+    "filename": ""
+  },
+  {
+    "name": "easteregg_b",
+    "label": "Easter Egg B",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/easterEgg",
+    "filename": ""
+  },
+  {
+    "name": "easteregg_c",
+    "label": "Easter Egg C",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/easterEgg",
+    "filename": ""
+  },
+  {
+    "name": "propeller",
+    "label": "Propeller Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/propellerCap",
+    "filename": ""
+  },
+  {
+    "name": "propeller_blue",
+    "label": "Blue Propeller Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/propellerCap",
+    "filename": ""
+  },
+  {
+    "name": "propeller_pink",
+    "label": "Pink Propeller Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/propellerCap",
+    "filename": ""
+  },
+  {
+    "name": "propeller_silver",
+    "label": "Silver Propeller Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/propellerCap",
+    "filename": ""
+  },
+  {
+    "name": "propeller_gold",
+    "label": "Gold Propeller Cap",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/propellerCap",
+    "filename": ""
+  },
+  {
+    "name": "toque_blue",
+    "label": "Blue Toque",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/toque",
+    "filename": ""
+  },
+  {
+    "name": "toque_pink",
+    "label": "Pink Toque",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/toque",
+    "filename": ""
+  },
+  {
+    "name": "toque_purple",
+    "label": "Purple Toque",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/toque",
+    "filename": ""
+  },
+  {
+    "name": "toque_white",
+    "label": "White Toque",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/toque",
+    "filename": ""
+  },
+  {
+    "name": "pot",
+    "label": "Pot Helm",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/pot",
+    "filename": ""
+  },
+  {
+    "name": "pot_black",
+    "label": "Black Pot",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head/pot",
+    "filename": ""
+  },
+  {
+    "name": "space_helmet_white",
+    "label": "White Space Helmet",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "bandana_red",
+    "label": "Red Bandana",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "fishing_green",
+    "label": "Green Fishing Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "paperhat",
+    "label": "Paper Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "party_green",
+    "label": "Party Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "pickle",
+    "label": "Pickle",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "pirate_hat",
+    "label": "Pirate Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "pirate_hat_blue",
+    "label": "Blue Pirate Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "pumpkin",
+    "label": "Pumpkin",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "sleeping",
+    "label": "Sleeping Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "sombrero_yellow",
+    "label": "Yellow Sombrero",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "tinfoil_hat",
+    "label": "Tinfoil Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "unclesam",
+    "label": "July 4th Hat",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "viking",
+    "label": "Viking Helmet",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/head",
+    "filename": ""
+  },
+  {
+    "name": "cone",
+    "label": "Critter Cone",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/neck",
+    "filename": ""
+  },
+  {
+    "name": "lei_red",
+    "label": "Red Hawaiian Lei",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/neck",
+    "filename": ""
+  },
+  {
+    "name": "scarf_black",
+    "label": "Black Scarf",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/neck",
+    "filename": ""
+  },
+  {
+    "name": "super_cape_red",
+    "label": "Super Red Cape",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/cape",
+    "filename": ""
+  },
+  {
+    "name": "guitar_blue",
+    "label": "Blue Guitar",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/hand/instruments",
+    "filename": ""
+  },
+  {
+    "name": "",
+    "label": "Ukulele",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/hand/instruments",
+    "filename": ""
+  },
+  {
+    "name": "grass_yellow",
+    "label": "Hawaiian Grass Skirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/belt",
+    "filename": ""
+  },
+  {
+    "name": "messenger_brown",
+    "label": "Messenger Bag",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/belt",
+    "filename": ""
+  },
+  {
+    "name": "float_yellow",
+    "label": "Yellow Duck Floatie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/belt",
+    "filename": ""
+  },
+  {
+    "name": "super_mask_black",
+    "label": "Super Black Mask",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/mask",
+    "filename": ""
+  },
+  {
+    "name": "hawaii_orange",
+    "label": "Orange Hawaiian Shirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_black",
+    "label": "Black Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_blue",
+    "label": "Blue Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_green",
+    "label": "Green Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_pink",
+    "label": "Pink Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_orange",
+    "label": "Orange Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_purple",
+    "label": "Purple Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "hoodie_white",
+    "label": "White Hoodie",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/hoodie",
+    "filename": ""
+  },
+  {
+    "name": "kit_yellow",
+    "label": "Yellow And Green Kit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "monk",
+    "label": "Monk Outfit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "overalls_orange",
+    "label": "Orange Construction Overalls",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "lifejacket_red",
+    "label": "Red Life Jacket",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "pirate_capt_black",
+    "label": "Pirate Captain Jacket",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "pirate_capt_red",
+    "label": "Pirate Captain Red",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "pirate_belt_blue",
+    "label": "Pirate Belt Blue",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "plaid_black",
+    "label": "Black Plaid Shirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/plaid",
+    "filename": ""
+  },
+  {
+    "name": "plaid_blue",
+    "label": "Blue Plaid Shirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/plaid",
+    "filename": ""
+  },
+  {
+    "name": "plaid_red",
+    "label": "Red Plaid Shirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/plaid",
+    "filename": ""
+  },
+  {
+    "name": "school_navy_a",
+    "label": "School Navy Uniform",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/navyUniform",
+    "filename": ""
+  },
+  {
+    "name": "school_navy_b",
+    "label": "School Navy Uniform",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/navyUniform",
+    "filename": ""
+  },
+  {
+    "name": "space_black",
+    "label": "Black Space Suit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/spaceSuit",
+    "filename": ""
+  },
+  {
+    "name": "space_blue",
+    "label": "Blue Space Suit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/spaceSuit",
+    "filename": ""
+  },
+  {
+    "name": "space_orange",
+    "label": "Orange Space Suit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/spaceSuit",
+    "filename": ""
+  },
+  {
+    "name": "space_red",
+    "label": "Red Space Suit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/spaceSuit",
+    "filename": ""
+  },
+  {
+    "name": "space_suit_white",
+    "label": "White Space Suit",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body",
+    "filename": ""
+  },
+  {
+    "name": "tshirt_black",
+    "label": "Black T-shirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/tshirt",
+    "filename": ""
+  },
+  {
+    "name": "tshirt_white",
+    "label": "White T-shirt",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/body/tshirt",
+    "filename": ""
+  },
+  {
+    "name": "space_pack_white",
+    "label": "White Spacepack",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/pack",
+    "filename": ""
+  },
+  {
+    "name": "backpack_green",
+    "label": "Green Backpack",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/pack",
+    "filename": ""
+  },
+  {
+    "name": "rocket_red",
+    "label": "Rocket",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/pack",
+    "filename": ""
+  },
+  {
+    "name": "school_pack_orange",
+    "label": "Orange Backpack",
+    "site": "boxcritters",
+    "type": "media",
+    "category": "icons/pack",
+    "filename": ""
+  },
 ]
