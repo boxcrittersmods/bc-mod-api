@@ -97,6 +97,5 @@
 	{"name": "bb_backpack","slot": "pack"},
 	{"name": "rocket_red","slot": "pack"},
 	{"name": "school_pack_orange","slot": "pack"},
-	{"name": "box_brown","slot": "ride"
-	}
+	{"name": "box_brown","slot": "ride"}
 ]
