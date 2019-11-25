@@ -1,0 +1,118 @@
+{
+    "head": [
+        "headband_blue",
+        "bb_ballcap",
+        "bb_huggable",
+        "party_hat",
+        "frank",
+        "witch",
+        "pumpkin",
+        "ballcap_red",
+        "tinfoil_hat",
+        "ballcap_yellow",
+        "propeller_silver",
+        "sombrero_yellow",
+        "pot_black",
+        "ballcap_pink",
+        "box_hat_purple",
+        "propeller_pink",
+        "bandana_red",
+        "propeller_gold",
+        "box_hat_brown",
+        "propeller_blue",
+        "fishing_green",
+        "pickle",
+        "toque_purple",
+        "pot",
+        "ballcap_black",
+        "ballcap_green",
+        "ballcap_blue",
+        "bunny_pink",
+        "bunny_white",
+        "bunny_blue",
+        "easteregg_c",
+        "easteregg_b",
+        "easteregg_a",
+        "party_green",
+        "toque_white",
+        "sleeping",
+        "paperhat",
+        "toque_pink",
+        "propeller",
+        "toque_blue",
+        "viking",
+        "unclesam"
+    ],
+    "hand": [
+        "bb_beebee",
+        "keytar_red",
+        "guitar_blue"
+    ],
+    "body": [
+        "ballerina_pink",
+        "bb_astoria",
+        "bb_will",
+        "bb_oliver",
+        "skeleton_body",
+        "ghost_white",
+        "school_navy_a",
+        "plaid_black",
+        "school_navy_b",
+        "overalls_orange",
+        "kit_yellow",
+        "hoodie_white",
+        "tshirt_black",
+        "lifejacket_red",
+        "hawaii_orange",
+        "hoodie_green",
+        "hoodie_black",
+        "space_blue",
+        "hoodie_pink",
+        "monk",
+        "pirate_capt_black",
+        "plaid_red",
+        "hoodie_blue",
+        "tshirt_white",
+        "space_red"
+    ],
+    "pack": [
+        "bb_backpack",
+        "rocket_red",
+        "school_pack_orange"
+    ],
+    "mask": [
+        "skeleton_head",
+        "super_mask_black",
+        "pirate_patch"
+    ],
+    "cape": [
+        "dracula_cloak",
+        "super_cape_red"
+    ],
+    "eyes": [
+        "sun_square",
+        "snorkel_blue",
+        "sun_orange",
+        "aviator_goggles_brown",
+        "goggles_black",
+        "3d_black",
+        "3d_white"
+    ],
+    "neck": [
+        "scarf_black",
+        "lei_red",
+        "cone"
+    ],
+    "belt": [
+        "messenger_brown",
+        "grass_yellow",
+        "float_yellow"
+    ],
+    "ride": [
+        "box_brown"
+    ],
+    "ears": [
+        "headphones_black",
+        "headphones_white"
+    ]
+}

@@ -5,6 +5,8 @@
         "media": {
             "cards": "/media/cards/",
             "critters": "/media/critters/",
+            "effects": "/media/effects/",
+            "symbols": "/media/symbols/",
             "icons": "/media/icons/",
             "items": "/media/items/",
             "rooms": "/media/rooms/",
@@ -21,7 +23,8 @@
         "js": {
             "public": "/public/",
             "game": "/pubic/game/",
-            "shared": "/shared/"
+            "shared": "/shared/",
+            "img": "/img/"
         }
     }
 ]
