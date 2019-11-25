@@ -96,7 +96,14 @@ async function GetItems() {
     return tp;
 }
 async function GetIcons() {
-    return [];
+    var icons = iconsJson;
+    var tp = icons.map(icon => ({
+        "name": `${icon.name}`,
+        "site": "boxcritters",
+        "type": "media",
+        "category": `icons/${icon.slot}`
+    }));
+    return tp;
 }
 async function GetMonsters() {
     return [];
@@ -121,15 +128,14 @@ async function GetTextureData() {
     textures.push(...critters);
     textures.push(...symbols);
     textures.push(...effects);
-    //textures.push(...items);
-    //textures.push(...icons);
+    textures.push(...items);
+    textures.push(...icons);
     //textures.push(...rooms);
     return textures;
 }
 
 
-//var t = {};world.player.inventory.forEach(i => {if (!t[i.slot]) t[i.slot] = [];t[i.slot].push(i.itemId);});console.log(t);t = undefined;
-
+//JSON.stringify(world.player.inventory.map(i => ({"name":i.itemId,"slot":i.slot}))
 module.exports = {
     GetTextureData
 }
