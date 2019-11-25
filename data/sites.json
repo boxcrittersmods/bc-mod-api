@@ -23,8 +23,7 @@
         "js": {
             "public": "/public/",
             "game": "/pubic/game/",
-            "shared": "/shared/",
-            "img": "/img/"
+            "shared": "/shared/"
         }
     }
 ]
