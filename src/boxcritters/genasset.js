@@ -42,7 +42,7 @@ async function GetCritters() {
         "name": `${critter}`,
         "site": "boxcritters",
         "type": "media",
-        "category": "critters"
+        "category": `${path.dirname(filename).split(path.sep).pop()}`
     }));
     return tp;
 

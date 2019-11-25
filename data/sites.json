@@ -5,6 +5,7 @@
         "media": {
             "cards": "/media/cards/",
             "critters": "/media/critters/",
+            "monsters": "/media/monsters/",
             "effects": "/media/effects/",
             "symbols": "/media/symbols/",
             "icons": "/media/icons/",
