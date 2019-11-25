@@ -121,9 +121,9 @@ async function GetTextureData() {
     textures.push(...critters);
     textures.push(...symbols);
     textures.push(...effects);
-    textures.push(...items);
-    textures.push(...icons);
-    textures.push(...rooms);
+    //textures.push(...items);
+    //textures.push(...icons);
+    //textures.push(...rooms);
     return textures;
 }
 
