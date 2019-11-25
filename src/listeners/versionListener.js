@@ -3,7 +3,7 @@ const github = require('#src/util/github');
 const WebhookManager = require('#src/util/webhook');
 
 var _sha = "";
-var whUrl = process.env.DISCORD_WEBHOOK
+var whUrl = process.env.DISCORD_WEBHOOK;
 var webhook = new WebhookManager("versions");
 webhook.AddListener(whUrl);
 

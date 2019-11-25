@@ -5,7 +5,11 @@ const octokit = new Octokit({
     auth: process.env.FEEDBACK_KEY
  });
  
-var DISABLE_GITHUB = false;
+var DISABLE_GITHUB = process.env.FEEDBACK_KEY != undefined;
+
+if(DISABLE_GITHUB) {
+    console.log("Github Disabled for testing")
+}
 
  octokit.request('/').catch(error => {
     if (error.request.request.retryCount) {

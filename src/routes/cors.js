@@ -97,7 +97,8 @@ router.use("/", async (req, res) => {
 	}
 	try {
 		const browser = await puppeteer.launch({
-			args: ["--no-sandbox", "--disable-setuid-sandbox"]
+			args: ["--no-sandbox", /*"--disable-setuid-sandbox"*/],
+			//ignoreDefaultArgs: ['--disable-extensions'],
 		});
 		const page = await browser.newPage();
 
@@ -121,7 +122,7 @@ router.use("/", async (req, res) => {
 		document = absolutify(document, `/cors/${getHostName(url)}`);
 
 		res.send(document);
-		request(url).pipe(res);
+		//request(url).pipe(res);
 	} catch (e) {
 		console.log(e);
 

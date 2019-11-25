@@ -2,6 +2,9 @@ const express = require("express");
 const serveIndex = require('serve-index');
 const adminLogin = require('bc-admin-login');
 
+//middleware
+const cors = require("cors");
+
 //routers
 const versions = require('./routes/versions');
 const feedback = require('./routes/feedback');
@@ -22,6 +25,20 @@ app.use(adminLogin);
  * Settings
  */
 app.set("json spaces", 2);
+/**
+ * Middleware
+ */
+
+//enable CORS
+router.use(cors());
+router.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+});
 /**
  * Routes
  */

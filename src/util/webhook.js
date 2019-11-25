@@ -11,6 +11,7 @@ class WebhookManager {
     }
 
     AddListener(url) {
+        if(!url) return
         this.listeners.push(new Webhook.Webhook(url));
     }
 
