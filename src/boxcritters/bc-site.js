@@ -56,6 +56,7 @@ async function GetItemsFolder() {
 }
 
 module.exports = {
+	GetManifests,
 	GetVersion,
 	GetItemsFolder
 };

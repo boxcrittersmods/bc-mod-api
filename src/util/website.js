@@ -17,6 +17,11 @@ Website.Connect = function(url) {
 	return website;
 };
 
+Website.prototype.getJson = async function () {
+	var json = JSON.parse(await this.body());
+	return json;
+}
+
 Website.prototype.getDocument = async function() {
 	var { window } = new JSDOM(await this.body());
 	var document = window.document;

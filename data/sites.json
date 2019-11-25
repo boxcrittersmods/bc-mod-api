@@ -17,6 +17,11 @@
         "website":"/play/"
     },
     {
+        "name":"boxcritters-base",
+        "url": "https://base.boxcritters.com/",
+        "media":"/"
+    },
+    {
         "name": "critterball",
         "url": "https://critterball.herokuapp.com",
         "media": "/img/",

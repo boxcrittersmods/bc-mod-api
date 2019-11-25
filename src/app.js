@@ -13,7 +13,8 @@ const desc = require('./routes/description');
 const items = require('./routes/items');
 
 //data
-const textureData = require('#data/texture-data.json');
+const textureData = require('./boxcritters/genasset');
+//const textureData = require('#data/texture-data.json');
 const sitesData = require('#data/sites.json');
 
 var app = express();
@@ -57,9 +58,10 @@ app.use('/feedback',feedback);
 /**
  * Paths
  */
-app.get('/texture-data',(req,res)=>{
+app.get('/texture-data', async (req,res)=>{
     res.type("application/json");
-    res.json(textureData);
+    var textures = await textureData.GetTextureData();
+    res.json(textures);
 });
 app.get('/sites',(req,res)=>{
     res.type("application/json");
