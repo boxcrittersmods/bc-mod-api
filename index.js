@@ -1,6 +1,6 @@
 require('module-alias/register')
 
-const webserver = require("webserver");
+const webserver = require("tn-webserver");
 const app = require('#src/app');
 
 webserver(app);
