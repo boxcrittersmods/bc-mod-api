@@ -7,6 +7,8 @@ var repo = "bc-mod-api";
 
 if (DISABLE_GITHUB) {
 	console.log("Github Disabled for testing");
+} else {
+
 }
 
 async function init() {
