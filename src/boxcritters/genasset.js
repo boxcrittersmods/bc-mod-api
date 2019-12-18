@@ -95,13 +95,29 @@ async function GetItems() {
     return tp;
 }
 async function GetIcons() {
-    var icons = iconsJson;
+    /*var icons = iconsJson;
     var tp = icons.map(icon => ({
         "name": `${icon.name}`,
         "site": "boxcritters",
         "type": "media",
         "category": `icons/${icon.slot}`
+    }));*/
+    var host = sitesJson.find(s => s.name == 'boxcritters').url;
+    var manifests = await BoxCritters.GetManifests();
+    var loc = manifests.find(m => m.id == 'items').src;
+    var url = host + loc;
+    var website = Website.Connect(url);
+    var itemsData = await website.getJson();
+    var icons = Object.keys(itemsData.items);
+    var tp = icons.map(icon => ({
+        "name": `${icon}`,
+        "site": "boxcritters",
+        "type": "media",
+        "category": `icons`
     }));
+
+
+
     return tp;
 }
 async function GetMonsters() {
