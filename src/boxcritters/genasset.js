@@ -37,13 +37,13 @@ async function GetCritters() {
     var loc = manifests.find(m => m.id == 'critters').src;
     var url = host + loc;
     var website = Website.Connect(url);
-    var critterInfo = await website.getJson();
-    var critters = Object.keys(critterInfo);
+    var BoxCritters = await website.getJson();
     var tp = critters.map(critter => ({
-        "name": `${critter}`,
+        "name": `${critter.critterId}`,
+        "label": `${critter.name}`,
         "site": "boxcritters",
         "type": "media",
-        "category": `${path.dirname(critterInfo[critter].images[0]).split(path.sep).pop()}`
+        "category": `critters/${critter.type}`
     }));
     return tp;
 

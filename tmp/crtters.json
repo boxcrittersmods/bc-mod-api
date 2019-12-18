@@ -1,0 +1,19 @@
+[
+    {
+        "critterId": "snail",
+        "name": "Snail",
+        "type": "mascot",
+        "images": [
+            "/media/critters/4ec809317ab850e27944a1fe448546a1/6eb9c68b/snail.png"
+        ],
+    },
+    {
+        "critterId": "hamster",
+        "name": "Hamster",
+        "type": "critter",
+        "images": [
+            "/media/critters/53cf2e7a069455bdadc51ff169defc8b/401e89cf/hamster.png"
+        ],
+    },
+    
+]
