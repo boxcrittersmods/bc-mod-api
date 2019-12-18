@@ -21,9 +21,7 @@ function GetClientScript() {
     };
     return tp;
 }
-/*
-
-  {
+/*{
     "name": "beaver",
     "label": "Beaver",
     "site": "boxcritters",
@@ -37,7 +35,7 @@ async function GetCritters() {
     var loc = manifests.find(m => m.id == 'critters').src;
     var url = host + loc;
     var website = Website.Connect(url);
-    var BoxCritters = await website.getJson();
+    var critters = await website.getJson();
     var tp = critters.map(critter => ({
         "name": `${critter.critterId}`,
         "label": `${critter.name}`,
@@ -51,7 +49,6 @@ async function GetCritters() {
 async function GetSymbols() {
     var host = sitesJson.find(s => s.name == 'boxcritters').url;
     var manifests = await BoxCritters.GetManifests();
-    console.log(manifests);
     var loc = manifests.find(m => m.id == 'symbols').src;
     var url = host + loc;
     var website = Website.Connect(url);
