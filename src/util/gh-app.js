@@ -2,6 +2,8 @@ const Octokit = require("@octokit/rest");
 const { App } = require("@octokit/app");
 const fetch = require("node-fetch");
 
+console.log("pk:",process.env.GH_APP_PK)
+
 if (process.env.GH_APP_PK != undefined) {
 	// Initialize GitHub App with id:private_key pair and generate JWT which is used for
 	// application level authorization
