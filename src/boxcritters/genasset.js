@@ -42,7 +42,7 @@ async function GetCritters() {
         "site": "boxcritters",
         "type": "media",
         "category": `critters/${critter.type}`,
-        "filename":`${itemsData.build}/${path.basename(item, path.extname(item))}.json`
+        "filename":`${critter.images[0].replace('/media/critters/','')}`
     }));
     return tp;
 
