@@ -41,7 +41,8 @@ async function GetCritters() {
         "label": `${critter.name}`,
         "site": "boxcritters",
         "type": "media",
-        "category": `critters/${critter.type}`
+        "category": `critters/${critter.type}`,
+        "filename":`${itemsData.build}/${path.basename(item, path.extname(item))}.json`
     }));
     return tp;
 
@@ -89,7 +90,7 @@ async function GetItems() {
         "site": "boxcritters",
         "type": "media",
         "category": "items",
-        "filename":`${itemsData.build}/${path.basename(item, path.extname(item))}.json`
+        "filename":`${itemsData.build}/${path.basename(item, path.extname(item))}.png`
     }));
     return tp;
 }
