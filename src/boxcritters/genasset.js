@@ -10,7 +10,7 @@ const iconsJson = require('#data/icons.json');
 
 
 function GetClientScript() {
-    var ver = bcVersions.GetLatest()||{name:'LOCAL',items:"LOCAL"};
+    var ver = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };
     var tp = {
         "name": "client-script",
         "label": "Client Script",
@@ -42,7 +42,7 @@ async function GetCritters() {
         "site": "boxcritters",
         "type": "media",
         "category": `critters/${critter.type}`,
-        "filename":`${critter.images[0].replace('/media/critters/','')}`
+        "filename": `${critter.images[0].replace('/media/critters/','')}`
     }));
     return tp;
 
@@ -90,7 +90,7 @@ async function GetItems() {
         "site": "boxcritters",
         "type": "media",
         "category": "items",
-        "filename":`${itemsData.build}/${path.basename(item, path.extname(item))}.png`
+        "filename": `${itemsData.build}/${path.basename(item, path.extname(item))}.png`
     }));
     return tp;
 }
@@ -138,7 +138,7 @@ async function GetTextureData() {
     //var monsters = await GetMonsters();
 
 
-    var textures = textureDataJson;
+    var textures = Object.assign([], textureDataJson);
     textures.push(clientscript);
     textures.push(...critters);
     textures.push(...symbols);
