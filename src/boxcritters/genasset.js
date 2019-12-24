@@ -140,7 +140,7 @@ async function GetIcons() {
 	return tp;
 }
 async function GetRooms() {
-	var rooms = roomsJson.reduce((rooms, room) => {
+	var tp = roomsJson.reduce((rooms, room) => {
 		rooms.push(...[
 			{
 				"name": `${camelize(room.name)}BG`,
@@ -170,8 +170,6 @@ async function GetRooms() {
 		return rooms;
 
 	},[]);
-
-	tp.push(...rooms);
 	return tp;
 	return [];
 }

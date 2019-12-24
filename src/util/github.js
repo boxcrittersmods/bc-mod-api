@@ -12,6 +12,7 @@ if (DISABLE_GITHUB) {
 }
 
 async function init() {
+	if (DISABLE_GITHUB) return;
 	octokit = await GniddomApp.getClient(await GniddomApp.getAccessToken(owner, repo));
 
 	octokit.request("/").catch(error => {
@@ -26,7 +27,6 @@ async function init() {
 
 
 async function sendFeedback(repo, text, summary) {
-	if (DISABLE_GITHUB) return;
 	var title = "Feedback Submission";
 	if (summary) {
 		title = summary + " - " + title;
