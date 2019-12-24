@@ -25,10 +25,10 @@ function dynamicSort(property) {
 }
 
 function camelize(str) {
-	return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-	  return index == 0 ? word.toLowerCase() : word.toUpperCase();
+	return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+		return index == 0 ? word.toLowerCase() : word.toUpperCase();
 	}).replace(/\s+/g, '');
-  }
+}
 
 function GetClientScript() {
 	var ver = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };
@@ -140,34 +140,36 @@ async function GetIcons() {
 	return tp;
 }
 async function GetRooms() {
-	var rooms = roomsJson.reduce((rooms,room) => {
-		rooms.push(...[{
-			"name": `${camelize(room.name)}BG`,
-			"label": `${room.name} Background`,
-			"site": `boxcritters-base`,
-			"type": `media`,
-			"category": `rooms/${camelize(room.name)}`,
-			"filename": room.background
-		},
-		{
-			"name": `${camelize(room.name)}FG`,
-			"label": `${room.name} Foreground`,
-			"site": `boxcritters-base`,
-			"type": `media`,
-			"category": `rooms/${camelize(room.name)}`,
-			"filename": room.foreground
-		},
-		{
-			"name": `${camelize(room.name)}Props`,
-			"label": `${room.name} Spritesheet`,
-			"site": `boxcritters-base`,
-			"type": `media`,
-			"category": `rooms/${camelize(room.name)}`,
-			"filename": room.spritesheet
-		}]);
+	var rooms = roomsJson.reduce((rooms, room) => {
+		rooms.push(...[
+			{
+				"name": `${camelize(room.name)}BG`,
+				"label": `${room.name} Background`,
+				"site": `boxcritters-base`,
+				"type": `media`,
+				"category": `rooms/${camelize(room.name)}`,
+				"filename": room.background
+			},
+			{
+				"name": `${camelize(room.name)}FG`,
+				"label": `${room.name} Foreground`,
+				"site": `boxcritters-base`,
+				"type": `media`,
+				"category": `rooms/${camelize(room.name)}`,
+				"filename": room.foreground
+			},
+			{
+				"name": `${camelize(room.name)}Props`,
+				"label": `${room.name} Spritesheet`,
+				"site": `boxcritters-base`,
+				"type": `media`,
+				"category": `rooms/${camelize(room.name)}`,
+				"filename": room.spritesheet
+			}
+		]);
 		return rooms;
 
-	});
+	},[]);
 
 	tp.push(...rooms);
 	return tp;
