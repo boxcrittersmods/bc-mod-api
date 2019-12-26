@@ -11,6 +11,7 @@ const feedback = require('./routes/feedback');
 const corsProxy = require('./routes/cors');
 const desc = require('./routes/description');
 const items = require('./routes/items');
+const manifests = require('./routes/manifests');
 
 //data
 const textureData = require('./boxcritters/genasset');
@@ -43,6 +44,7 @@ app.use(function(req, res, next) {
 /**
  * Routes
  */
+app.use('/manifests',manifests);
 app.use('/versions',versions);
 app.use('/items',items);
 app.use(
