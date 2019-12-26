@@ -22,19 +22,19 @@ function SaveToGithub() {
 var listeners = (() => {
     function NewClient(n, v) {
         webhook.Invoke("New Client Version", {
-            client: v.n,
-            itemsFolder: v.i
+            client: v.n//,
+            /*itemsFolder: v.i*/
         });
         SaveToGithub(v);
     }
 
-    function NewItems(i, v) {
+    /*function NewItems(i, v) {
         webhook.Invoke("New Items Folder", {
             client: v.n,
             itemsFolder: v.i
         });
         SaveToGithub();
-    }
+    }*/
     return {
         NewClient,
         NewItems
@@ -46,11 +46,11 @@ bcVersions.versionEvents.addEventListener(
     listeners,
     listeners.NewClient
 );
-bcVersions.versionEvents.addEventListener(
+/*bcVersions.versionEvents.addEventListener(
     "newItems",
     listeners,
     listeners.NewItems
-);
+);*/
 
 github.init().then(() => {
     Init().then(() => {
