@@ -37,7 +37,7 @@ var listeners = (() => {
     }*/
     return {
         NewClient,
-        NewItems
+        //NewItems
     };
 })();
 
