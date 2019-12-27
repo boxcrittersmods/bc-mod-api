@@ -58,7 +58,7 @@ async function GetManifestLoc() {
 		"name": `${m.id}Manifest`,
 		"site": "boxcritters",
 		"type": "manifests",
-		"filename": `${m.src}`
+		"filename": `${m.src.charAt(0)=='/'? m.src.substr(1):m.src}`
 	}));
 	return tp;
 } 
