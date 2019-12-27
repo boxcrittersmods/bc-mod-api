@@ -15,7 +15,8 @@
             "ux": "/media/ux/"
         },
         "js": "/lib/",
-        "website":"/play/"
+		"website":"/play/",
+		"manifests":"/"
     },
     {
         "name":"boxcritters-base",

@@ -24,6 +24,14 @@ function dynamicSort(property) {
 	}
 }
 
+function idToLabel(id) {
+	var frags = id.split('_');
+	for (i=0; i<frags.length; i++) {
+	  frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+	}
+	return frags.join(' ');
+}
+
 function camelize(str) {
 	return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
 		return index == 0 ? word.toLowerCase() : word.toUpperCase();
@@ -42,6 +50,19 @@ function GetClientScript() {
 	};
 	return tp;
 }
+
+async function GetManifestLoc() {
+	var host = sitesJson.find(s => s.name == 'boxcritters').url;
+	var manifests = await BoxCritters.GetManifests();
+	var tp = manifests.map(m=>({
+		"name": `${m.id}Manifest`,
+		"site": "boxcritters",
+		"type": "manifest",
+		"filename": `${m.src}`
+	}));
+	return tp;
+} 
+
 /*{
     "name": "beaver",
     "label": "Beaver",
@@ -132,6 +153,7 @@ async function GetIcons() {
 	var icons = Object.keys(itemsData.items);
 	var tp = icons.map(icon => ({
 		"name": `${icon}`,
+		"label": `${idToLabel(icon)}`,
 		"site": "boxcritters",
 		"type": "media",
 		"category": `icons`
@@ -188,6 +210,8 @@ async function GetCritterBall() {
 async function GetTextureData() {
 	var clientscript = GetClientScript();
 
+	var manifests = await GetManifestLoc();
+
 	var critters = await GetCritters();
 	critters = critters.sort(dynamicSort('name'));
 	critters = critters.sort(dynamicSort('category'));
@@ -202,6 +226,7 @@ async function GetTextureData() {
 
 	var textures = Object.assign([], textureDataJson);
 	textures.push(clientscript);
+	textures.push(...manifests);
 	textures.push(...critters);
 	textures.push(...symbols);
 	textures.push(...effects);
