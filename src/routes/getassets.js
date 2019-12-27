@@ -43,11 +43,13 @@ router.get('/', async (req, res) => {
 	
 	res.attachment('boxcritters.zip');
 	zip.pipe(res);
+	console.log(urls);
+	
 
 	for (var i=0; i < urls.length; i++) {
 		let url = urls[i];
 		let path = paths[i];
-		console.log({i,url,path})
+		//console.log({i,url,path})
 		/*if(!url.includes('.png')) continue;
 		try {
 			imageDataURI.encodeFromURL(url).then(data => {

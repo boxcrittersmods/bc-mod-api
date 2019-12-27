@@ -57,7 +57,7 @@ async function GetManifestLoc() {
 	var tp = manifests.map(m=>({
 		"name": `${m.id}Manifest`,
 		"site": "boxcritters",
-		"type": "manifest",
+		"type": "manifests",
 		"filename": `${m.src}`
 	}));
 	return tp;
