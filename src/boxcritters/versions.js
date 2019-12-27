@@ -30,7 +30,7 @@ function GetVersions() {
 }
 
 function CreateVersion(name,items) {
-    return { date: GetDate(), name, items };
+    return { date: GetDate(), name/*, items */};
 }
 
 function GetLatest() {
@@ -51,7 +51,7 @@ async function CheckForNewVersion() {
     if(l != undefined){
         if(l.name == n /*&& l.items == i*/) return;
     }
-	var v = CreateVersion(n, i);
+	var v = CreateVersion(n);
     versions.push(v);
     if (l != undefined) {
         var newClient = l.name != n;

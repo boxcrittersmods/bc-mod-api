@@ -12,6 +12,7 @@ const corsProxy = require('./routes/cors');
 const desc = require('./routes/description');
 const items = require('./routes/items');
 const manifests = require('./routes/manifests');
+const getassets = require('./routes/getassets')
 
 //data
 const textureData = require('./boxcritters/genasset');
@@ -56,6 +57,7 @@ app.use('/cors',corsProxy);
 
 app.use('/description',desc);
 app.use('/feedback',feedback);
+app.use('/getassets',getassets);
 
 /**
  * Paths
