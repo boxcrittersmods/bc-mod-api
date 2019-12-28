@@ -14,28 +14,8 @@ function getHostName(url) {
 	return hostname;
 }
 
-/**
- * Middleware
- */
-
-//enable CORS
-router.use(cors());
-router.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept"
-	);
-	next();
-});
-
 router.use("/", (req, res, next) => {
-	res.type("html");
-	next();
-});
-
-router.use("/file", (req, res, next) => {
-	res.type("text/plain");
+	res.header("Access-Control-Allow-Origin", process.env.ORIGIN || "*");
 	next();
 });
 
@@ -71,20 +51,8 @@ router.use("/file", async (req, res) => {
 		res.send("No URL provided");
 		return;
 	}
-	var reqfile = () =>
-		new Promise((resolve, reject) => {
-			request(url, (err, res, body) => {
-				if (err) {
-					console.log(error);
-					reject(error);
-					return;
-				}
-				resolve(body);
-			});
-		});
 
-	var filecont = await reqfile();
-	res.send(filecont);
+	request(url).pipe(res)
 });
 
 // /cors/(url)
@@ -116,9 +84,7 @@ router.use("/", async (req, res) => {
 		});
 
 		await page.goto(`${url}`);
-		var document = await page.evaluate(
-			() => document.documentElement.outerHTML
-		);
+		var document = await page.evaluate(() => document.documentElement.outerHTML);
 		document = absolutify(document, `/cors/${getHostName(url)}`);
 
 		res.send(document);
