@@ -15,7 +15,7 @@ function getHostName(url) {
 }
 
 router.use("/", (req, res, next) => {
-	res.header("Access-Control-Allow-Origin", process.env.ORIGIN || "*");
+	res.header("Access-Control-Allow-Origin", "*");
 	next();
 });
 
@@ -51,7 +51,6 @@ router.use("/file", async (req, res) => {
 		res.send("No URL provided");
 		return;
 	}
-
 	request(url).pipe(res)
 });
 
