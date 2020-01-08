@@ -3,7 +3,7 @@
         "name": "boxcritters",
         "url": "https://boxcritters.com",
         "media": {
-            "cards": "/media/cards/oomm",
+            "cards": "/media/cards/oomm/",
             "critters": "/media/critters/",
             "monsters": "/media/monsters/",
             "effects": "/media/effects/",
