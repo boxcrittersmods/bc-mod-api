@@ -58,6 +58,7 @@ async function GetManifestLoc() {
 		"name": `${m.id}Manifest`,
 		"site": "boxcritters",
 		"type": "manifests",
+		"hidden": true,
 		"filename": `${m.src.charAt(0)=='/'? m.src.substr(1):m.src}`
 	}));
 	return tp;
@@ -165,27 +166,27 @@ async function GetRooms() {
 	var tp = roomsJson.reduce((rooms, room) => {
 		rooms.push(...[
 			{
-				"name": `${camelize(room.name)}BG`,
+				"name": `${room.id}BG`,
 				"label": `${room.name} Background`,
 				"site": `boxcritters-base`,
 				"type": `media`,
-				"category": `rooms/${camelize(room.name)}`,
+				"category": `rooms/${room.id}`,
 				"filename": room.background
 			},
 			{
-				"name": `${camelize(room.name)}FG`,
+				"name": `${room.id}FG`,
 				"label": `${room.name} Foreground`,
 				"site": `boxcritters-base`,
 				"type": `media`,
-				"category": `rooms/${camelize(room.name)}`,
+				"category": `rooms/${room.id}`,
 				"filename": room.foreground
 			},
 			{
-				"name": `${camelize(room.name)}Props`,
+				"name": `${room.id}Props`,
 				"label": `${room.name} Spritesheet`,
 				"site": `boxcritters-base`,
 				"type": `media`,
-				"category": `rooms/${camelize(room.name)}`,
+				"category": `rooms/${room.id}`,
 				"filename": room.spritesheet
 			}
 		]);
