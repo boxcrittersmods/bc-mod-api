@@ -26,8 +26,8 @@ function dynamicSort(property) {
 
 function idToLabel(id) {
 	var frags = id.split('_');
-	for (i=0; i<frags.length; i++) {
-	  frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+	for (i = 0; i < frags.length; i++) {
+		frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
 	}
 	return frags.join(' ');
 }
@@ -54,15 +54,15 @@ function GetClientScript() {
 async function GetManifestLoc() {
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var tp = manifests.map(m=>({
+	var tp = manifests.map(m => ({
 		"name": `${m.id}Manifest`,
 		"site": "boxcritters",
 		"type": "manifests",
 		"hidden": true,
-		"filename": `${m.src.charAt(0)=='/'? m.src.substr(1):m.src}`
+		"filename": `${m.src.charAt(0) == '/' ? m.src.substr(1) : m.src}`
 	}));
 	return tp;
-} 
+}
 
 /*{
     "name": "beaver",
@@ -181,20 +181,22 @@ async function GetRooms() {
 				"category": `rooms/${room.id}`,
 				"filename": room.foreground
 			},
-			{
-				"name": `${room.id}Props`,
-				"label": `${room.name} Spritesheet`,
-				"site": `boxcritters-base`,
-				"type": `media`,
-				"category": `rooms/${room.id}`,
-				"filename": room.spritesheet
-			}
+			...room.spritesheet.map((s,i) => (
+				{
+					"name": `${room.id}Props${room.spritesheet.length==1?"":i}`,
+					"label": `${room.name} Spritesheet${room.spritesheet.length==1?"":" "+i}`,
+					"site": `boxcritters-base`,
+					"type": `media`,
+					"category": `rooms/${room.id}`,
+					"filename": s
+				}
+			))
 		]);
-		return rooms;
+	return rooms;
 
-	},[]);
-	return tp;
-	return [];
+}, []);
+return tp;
+return [];
 }
 
 async function GetCritterBall() {
@@ -240,55 +242,55 @@ async function GetTextureData() {
 
 function getTextureURL(texture) {
 	var versionInfo = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };;
-    var site = sitesJson.find(s=>s.name==texture.site);
-    if(!site) return;
-    var catList = texture.category ? texture.category.split("/"):[""];
-    var subType = catList[0];
-    var dirset =  site[texture.type];
-    var filename = texture.filename || texture.name + ".png";
-    filename = filename.replace("{CLIENTVER}",versionInfo.name);
-    filename = filename.replace("{ITEMVER}",versionInfo.items);
-    var dir = "";
-    if(typeof dirset == "object" && subType) {
-        dir = dirset[subType];
-    } else {
-        dir = dirset;
-    }
-    var textureurl = site.url + dir + filename;
-    //console.debug(texture.name + " => " + textureurl);
-    return textureurl;
+	var site = sitesJson.find(s => s.name == texture.site);
+	if (!site) return;
+	var catList = texture.category ? texture.category.split("/") : [""];
+	var subType = catList[0];
+	var dirset = site[texture.type];
+	var filename = texture.filename || texture.name + ".png";
+	filename = filename.replace("{CLIENTVER}", versionInfo.name);
+	filename = filename.replace("{ITEMVER}", versionInfo.items);
+	var dir = "";
+	if (typeof dirset == "object" && subType) {
+		dir = dirset[subType];
+	} else {
+		dir = dirset;
+	}
+	var textureurl = site.url + dir + filename;
+	//console.debug(texture.name + " => " + textureurl);
+	return textureurl;
 }
 
 function getTexturePath(texture) {
 	var versionInfo = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };;
-    var site = sitesJson.find(s=>s.name==texture.site);
-    if(!site) return;
-    var catList = texture.category ? texture.category.split("/"):[""];
-    var subType = catList[0];
-    var dirset =  site[texture.type];
-    var filename = texture.filename || texture.name + ".png";
-    filename = filename.replace("{CLIENTVER}",versionInfo.name);
-    filename = filename.replace("{ITEMVER}",versionInfo.items);
-    var dir = "";
-    if(typeof dirset == "object" && subType) {
-        dir = dirset[subType];
-    } else {
-        dir = dirset;
-    }
-    var textureurl = dir + filename;
-    //console.debug(texture.name + " => " + textureurl);
-    return textureurl;
+	var site = sitesJson.find(s => s.name == texture.site);
+	if (!site) return;
+	var catList = texture.category ? texture.category.split("/") : [""];
+	var subType = catList[0];
+	var dirset = site[texture.type];
+	var filename = texture.filename || texture.name + ".png";
+	filename = filename.replace("{CLIENTVER}", versionInfo.name);
+	filename = filename.replace("{ITEMVER}", versionInfo.items);
+	var dir = "";
+	if (typeof dirset == "object" && subType) {
+		dir = dirset[subType];
+	} else {
+		dir = dirset;
+	}
+	var textureurl = dir + filename;
+	//console.debug(texture.name + " => " + textureurl);
+	return textureurl;
 }
 
 async function GetTextureList() {
 	return (await GetTextureData())
-	.filter(tp=>!["name","author","date","packVersion","description"].includes(tp.name))
-	.map(getTextureURL)
+		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
+		.map(getTextureURL)
 }
 async function GetPathList() {
 	return (await GetTextureData())
-	.filter(tp=>!["name","author","date","packVersion","description"].includes(tp.name))
-	.map(getTexturePath)
+		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
+		.map(getTexturePath)
 }
 
 
