@@ -46,7 +46,7 @@ function GetClientScript() {
 		"hidden": true,
 		"site": "boxcritters",
 		"type": "js",
-		"filename": `client${ver.name}.js`
+		"filename": `client${ver.name}.min.js`
 	};
 	return tp;
 }
