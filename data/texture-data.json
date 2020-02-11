@@ -4,7 +4,6 @@
 	{"name": "date",    "label": "Date","hidden": true,"category": "info"},
 	{"name": "packVersion","hidden": true,"category": "info"},
 	{"name": "description","label": "Description","category": "info"},
-	{"name": "client-script","hidden": true,"site": "boxcritters","type": "js","filename": "client{CLIENTVER}.js"},
 	{"name": "index","hidden": true,"label": "Index.html","site": "boxcritters","type": "website","filename": "index.html"},
 	{"name": "ux","label": "User Interface","site": "boxcritters","type": "media","category": "ux"},
 	{"name": "edit_btn","label": "Edit Button","site": "boxcritters","type": "media","category": "ui"},
