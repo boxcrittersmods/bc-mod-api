@@ -1,7 +1,7 @@
 const express = require("express");
 const textureData = require('../boxcritters/genasset');
 const request = require("request");
-const stream = require('stream');
+var CombinedStream = require('combined-stream');
 
 var router = express.Router();
 
@@ -26,10 +26,17 @@ router.use("/", async (req, res) => {
 		var clientScriptInfo = textureData.GetClientScript();
 		var clientScriptURL = textureData.getTextureURL(clientScriptInfo);
 		console.log("clientURL:", clientScriptURL);
-		var toSend = new stream.PassThrough();
 
-		request(clientScriptURL).pipe(toSend,{end:false});
-		request(url).pipe(toSend,{end:false});
+
+		var toSend = CombinedStream.create();
+
+		/*var clientStream = request(clientScriptURL);
+		var modStream = request(url);*/
+
+		/*clientStream.pipe(toSend,{end:false});
+		modStream.pipe(toSend,{end:false});*/
+		toSend.append(request(clientScriptURL));
+		toSend.append(request(url));
 		toSend.pipe(res);
 	} catch (e) {
 		console.log(e);
