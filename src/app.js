@@ -13,6 +13,7 @@ const desc = require('./routes/description');
 const items = require('./routes/items');
 const manifests = require('./routes/manifests');
 const getassets = require('./routes/getassets')
+const mod = require('./routes/mod');
 
 //data
 const textureData = require('./boxcritters/genasset');
@@ -54,6 +55,7 @@ app.use(
 	serveIndex("public", { icons: true })
 );
 app.use('/cors',corsProxy);
+app.use('/mod',mod);
 
 app.use('/description',desc);
 app.use('/feedback',feedback);

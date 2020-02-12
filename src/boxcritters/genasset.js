@@ -299,7 +299,16 @@ async function GetPathList() {
 
 //JSON.stringify(world.player.inventory.map(i => ({"name":i.itemId,"slot":i.slot}))
 module.exports = {
+	GetClientScript,
+	GetManifestLoc,
+	GetCritters,
+	GetSymbols,
+	GetItems,
+	GetIcons,
+	GetCritterBall,
 	GetTextureData,
+	getTextureURL,
 	GetTextureList,
-	GetPathList
+	GetPathList,
+
 }
