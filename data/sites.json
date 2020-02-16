@@ -16,7 +16,8 @@
         },
         "js": "/lib/",
 		"website":"/play/",
-		"manifests":"/"
+		"manifests":"/",
+		"misc":"/"
     },
     {
         "name":"boxcritters-base",

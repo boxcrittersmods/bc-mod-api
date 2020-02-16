@@ -5,6 +5,7 @@
 	{"name": "packVersion","hidden": true,"category": "info"},
 	{"name": "description","label": "Description","category": "info"},
 	{"name": "index","hidden": true,"label": "Index.html","site": "boxcritters","type": "website","filename": "index.html"},
+	{"name": "favicon","label": "Favicon","type": "misc","filename":"favicon-32x32.png"},
 	{"name": "ux","label": "User Interface","site": "boxcritters","type": "media","category": "ux"},
 	{"name": "edit_btn","label": "Edit Button","site": "boxcritters","type": "media","category": "ui"},
 	{"name": "coins_background","label": "Coins Counter","site": "boxcritters","type": "media","category": "ui"},
