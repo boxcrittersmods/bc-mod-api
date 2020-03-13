@@ -199,6 +199,69 @@ return tp;
 return [];
 }
 
+/*
+{
+	"RoomId": "",
+	"Name": "",
+	"Background" "",
+	"Foreground": "",
+	"SpriteSheet": {
+		"images":"",
+		"framerate":"",
+		"frames":[[...]],
+		"animations":{},
+		"texturepacker": []
+	},
+	"Layout": {
+		"Background": [...],
+		"Foreground": [...],
+		"Playground": [...]
+	},
+	"Triggers": []
+}
+*/
+async function GetRoomsNew() {
+	var host = sitesJson.find(s=>s.name=='boxcritters').url;
+	var manifests = await BoxCritters.GetManifests();
+	var loc = manifests.find(m=>m.id=='rooms').src;
+	var url = host + loc;
+	var website = Website.Connect(url);
+	var rooms = await website.getJson();
+	var tp = rooms.reduce((rooms, room) => {
+		rooms.push(...[
+			{
+				"name": `${room.RoomId}BG`,
+				"label": `${room.Name} Background`,
+				"site": `boxcritters`,
+				"type": `media`,
+				"category": `rooms/${room.RoomId}`,
+				"filename": room.Background
+			},
+			{
+				"name": `${room.RoomId}FG`,
+				"label": `${room.Name} Foreground`,
+				"site": `boxcritters`,
+				"type": `media`,
+				"category": `rooms/${room.RoomId}`,
+				"filename": room.Foreground
+			},
+			...room.SpriteSheet.images.map((s,i) => (
+				{
+					"name": `${room.RoomId}Props${room.SpriteSheet.images.length==1?"":i}`,
+					"label": `${room.Name} Spritesheet${room.SpriteSheet.images.length==1?"":" "+i}`,
+					"site": `boxcritters`,
+					"type": `media`,
+					"category": `rooms/${room.RoomId}`,
+					"filename": s
+				}
+			))
+		]);
+		return rooms;
+	
+	}, []);
+	return tp;
+}
+
 async function GetCritterBall() {
 	var tp = critterballJson.map(t => ({
 		"name": t.name,
@@ -223,7 +286,7 @@ async function GetTextureData() {
 	var effects = await GetEffects();
 	var items = await GetItems();
 	var icons = await GetIcons();
-	var rooms = await GetRooms();
+	var rooms = await GetRoomsNew();
 	var critterball = await GetCritterBall();
 
 
