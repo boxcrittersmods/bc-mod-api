@@ -64,6 +64,11 @@ app.use('/getassets',getassets);
 /**
  * Paths
  */
+app.get('/textures', async (req,res)=>{
+    res.type("application/json");
+    var textures = await textureData.GetTextureList();
+    res.json(textures);
+});
 app.get('/texture-data', async (req,res)=>{
     res.type("application/json");
     var textures = await textureData.GetTextureData();

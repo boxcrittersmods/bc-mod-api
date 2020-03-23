@@ -46,9 +46,7 @@ async function GetManifests() {
 		.replace(/\s+/gm," ")
 		.replace(/(?<=[{,] )\w+/gms,"'$&'")
 		.replace(/'/g,'"');
-		console.log(manRaw)
 		manifests = JSON.parse(manRaw);
-		console.log(manifests);
 		
 		bcCache.set("manifests", manifests);
 	}

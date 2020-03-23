@@ -15,8 +15,7 @@ router.get('/', async (req, res) => {
 	var zip = archiver('zip', {
 		zlib: { level: 9 } // Sets the compression level.
 	});
-	var urls = await textureData.GetTextureList();
-	var paths = await textureData.GetPathList();
+	var urls = Object.values(await textureData.GetTextureList());
 	if(urls.length !== paths.length) res.status(500).send({error: "Array size missmatch between paths and urls"});
 
 	// good practice to catch warnings (ie stat failures and other non-blocking errors)

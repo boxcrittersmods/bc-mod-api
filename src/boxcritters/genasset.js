@@ -54,12 +54,12 @@ function GetClientScript() {
 async function GetManifestLoc() {
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var tp = manifests.map(m => ({
-		"name": `${m.id}Manifest`,
+	var tp = Object.keys(manifests).map(m => ({
+		"name": `${m}Manifest`,
 		"site": "boxcritters",
 		"type": "manifests",
 		"hidden": true,
-		"filename": `${m.src.charAt(0) == '/' ? m.src.substr(1) : m.src}`
+		"filename": `${manifests[m].charAt(0) == '/' ? manifests[m].substr(1) : manifests[m]}`
 	}));
 	return tp;
 }
@@ -75,7 +75,7 @@ async function GetManifestLoc() {
 async function GetCritters() {
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests.find(m => m.id == 'critters').src;
+	var loc = manifests['critters'];
 	var url = host + loc;
 	var website = Website.Connect(url);
 	var critters = await website.getJson();
@@ -93,7 +93,7 @@ async function GetCritters() {
 async function GetSymbols() {
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests.find(m => m.id == 'symbols').src;
+	var loc = manifests['symbols'];
 	var url = host + loc;
 	var website = Website.Connect(url);
 	var symbols = (await website.getJson()).images;
@@ -108,7 +108,7 @@ async function GetSymbols() {
 async function GetEffects() {
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests.find(m => m.id == 'effects').src;
+	var loc = manifests['effects'];
 	var url = host + loc;
 	var website = Website.Connect(url);
 	var effects = (await website.getJson()).images;
@@ -123,7 +123,7 @@ async function GetEffects() {
 async function GetItems() {
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests.find(m => m.id == 'items').src;
+	var loc = manifests['items'];
 	var url = host + loc;
 	var website = Website.Connect(url);
 	var itemsData = await website.getJson();
@@ -147,7 +147,7 @@ async function GetIcons() {
     }));*/
 	var host = sitesJson.find(s => s.name == 'boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests.find(m => m.id == 'items').src;
+	var loc = manifests['items'];
 	var url = host + loc;
 	var website = Website.Connect(url);
 	var itemsData = await website.getJson();
@@ -161,42 +161,6 @@ async function GetIcons() {
 	}));
 
 	return tp;
-}
-async function GetRooms() {
-	var tp = roomsJson.reduce((rooms, room) => {
-		rooms.push(...[
-			{
-				"name": `${room.id}BG`,
-				"label": `${room.name} Background`,
-				"site": `boxcritters-base`,
-				"type": `media`,
-				"category": `rooms/${room.id}`,
-				"filename": room.background
-			},
-			{
-				"name": `${room.id}FG`,
-				"label": `${room.name} Foreground`,
-				"site": `boxcritters-base`,
-				"type": `media`,
-				"category": `rooms/${room.id}`,
-				"filename": room.foreground
-			},
-			...room.spritesheet.map((s,i) => (
-				{
-					"name": `${room.id}Props${room.spritesheet.length==1?"":i}`,
-					"label": `${room.name} Spritesheet${room.spritesheet.length==1?"":" "+i}`,
-					"site": `boxcritters-base`,
-					"type": `media`,
-					"category": `rooms/${room.id}`,
-					"filename": s
-				}
-			))
-		]);
-	return rooms;
-
-}, []);
-return tp;
-return [];
 }
 
 /*
@@ -220,40 +184,59 @@ return [];
 	"Triggers": []
 }
 */
-async function GetRoomsNew() {
+async function GetRooms() {
 	var host = sitesJson.find(s=>s.name=='boxcritters').url;
 	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests.find(m=>m.id=='rooms').src;
+	var loc = manifests['rooms'];
 	var url = host + loc;
 	var website = Website.Connect(url);
 	var rooms = await website.getJson();
 	var tp = rooms.reduce((rooms, room) => {
+		
+
+		function removeSlash(u) {
+			return u.charAt(0) == '/' ? u.substr(1) : u
+		}
 		
 		rooms.push(...[
 			{
 				"name": `${room.RoomId}BG`,
 				"label": `${room.Name} Background`,
 				"site": `boxcritters`,
+				"type": "media",
 				"category": `rooms/${room.RoomId}`,
-				"filename": room.Background
+				"filename": removeSlash(room.Background)
 			},
 			{
 				"name": `${room.RoomId}FG`,
 				"label": `${room.Name} Foreground`,
 				"site": `boxcritters`,
+				"type": "media",
 				"category": `rooms/${room.RoomId}`,
-				"filename": room.Foreground
+				"filename": removeSlash(room.Foreground)
 			},
 			...room.SpriteSheet.images.map((s,i) => (
 				{
 					"name": `${room.RoomId}Props${room.SpriteSheet.images.length==1?"":i}`,
 					"label": `${room.Name} Spritesheet${room.SpriteSheet.images.length==1?"":" "+i}`,
 					"site": `boxcritters`,
+					"type": "media",
 					"category": `rooms/${room.RoomId}`,
-					"filename": s
+					"filename": removeSlash(s)
 				}
 			))
 		]);
+		if(room.Map) {
+			rooms.push(
+				{
+					"name": `${room.RoomId}Map`,
+					"label": `${room.Name} Map`,
+					"site": `boxcritters`,
+					"type": "media",
+					"category": `rooms/${room.RoomId}`,
+					"filename": removeSlash(room.Map)
+				});
+		}
 		return rooms;
 	
 	}, []);
@@ -280,11 +263,11 @@ async function GetTextureData() {
 	critters = critters.sort(dynamicSort('name'));
 	critters = critters.sort(dynamicSort('category'));
 
-	var symbols = await GetSymbols();
+	//var symbols = await GetSymbols();
 	var effects = await GetEffects();
 	var items = await GetItems();
 	var icons = await GetIcons();
-	var rooms = await GetRoomsNew();
+	var rooms = await GetRooms();
 	var critterball = await GetCritterBall();
 
 
@@ -292,7 +275,7 @@ async function GetTextureData() {
 	textures.push(clientscript);
 	textures.push(...manifests);
 	textures.push(...critters);
-	textures.push(...symbols);
+	//textures.push(...symbols);
 	textures.push(...effects);
 	textures.push(...items);
 	textures.push(...icons);
@@ -346,12 +329,10 @@ function getTexturePath(texture) {
 async function GetTextureList() {
 	return (await GetTextureData())
 		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
-		.map(getTextureURL)
-}
-async function GetPathList() {
-	return (await GetTextureData())
-		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
-		.map(getTexturePath)
+		.reduce((textures,texture)=>{
+			textures[texture.name] = getTextureURL(texture)
+			return textures
+		},{})
 }
 
 
@@ -370,6 +351,4 @@ module.exports = {
 	GetTextureData,
 	getTextureURL,
 	GetTextureList,
-	GetPathList,
-
 }
