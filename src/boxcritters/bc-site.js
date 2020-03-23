@@ -22,17 +22,34 @@ async function GetVersion() {
 	return version;
 }
 
+function getStringBetweenStrings(a,b) {
+	function escapeRegExp(string) {
+		return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+	  }
+	a=escapeRegExp(a);
+	b=escapeRegExp(b);
+	var r = `/(?<=${a})(.*)(?=${b})/ms`;
+	return eval(r);
+
+}
+
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		var scriptfilter = "queue.loadManifest";
-		// retrive lines betweeen "queue.loadManifest("
-		//                    and "]);"
-		var manifestRegex = /(?<=queue.loadManifest\()(.*)(?=\]\)\;)/gms;
+		var manstart = "var world = new World('stage', {";
+		var manend = "});";
+		var manifestRegex = getStringBetweenStrings(manstart,manend)
 		var scripts = await bcWebsite.getScripts();
-
-		var script = scripts.filter(s => s.text.includes(scriptfilter))[0];
-		manifests = eval(script.text.match(manifestRegex)[0] + "]");
+		var script = scripts.filter(s => s.text.includes(manstart))[0];
+		
+		var manRaw = ("{"+script.text.match(manifestRegex)[0].split(manend)[0]+"}")
+		.replace(/\s+/gm," ")
+		.replace(/(?<=[{,] )\w+/gms,"'$&'")
+		.replace(/'/g,'"');
+		console.log(manRaw)
+		manifests = JSON.parse(manRaw);
+		console.log(manifests);
+		
 		bcCache.set("manifests", manifests);
 	}
 	return manifests;
@@ -48,7 +65,7 @@ async function GetItemsFolder() {
 		var suf = "/items.json";
 		var manifests = await GetManifests();
 
-		var itemsjson = manifests.filter(m => m.id == "items")[0].src;
+		var itemsjson = manifests["items"];
 		itemsfolder = itemsjson.replace(pre, "").replace(suf, "");
 		bcCache.set("itemsfolder", itemsfolder);
 	}

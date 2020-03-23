@@ -228,12 +228,12 @@ async function GetRoomsNew() {
 	var website = Website.Connect(url);
 	var rooms = await website.getJson();
 	var tp = rooms.reduce((rooms, room) => {
+		
 		rooms.push(...[
 			{
 				"name": `${room.RoomId}BG`,
 				"label": `${room.Name} Background`,
 				"site": `boxcritters`,
-				"type": `media`,
 				"category": `rooms/${room.RoomId}`,
 				"filename": room.Background
 			},
@@ -241,7 +241,6 @@ async function GetRoomsNew() {
 				"name": `${room.RoomId}FG`,
 				"label": `${room.Name} Foreground`,
 				"site": `boxcritters`,
-				"type": `media`,
 				"category": `rooms/${room.RoomId}`,
 				"filename": room.Foreground
 			},
@@ -250,7 +249,6 @@ async function GetRoomsNew() {
 					"name": `${room.RoomId}Props${room.SpriteSheet.images.length==1?"":i}`,
 					"label": `${room.Name} Spritesheet${room.SpriteSheet.images.length==1?"":" "+i}`,
 					"site": `boxcritters`,
-					"type": `media`,
 					"category": `rooms/${room.RoomId}`,
 					"filename": s
 				}
