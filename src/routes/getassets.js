@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
 		zlib: { level: 9 } // Sets the compression level.
 	});
 	var urls = Object.values(await textureData.GetTextureList());
-	if(urls.length !== paths.length) res.status(500).send({error: "Array size missmatch between paths and urls"});
 
 	// good practice to catch warnings (ie stat failures and other non-blocking errors)
 	zip.on('warning', function (err) {
@@ -47,19 +46,6 @@ router.get('/', async (req, res) => {
 
 	for (var i=0; i < urls.length; i++) {
 		let url = urls[i];
-		let path = paths[i];
-		//console.log({i,url,path})
-		/*if(!url.includes('.png')) continue;
-		try {
-			imageDataURI.encodeFromURL(url).then(data => {
-				zip.file(path, data, { base64: true })
-			});
-		} catch (e) {
-			console.log(e);
-
-			res.send("Error: " + e);
-			return;
-		}*/
 
 		zip.append(request(url),{name:url})
 	}
