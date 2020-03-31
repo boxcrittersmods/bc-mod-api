@@ -305,27 +305,6 @@ function getTextureURL(texture) {
 	return textureurl;
 }
 
-function getTexturePath(texture) {
-	var versionInfo = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };;
-	var site = sitesJson.find(s => s.name == texture.site);
-	if (!site) return;
-	var catList = texture.category ? texture.category.split("/") : [""];
-	var subType = catList[0];
-	var dirset = site[texture.type];
-	var filename = texture.filename || texture.name + ".png";
-	filename = filename.replace("{CLIENTVER}", versionInfo.name);
-	filename = filename.replace("{ITEMVER}", versionInfo.items);
-	var dir = "";
-	if (typeof dirset == "object" && subType) {
-		dir = dirset[subType];
-	} else {
-		dir = dirset;
-	}
-	var textureurl = dir + filename;
-	//console.debug(texture.name + " => " + textureurl);
-	return textureurl;
-}
-
 async function GetTextureList() {
 	return (await GetTextureData())
 		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
@@ -335,11 +314,6 @@ async function GetTextureList() {
 		},{})
 }
 
-
-//GetTextureList().then(console.log);
-
-
-//JSON.stringify(world.player.inventory.map(i => ({"name":i.itemId,"slot":i.slot}))
 module.exports = {
 	GetClientScript,
 	GetManifestLoc,
