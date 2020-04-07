@@ -11,7 +11,8 @@
             "icons": "/media/icons/",
             "items": "/media/items/",
             "ui": "/media/ui/",
-            "ux": "/media/ux/"
+            "ux": "/media/ux/",
+            "rooms": "/"
         },
         "js": "/lib/",
 		"website":"/play/",
