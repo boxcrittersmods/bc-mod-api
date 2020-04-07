@@ -7,7 +7,6 @@ const path = require('path');
 const textureDataJson = require('#data/texture-data.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
-const roomsJson = require('#data/rooms.json')
 
 function dynamicSort(property) {
 	var sortOrder = 1;
