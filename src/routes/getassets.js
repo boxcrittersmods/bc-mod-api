@@ -15,7 +15,13 @@ router.get('/', async (req, res) => {
 	var zip = archiver('zip', {
 		zlib: { level: 9 } // Sets the compression level.
 	});
-	var urls = Object.values(await textureData.GetTextureList());
+	var urlInfo = await textureData.GetTextureList();
+	delete urlInfo.name;
+	delete urlInfo.author;
+	delete urlInfo.date;
+	delete urlInfo.description;
+	delete urlInfo.packVersion;
+	var urls = Object.values(urlInfo);
 
 	// good practice to catch warnings (ie stat failures and other non-blocking errors)
 	zip.on('warning', function (err) {

@@ -7,6 +7,7 @@ const path = require('path');
 const textureDataJson = require('#data/texture-data.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
+const defaultTexturePack = require('#data/boxcritters.bctp.json');
 
 function dynamicSort(property) {
 	var sortOrder = 1;
@@ -37,280 +38,180 @@ function camelize(str) {
 	}).replace(/\s+/g, '');
 }
 
-function GetClientScript() {
-	var ver = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };
-	var tp = {
-		"name": "client-script",
-		"label": "Client Script",
-		"hidden": true,
-		"site": "boxcritters",
-		"type": "js",
-		"filename": `client${ver.name}.min.js`
-	};
+function explode(obj) {
+	return Object.keys(obj).reduce((pieces,key)=>{
+		var value = obj[key];
+		if(Array.isArray(value)) return Object.assign(pieces,value.reduce((arrObj,item,i)=>{
+			var suffix = value.length>1?i:"";
+			arrObj[key + suffix] = item;
+			return arrObj;
+		},{}))
+		if(typeof value == "object") return Object.assign(pieces,explode(value));
+		pieces[key] = value;
+		return pieces
+	},{});
+}
+
+async function GetClientScript() {
+	var siteUrl = getSiteUrl();
+	var tp = await BoxCritters.GetClientScriptURL()
+	tp = tp.replace("..",siteUrl);
 	return tp;
+}
+
+function urlIsRoot(url) {
+	return url.startsWith("http://") || url.startsWith("https://");
+}
+
+function getSiteUrl(site = 'boxcritters') {
+	return sitesJson.find(s => s.name == site).url;
+}
+
+
+async function getAssetInfo(type, site = 'boxcritters') {
+	var host = getSiteUrl(site);
+	var manifests = await BoxCritters.GetManifests();
+	var loc = manifests[type];
+	var url = host + loc;
+	var website = Website.Connect(url);
+	var assetInfo = await website.getJson();
+
+	return assetInfo;
 }
 
 async function GetManifestLoc() {
-	var host = sitesJson.find(s => s.name == 'boxcritters').url;
+	var siteUrl = getSiteUrl();
 	var manifests = await BoxCritters.GetManifests();
-	var tp = Object.keys(manifests).map(m => ({
-		"name": `${m}Manifest`,
-		"site": "boxcritters",
-		"type": "manifests",
-		"hidden": true,
-		"filename": `${manifests[m].charAt(0) == '/' ? manifests[m].substr(1) : manifests[m]}`
-	}));
+	var tp = Object.keys(manifests).reduce((tp, m) => {
+		tp[m + "_manifest"] = siteUrl + manifests[m];
+		return tp;
+	}, {});
 	return tp;
 }
 
-/*{
-    "name": "beaver",
-    "label": "Beaver",
-    "site": "boxcritters",
-    "type": "media",
-    "category": "critters",
-  },
-*/
 async function GetCritters() {
-	var host = sitesJson.find(s => s.name == 'boxcritters').url;
-	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests['critters'];
-	var url = host + loc;
-	var website = Website.Connect(url);
-	var critters = await website.getJson();
-	var tp = critters.map(critter => ({
-		"name": `${critter.critterId}`,
-		"label": `${critter.name}`,
-		"site": "boxcritters",
-		"type": "media",
-		"category": `critters/${critter.type}`,
-		"filename": `${critter.images[0].replace('/media/critters/', '')}`
-	}));
+	var siteUrl = getSiteUrl();
+	var critters = await getAssetInfo('critters');
+	var tp = critters.reduce((tp, critter) => {
+		if (urlIsRoot(critter.images[0])) {
+			tp[critter.critterId] = critter.images[0];
+		} else {
+			tp[critter.critterId] = siteUrl + critter.images[0];
+		}
+		return tp;
+	}, {});
 	return tp;
-
 }
 async function GetSymbols() {
-	var host = sitesJson.find(s => s.name == 'boxcritters').url;
-	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests['symbols'];
-	var url = host + loc;
-	var website = Website.Connect(url);
-	var symbols = (await website.getJson()).images;
-	var tp = symbols.map(symbol => ({
-		"name": `${path.basename(symbol, path.extname(symbol))}`,
-		"site": "boxcritters",
-		"type": "media",
-		"category": "symbols"
-	}));
+	var siteUrl = getSiteUrl();
+	var symbols = await getAssetInfo('symbols');
+	var tp = symbols.reduce((tp, symbol) => {
+		if (urlIsRoot(critter.images[0])) {
+			tp[path.basename(symbol, path.extname(symbol))] = critter.images[0];
+		} else {
+			tp[path.basename(symbol, path.extname(symbol))] = siteUrl + critter.images[0];
+		}
+		return tp
+	}, {})
 	return tp;
 }
 async function GetEffects() {
-	var host = sitesJson.find(s => s.name == 'boxcritters').url;
-	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests['effects'];
-	var url = host + loc;
-	var website = Website.Connect(url);
-	var effects = (await website.getJson()).images;
-	var tp = effects.map(effect => ({
-		"name": `${path.basename(effect, path.extname(effect))}`,
-		"site": "boxcritters",
-		"type": "media",
-		"category": "effects"
-	}));
+	var siteUrl = getSiteUrl();
+	var effects = await getAssetInfo('effects');
+	var tp = effects.images.reduce((tp, effect) => {
+		var key = path.basename(effect, path.extname(effect));
+		if (urlIsRoot(effect)) {
+			tp[key] = effect;
+		} else {
+			tp[key] = siteUrl + effect;
+		}
+		return tp;
+	}, {});
 	return tp;
 }
 async function GetItems() {
-	var host = sitesJson.find(s => s.name == 'boxcritters').url;
-	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests['items'];
-	var url = host + loc;
-	var website = Website.Connect(url);
-	var itemsData = await website.getJson();
+	var siteUrl = getSiteUrl();
+	var itemsData = await getAssetInfo('items');
 	var items = itemsData.images;
-	var tp = items.map(item => ({
-		"name": `${path.basename(item, path.extname(item))}`,
-		"site": "boxcritters",
-		"type": "media",
-		"category": "items",
-		"filename": `${itemsData.build}/${path.basename(item, path.extname(item))}.png`
-	}));
+	var tp = items.reduce((tp,item) => {
+		var id = path.basename(item, path.extname(item));
+		console.log(id);
+		tp[id]=siteUrl+item;
+		return tp;
+	},{});
 	return tp;
 }
 async function GetIcons() {
-    /*var icons = iconsJson;
-    var tp = icons.map(icon => ({
-        "name": `${icon.name}`,
-        "site": "boxcritters",
-        "type": "media",
-        "category": `icons/${icon.slot}`
-    }));*/
-	var host = sitesJson.find(s => s.name == 'boxcritters').url;
-	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests['items'];
-	var url = host + loc;
-	var website = Website.Connect(url);
-	var itemsData = await website.getJson();
+	var siteUrl = getSiteUrl();
+	var itemsData = await getAssetInfo('items');
 	var icons = Object.keys(itemsData.items);
-	var tp = icons.map(icon => ({
-		"name": `${icon}`,
-		"label": `${idToLabel(icon)}`,
-		"site": "boxcritters",
-		"type": "media",
-		"category": `icons`
-	}));
-
+	var tp = icons.reduce((tp,icon) => {
+		tp[icon] = siteUrl + "/media/icons/" + icon + ".png";
+		return tp;
+	},{});
 	return tp;
 }
 
-/*
-{
-	"RoomId": "",
-	"Name": "",
-	"Background" "",
-	"Foreground": "",
-	"SpriteSheet": {
-		"images":"",
-		"framerate":"",
-		"frames":[[...]],
-		"animations":{},
-		"texturepacker": []
-	},
-	"Layout": {
-		"Background": [...],
-		"Foreground": [...],
-		"Playground": [...]
-	},
-	"Triggers": []
-}
-*/
 async function GetRooms() {
-	var host = sitesJson.find(s=>s.name=='boxcritters').url;
-	var manifests = await BoxCritters.GetManifests();
-	var loc = manifests['rooms'];
-	var url = host + loc;
-	var website = Website.Connect(url);
-	var rooms = await website.getJson();
-	var tp = rooms.reduce((rooms, room) => {
-		
+	var siteUrl = getSiteUrl();
+	var rooms = await getAssetInfo('rooms');
+	var tp = rooms.reduce((tp, roomData) => {
+		function fillURL(url) {
+			if (urlIsRoot(url)) {
+				return url;
+			} else {
+				return siteUrl + url;
+			}
+		}
+		console.log("Room: " +roomData.RoomId)
+		var room = {
+			[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
+			[roomData.RoomId + "_bg"]: fillURL(roomData.Background),
+			[roomData.RoomId + "_fg"]: fillURL(roomData.Foreground),
+			[roomData.RoomId + "_nm"]: fillURL(roomData.NavMesh),
+			[roomData.RoomId + "_map"]: fillURL(roomData.Map),
+			[roomData.RoomId + "_sprites"]: roomData.Sprites.images
+		}
+		tp[roomData.RoomId] = room;
+		return tp;
 
-		function removeSlash(u) {
-			return u.charAt(0) == '/' ? u.substr(1) : u
-		}
-		
-		rooms.push(...[
-			{
-				"name": `${room.RoomId}BG`,
-				"label": `${room.Name} Background`,
-				"site": `boxcritters`,
-				"type": "media",
-				"category": `rooms/${room.RoomId}`,
-				"filename": removeSlash(room.Background)
-			},
-			{
-				"name": `${room.RoomId}FG`,
-				"label": `${room.Name} Foreground`,
-				"site": `boxcritters`,
-				"type": "media",
-				"category": `rooms/${room.RoomId}`,
-				"filename": removeSlash(room.Foreground)
-			},
-			...room.SpriteSheet.images.map((s,i) => (
-				{
-					"name": `${room.RoomId}Props${room.SpriteSheet.images.length==1?"":i}`,
-					"label": `${room.Name} Spritesheet${room.SpriteSheet.images.length==1?"":" "+i}`,
-					"site": `boxcritters`,
-					"type": "media",
-					"category": `rooms/${room.RoomId}`,
-					"filename": removeSlash(s)
-				}
-			))
-		]);
-		if(room.Map) {
-			rooms.push(
-				{
-					"name": `${room.RoomId}Map`,
-					"label": `${room.Name} Map`,
-					"site": `boxcritters`,
-					"type": "media",
-					"category": `rooms/${room.RoomId}`,
-					"filename": removeSlash(room.Map)
-				});
-		}
-		return rooms;
-	
-	}, []);
+	}, {});
 	return tp;
 }
 
 async function GetCritterBall() {
-	var tp = critterballJson.map(t => ({
-		"name": t.name,
-		"label": t.label,
-		"site": "critterball",
-		"type": t.type,
-		"category": t.category
-	}));
+	var tp = critterballJson;
 	return tp;
 }
 
 async function GetTextureData() {
-	var clientscript = GetClientScript();
-
-	var manifests = await GetManifestLoc();
-
-	var critters = await GetCritters();
-	critters = critters.sort(dynamicSort('name'));
-	critters = critters.sort(dynamicSort('category'));
-
 	//var symbols = await GetSymbols();
-	var effects = await GetEffects();
-	var items = await GetItems();
-	var icons = await GetIcons();
-	var rooms = await GetRooms();
-	var critterball = await GetCritterBall();
 
-
-	var textures = Object.assign([], textureDataJson);
-	textures.push(clientscript);
-	textures.push(...manifests);
-	textures.push(...critters);
-	//textures.push(...symbols);
-	textures.push(...effects);
-	textures.push(...items);
-	textures.push(...icons);
-	textures.push(...rooms);
-	textures.push(...critterball);
-	return textures;
-}
-
-function getTextureURL(texture) {
-	var versionInfo = bcVersions.GetLatest() || { name: 'LOCAL', items: "LOCAL" };;
-	var site = sitesJson.find(s => s.name == texture.site);
-	if (!site) return;
-	var catList = texture.category ? texture.category.split("/") : [""];
-	var subType = catList[0];
-	var dirset = site[texture.type];
-	var filename = texture.filename || texture.name + ".png";
-	filename = filename.replace("{CLIENTVER}", versionInfo.name);
-	filename = filename.replace("{ITEMVER}", versionInfo.items);
-	var dir = "";
-	if (typeof dirset == "object" && subType) {
-		dir = dirset[subType];
-	} else {
-		dir = dirset;
+	var tp = {
+		clientscript: await GetClientScript(),
+		manifests: await GetManifestLoc(),
+		critters: await GetCritters(),
+		effects: await GetEffects(),
+		items: await GetItems(),
+		icons: await GetIcons(),
+		rooms: await GetRooms(),
+		critterball: await GetCritterBall()
 	}
-	var textureurl = site.url + dir + filename;
-	//console.debug(texture.name + " => " + textureurl);
-	return textureurl;
+	return tp;
 }
 
 async function GetTextureList() {
-	return (await GetTextureData())
+	/*return (await GetTextureData())
 		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
-		.reduce((textures,texture)=>{
+		.reduce((textures, texture) => {
 			textures[texture.name] = getTextureURL(texture)
 			return textures
-		},{})
+		}, {});*/
+	var things = Object.assign(defaultTexturePack,await GetTextureData())
+
+	var tp = explode(things);
+	tp.packVersion = (await BoxCritters.GetVersion())+"";
+	return tp;
 }
 
 module.exports = {
@@ -322,6 +223,5 @@ module.exports = {
 	GetIcons,
 	GetCritterBall,
 	GetTextureData,
-	getTextureURL,
 	GetTextureList,
 }

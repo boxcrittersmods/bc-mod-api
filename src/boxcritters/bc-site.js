@@ -7,6 +7,14 @@ const Cache = require("#src/util/cache");
 var bcWebsite = Website.Connect("https://boxcritters.com/play/index.html");
 var bcCache = new Cache();
 
+async function GetClientScriptURL() {
+	var pre = "../lib/client";
+	var scripts = await bcWebsite.getScripts();
+	var script = scripts.find(s => s.src.startsWith(pre));
+	return script.src;
+
+}
+
 async function GetVersion() {
 	var version = bcCache.get("version");
 	if (version == undefined) {
@@ -74,5 +82,6 @@ async function GetItemsFolder() {
 module.exports = {
 	GetManifests,
 	GetVersion,
+	GetClientScriptURL
 	//GetItemsFolder
 };
