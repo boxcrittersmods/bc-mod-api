@@ -61,6 +61,14 @@ app.use((req,res,next)=>{
         ttl--;
         next();
     }
+});
+
+app.use((req,res,next)=>{
+	try {
+	next();
+	} catch (error) {
+		res.send(error);
+	}
 })
 
 //routers
