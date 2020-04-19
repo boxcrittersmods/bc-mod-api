@@ -38,6 +38,7 @@ function camelize(str) {
 	}).replace(/\s+/g, '');
 }
 
+
 function explode(obj) {
 	return Object.keys(obj).reduce((pieces,key)=>{
 		var value = obj[key];
@@ -67,6 +68,15 @@ function getSiteUrl(site = 'boxcritters') {
 	return sitesJson.find(s => s.name == site).url;
 }
 
+function fillURL(url) {
+	if(!url) return "";
+	if (urlIsRoot(url)) {
+		return url;
+	} else {
+		return siteUrl + url;
+	}
+}
+
 
 async function getAssetInfo(type, site = 'boxcritters') {
 	var host = getSiteUrl(site);
@@ -83,7 +93,7 @@ async function GetManifestLoc() {
 	var siteUrl = getSiteUrl();
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduce((tp, m) => {
-		tp[m + "_manifest"] = siteUrl + manifests[m];
+		tp[m + "_manifest"] = fillURL(manifests[m]);
 		return tp;
 	}, {});
 	return tp;
@@ -93,11 +103,7 @@ async function GetCritters() {
 	var siteUrl = getSiteUrl();
 	var critters = await getAssetInfo('critters');
 	var tp = critters.reduce((tp, critter) => {
-		if (urlIsRoot(critter.images[0])) {
-			tp[critter.critterId] = critter.images[0];
-		} else {
-			tp[critter.critterId] = siteUrl + critter.images[0];
-		}
+		tp[critter.critterId] = fillURL(critter.images[0]);
 		return tp;
 	}, {});
 	return tp;
@@ -106,11 +112,7 @@ async function GetSymbols() {
 	var siteUrl = getSiteUrl();
 	var symbols = await getAssetInfo('symbols');
 	var tp = symbols.reduce((tp, symbol) => {
-		if (urlIsRoot(critter.images[0])) {
-			tp[path.basename(symbol, path.extname(symbol))] = critter.images[0];
-		} else {
-			tp[path.basename(symbol, path.extname(symbol))] = siteUrl + critter.images[0];
-		}
+		tp[path.basename(symbol, path.extname(symbol))] = fillURL(critter.images[0]);
 		return tp
 	}, {})
 	return tp;
@@ -156,16 +158,10 @@ async function GetRooms() {
 	var siteUrl = getSiteUrl();
 	var rooms = await getAssetInfo('rooms');
 	var tp = rooms.reduce((tp, roomData) => {
-		function fillURL(url) {
-			if (urlIsRoot(url)) {
-				return url;
-			} else {
-				return siteUrl + url;
-			}
-		}
-		console.log("Room: " +roomData.RoomId)
+		
+		console.log("Room: " +roomData.RoomId);
 		var room = {
-			[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
+			//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
 			[roomData.RoomId + "_bg"]: fillURL(roomData.Background),
 			[roomData.RoomId + "_fg"]: fillURL(roomData.Foreground),
 			[roomData.RoomId + "_nm"]: fillURL(roomData.NavMesh),
