@@ -130,23 +130,21 @@ async function GetEffects() {
 	return tp;
 }
 async function GetItems() {
-	var siteUrl = getSiteUrl();
 	var itemsData = await getAssetInfo('items');
 	var items = itemsData.images;
 	var tp = items.reduce((tp,item) => {
 		var id = path.basename(item, path.extname(item));
 		console.log(id);
-		tp[id]=siteUrl+item;
+		tp[id]=fiillURL(item);
 		return tp;
 	},{});
 	return tp;
 }
 async function GetIcons() {
-	var siteUrl = getSiteUrl();
 	var itemsData = await getAssetInfo('items');
 	var icons = Object.keys(itemsData.items);
 	var tp = icons.reduce((tp,icon) => {
-		tp[icon] = siteUrl + "/media/icons/" + icon + ".png";
+		tp[icon] = fillURL("/media/icons/" + icon + ".png");
 		return tp;
 	},{});
 	return tp;
