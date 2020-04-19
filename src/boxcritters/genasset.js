@@ -9,6 +9,8 @@ const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
 const defaultTexturePack = require('#data/boxcritters.bctp.json');
 
+var SITE_URL= getSiteUrl();
+
 function dynamicSort(property) {
 	var sortOrder = 1;
 	if (property[0] === "-") {
@@ -37,7 +39,6 @@ function camelize(str) {
 		return index == 0 ? word.toLowerCase() : word.toUpperCase();
 	}).replace(/\s+/g, '');
 }
-
 
 function explode(obj) {
 	return Object.keys(obj).reduce((pieces,key)=>{
@@ -73,10 +74,9 @@ function fillURL(url) {
 	if (urlIsRoot(url)) {
 		return url;
 	} else {
-		return siteUrl + url;
+		return SITE_URL + url;
 	}
 }
-
 
 async function getAssetInfo(type, site = 'boxcritters') {
 	var host = getSiteUrl(site);
@@ -90,7 +90,6 @@ async function getAssetInfo(type, site = 'boxcritters') {
 }
 
 async function GetManifestLoc() {
-	var siteUrl = getSiteUrl();
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduce((tp, m) => {
 		tp[m + "_manifest"] = fillURL(manifests[m]);
@@ -100,7 +99,6 @@ async function GetManifestLoc() {
 }
 
 async function GetCritters() {
-	var siteUrl = getSiteUrl();
 	var critters = await getAssetInfo('critters');
 	var tp = critters.reduce((tp, critter) => {
 		tp[critter.critterId] = fillURL(critter.images[0]);
@@ -109,7 +107,6 @@ async function GetCritters() {
 	return tp;
 }
 async function GetSymbols() {
-	var siteUrl = getSiteUrl();
 	var symbols = await getAssetInfo('symbols');
 	var tp = symbols.reduce((tp, symbol) => {
 		tp[path.basename(symbol, path.extname(symbol))] = fillURL(critter.images[0]);
@@ -155,7 +152,6 @@ async function GetIcons() {
 }
 
 async function GetRooms() {
-	var siteUrl = getSiteUrl();
 	var rooms = await getAssetInfo('rooms');
 	var tp = rooms.reduce((tp, roomData) => {
 		
@@ -197,14 +193,7 @@ async function GetTextureData() {
 }
 
 async function GetTextureList() {
-	/*return (await GetTextureData())
-		.filter(tp => !["name", "author", "date", "packVersion", "description"].includes(tp.name))
-		.reduce((textures, texture) => {
-			textures[texture.name] = getTextureURL(texture)
-			return textures
-		}, {});*/
-	var things = Object.assign(defaultTexturePack,await GetTextureData())
-
+	var things = Object.assign(defaultTexturePack,await GetTextureData());
 	var tp = explode(things);
 	tp.packVersion = (await BoxCritters.GetVersion())+"";
 	return tp;
