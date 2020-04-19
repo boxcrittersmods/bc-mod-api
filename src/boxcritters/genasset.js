@@ -5,6 +5,7 @@ const path = require('path');
 
 //data
 const textureDataJson = require('#data/texture-data.json');
+const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
 const defaultTexturePack = require('#data/boxcritters.bctp.json');
@@ -181,6 +182,7 @@ async function GetTextureData() {
 
 	var tp = {
 		clientscript: await GetClientScript(),
+		misc: textureMisc,
 		manifests: await GetManifestLoc(),
 		critters: await GetCritters(),
 		effects: await GetEffects(),
