@@ -83,7 +83,7 @@ function getSiteUrl(site = 'boxcritters') {
 async function fillURL(url,type) {
 	if(!url) return "";
 	//var paths = await BoxCritters.GetPaths();
-	var base = paths[type+'Path']||SITE_URL;
+	var base = SITE_URL;
 	if (urlIsRoot(url)) {
 		return url;
 	} else {
