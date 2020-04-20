@@ -163,7 +163,8 @@ async function GetRooms() {
 	var tp = rooms.reduceAsync(async (tp, roomData) => {
 		
 		console.log("Room: " +roomData.RoomId);
-		roomData.ServerMap = "map_server.png"
+		roomData.ServerMap = "/map_server.png"
+		roomData.ServerMap = roomData.Background.replace("background","server_map");
 		var room = {
 			//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
 			[roomData.RoomId + "_bg"]: roomData.Background ? await fillURL(roomData.Background,'rooms') : "",

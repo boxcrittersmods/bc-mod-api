@@ -53,6 +53,7 @@ router.get('/', async (req, res) => {
 	for (var i=0; i < urls.length; i++) {
 		let url = urls[i];
 
+		console.log(url);
 		zip.append(request(url),{name:url})
 	}
 	zip.finalize();
