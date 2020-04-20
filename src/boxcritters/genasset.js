@@ -163,12 +163,14 @@ async function GetRooms() {
 	var tp = rooms.reduceAsync(async (tp, roomData) => {
 		
 		console.log("Room: " +roomData.RoomId);
+		roomData.ServerMap = "map_server.png"
 		var room = {
 			//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
 			[roomData.RoomId + "_bg"]: roomData.Background ? await fillURL(roomData.Path + "/" + roomData.Background,'rooms') : "",
 			[roomData.RoomId + "_fg"]: roomData.Foreground ? await fillURL(roomData.Path + "/" + roomData.Foreground,'rooms') : "",
 			[roomData.RoomId + "_nm"]: roomData.NavMesh ? await fillURL(roomData.Path + "/" + roomData.NavMesh,'rooms') : "",
 			[roomData.RoomId + "_map"]: roomData.Map ? await fillURL(roomData.Path + "/" + roomData.Map,'rooms') : "",
+			[roomData.RoomId + "_server_map"]: roomData.ServerMap ? await fillURL(roomData.Path + "/" + roomData.ServerMap,'rooms') : "",
 			[roomData.RoomId + "_sprites"]: await Promise.all(roomData.Sprites.images.map(async (url)=>(await fillURL(roomData.Path + "/" + url,'rooms')))),
 		}
 		tp[roomData.RoomId] = room;
