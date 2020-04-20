@@ -51,7 +51,7 @@ String.prototype.replaceAll = function (from,to) {
 	return this.split(from).join(to)
 }
 
-async function GetPaths() {
+/*async function GetPaths() {
 	var paths = bcCache.get("paths");
 	if (paths == undefined) {
 		var pathstart = 'if (location.hostname === "boxcritters.com") {';
@@ -72,7 +72,7 @@ async function GetPaths() {
 	}
 	return paths;
 
-}
+}*/
 
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
@@ -114,7 +114,7 @@ async function GetItemsFolder() {
 
 module.exports = {
 	GetManifests,
-	GetPaths,
+	//GetPaths,
 	GetVersion,
 	GetClientScriptURL
 	//GetItemsFolder
