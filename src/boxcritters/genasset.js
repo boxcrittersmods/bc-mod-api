@@ -135,7 +135,7 @@ async function GetItems() {
 	var tp = items.reduce((tp,item) => {
 		var id = path.basename(item, path.extname(item));
 		console.log(id);
-		tp[id]=fiillURL(item);
+		tp[id]=fillURL(item);
 		return tp;
 	},{});
 	return tp;
@@ -161,7 +161,7 @@ async function GetRooms() {
 			[roomData.RoomId + "_fg"]: fillURL(roomData.Foreground),
 			[roomData.RoomId + "_nm"]: fillURL(roomData.NavMesh),
 			[roomData.RoomId + "_map"]: fillURL(roomData.Map),
-			[roomData.RoomId + "_sprites"]: roomData.Sprites.images
+			[roomData.RoomId + "_sprites"]: roomData.Sprites.images.map(url=>fillURL(url))
 		}
 		tp[roomData.RoomId] = room;
 		return tp;
