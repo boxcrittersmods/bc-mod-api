@@ -41,6 +41,39 @@ function getStringBetweenStrings(a,b) {
 
 }
 
+String.prototype.log = function (pre) {
+	console.log(pre,this);
+	return this;
+}
+
+
+String.prototype.replaceAll = function (from,to) {
+	return this.split(from).join(to)
+}
+
+async function GetPaths() {
+	var paths = bcCache.get("paths");
+	if (paths == undefined) {
+		var pathstart = 'if (location.hostname === "boxcritters.com") {';
+		var pathend = "} else {";
+		var pathRegex = getStringBetweenStrings(pathstart,pathend)
+		var scripts = await bcWebsite.getScripts();
+		var script = scripts.filter(s => s.text.includes(pathstart))[0];
+		
+		var pathsRaw = ("{"+script.text.match(pathRegex)[0].split(pathend)[0]+"}")//.log(1)
+		.replaceAll("=",":").split(";");
+		pathsRaw = (pathsRaw.slice(0,-1).join(',') + '' + pathsRaw.slice(-1))
+		.replace(/\s+/gm," ")//.log("3")
+		.replace(/(?<=[{,] )\w+/gms,"'$&'")//.log("4")
+		.replace(/'/g,'"')//.log("5")
+		paths= JSON.parse(pathsRaw);
+		
+		bcCache.set("paths", paths);
+	}
+	return paths;
+
+}
+
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
@@ -81,6 +114,7 @@ async function GetItemsFolder() {
 
 module.exports = {
 	GetManifests,
+	GetPaths,
 	GetVersion,
 	GetClientScriptURL
 	//GetItemsFolder

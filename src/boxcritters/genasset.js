@@ -12,6 +12,16 @@ const defaultTexturePack = require('#data/boxcritters.bctp.json');
 
 var SITE_URL= getSiteUrl();
 
+Object.defineProperty(Array.prototype, 'reduceAsync', {
+    value:  async function(action,def) {
+	var output = def;
+	for(var i in this) {
+		output = await action(output,this[i],i);
+	}
+	return output;
+}
+});
+
 function dynamicSort(property) {
 	var sortOrder = 1;
 	if (property[0] === "-") {
@@ -70,12 +80,14 @@ function getSiteUrl(site = 'boxcritters') {
 	return sitesJson.find(s => s.name == site).url;
 }
 
-function fillURL(url) {
+async function fillURL(url,type) {
 	if(!url) return "";
+	var paths = await BoxCritters.GetPaths();
+	var base = paths[type+'Path']||SITE_URL;
 	if (urlIsRoot(url)) {
 		return url;
 	} else {
-		return SITE_URL + url;
+		return base + url;
 	}
 }
 
@@ -92,8 +104,8 @@ async function getAssetInfo(type, site = 'boxcritters') {
 
 async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
-	var tp = Object.keys(manifests).reduce((tp, m) => {
-		tp[m + "_manifest"] = fillURL(manifests[m]);
+	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
+		tp[m + "_manifest"] = await fillURL(manifests[m]);
 		return tp;
 	}, {});
 	return tp;
@@ -101,16 +113,16 @@ async function GetManifestLoc() {
 
 async function GetCritters() {
 	var critters = await getAssetInfo('critters');
-	var tp = critters.reduce((tp, critter) => {
-		tp[critter.critterId] = fillURL(critter.images[0]);
+	var tp = await critters.reduceAsync(async (tp, critter) => {
+		tp[critter.critterId] = await fillURL(critter.images[0],'critters');
 		return tp;
 	}, {});
 	return tp;
 }
 async function GetSymbols() {
 	var symbols = await getAssetInfo('symbols');
-	var tp = symbols.reduce((tp, symbol) => {
-		tp[path.basename(symbol, path.extname(symbol))] = fillURL(critter.images[0]);
+	var tp = await symbols.reduceAsync(async (tp, symbol) => {
+		tp[path.basename(symbol, path.extname(symbol))] = await fillURL(critter.images[0],'symbols');
 		return tp
 	}, {})
 	return tp;
@@ -118,13 +130,9 @@ async function GetSymbols() {
 async function GetEffects() {
 	var siteUrl = getSiteUrl();
 	var effects = await getAssetInfo('effects');
-	var tp = effects.images.reduce((tp, effect) => {
+	var tp = await effects.images.reduceAsync(async (tp, effect) => {
 		var key = path.basename(effect, path.extname(effect));
-		if (urlIsRoot(effect)) {
-			tp[key] = effect;
-		} else {
-			tp[key] = siteUrl + effect;
-		}
+		tp[key] = await fillURL(effect,'effects')
 		return tp;
 	}, {});
 	return tp;
@@ -132,10 +140,10 @@ async function GetEffects() {
 async function GetItems() {
 	var itemsData = await getAssetInfo('items');
 	var items = itemsData.images;
-	var tp = items.reduce((tp,item) => {
+	var tp = await items.reduceAsync(async (tp,item) => {
 		var id = path.basename(item, path.extname(item));
 		console.log(id);
-		tp[id]=fillURL(item);
+		tp[id]= await fillURL(item,'items');
 		return tp;
 	},{});
 	return tp;
@@ -143,8 +151,8 @@ async function GetItems() {
 async function GetIcons() {
 	var itemsData = await getAssetInfo('items');
 	var icons = Object.keys(itemsData.items);
-	var tp = icons.reduce((tp,icon) => {
-		tp[icon] = fillURL("/media/icons/" + icon + ".png");
+	var tp = await icons.reduceAsync(async (tp,icon) => {
+		tp[icon] = await fillURL("/media/icons/" + icon + ".png");
 		return tp;
 	},{});
 	return tp;
@@ -152,16 +160,16 @@ async function GetIcons() {
 
 async function GetRooms() {
 	var rooms = await getAssetInfo('rooms');
-	var tp = rooms.reduce((tp, roomData) => {
+	var tp = rooms.reduceAsync(async (tp, roomData) => {
 		
 		console.log("Room: " +roomData.RoomId);
 		var room = {
 			//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
-			[roomData.RoomId + "_bg"]: fillURL(roomData.Background),
-			[roomData.RoomId + "_fg"]: fillURL(roomData.Foreground),
-			[roomData.RoomId + "_nm"]: fillURL(roomData.NavMesh),
-			[roomData.RoomId + "_map"]: fillURL(roomData.Map),
-			[roomData.RoomId + "_sprites"]: roomData.Sprites.images.map(url=>fillURL(url))
+			[roomData.RoomId + "_bg"]: roomData.Background ? await fillURL(roomData.Path + "/" + roomData.Background,'rooms') : "",
+			[roomData.RoomId + "_fg"]: roomData.Foreground ? await fillURL(roomData.Path + "/" + roomData.Foreground,'rooms') : "",
+			[roomData.RoomId + "_nm"]: roomData.NavMesh ? await fillURL(roomData.Path + "/" + roomData.NavMesh,'rooms') : "",
+			[roomData.RoomId + "_map"]: roomData.Map ? await fillURL(roomData.Path + "/" + roomData.Map,'rooms') : "",
+			[roomData.RoomId + "_sprites"]: await Promise.all(roomData.Sprites.images.map(async (url)=>(await fillURL(roomData.Path + "/" + url,'rooms')))),
 		}
 		tp[roomData.RoomId] = room;
 		return tp;
