@@ -164,7 +164,7 @@ async function GetRooms() {
 		
 		console.log("Room: " +roomData.RoomId);
 		roomData.ServerMap = "/map_server.png"
-		roomData.ServerMap = roomData.Background.replace("background","server_map");
+		roomData.ServerMap = roomData.Background.replace("background","map_server");
 		var room = {
 			//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
 			[roomData.RoomId + "_bg"]: roomData.Background ? await fillURL(roomData.Background,'rooms') : "",
