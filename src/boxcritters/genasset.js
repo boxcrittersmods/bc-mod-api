@@ -165,15 +165,15 @@ async function GetRooms() {
 		console.log("Room: " +roomData.RoomId);
 		roomData.ServerMap = "/map_server.png"
 		roomData.ServerMap = roomData.Background.replace("background","map_server");
-		var room = {
-			//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
-			[roomData.RoomId + "_bg"]: roomData.Background ? await fillURL(roomData.Background,'rooms') : "",
-			[roomData.RoomId + "_fg"]: roomData.Foreground ? await fillURL(roomData.Foreground,'rooms') : "",
-			[roomData.RoomId + "_nm"]: roomData.NavMesh ? await fillURL(roomData.NavMesh,'rooms') : "",
-			[roomData.RoomId + "_map"]: roomData.Map ? await fillURL(roomData.Map,'rooms') : "",
-			[roomData.RoomId + "_server_map"]: roomData.ServerMap ? await fillURL(roomData.ServerMap,'rooms') : "",
-			[roomData.RoomId + "_sprites"]: await Promise.all(roomData.Sprites.images.map(async (url)=>(await fillURL(url,'rooms')))),
-		}
+	var room = {}
+		//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
+		if(roomData.Background) room[roomData.RoomId + "_bg"] =   await fillURL(roomData.Background,'rooms');
+		if(roomData.Foreground) room[roomData.RoomId + "_fg"] = await fillURL(roomData.Foreground,'rooms');
+		if(roomData.NavMesh) room[roomData.RoomId + "_nm"]= await fillURL(roomData.NavMesh,'rooms');
+		if(roomData.Map) room[roomData.RoomId + "_map"]= await fillURL(roomData.Map,'rooms');
+		if(roomData.ServerMap) room[roomData.RoomId + "_server_map"]= await fillURL(roomData.ServerMap,'rooms');
+		if(roomData.Sprites.images) room[roomData.RoomId + "_sprites"]= await Promise.all(roomData.Sprites.images.map(async (url)=>(await fillURL(url,'rooms'))));
+		
 		tp[roomData.RoomId] = room;
 		return tp;
 
