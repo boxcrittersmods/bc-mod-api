@@ -56,7 +56,7 @@ async function CheckForNewVersion() {
     if (l != undefined) {
         var newClient = l.name != n;
         /*var newItems = l.items != i;*/
-        if (newClient) versionEvents.dispatchEvent("newClient", n,{n,i});
+        if (newClient) versionEvents.dispatchEvent("newClient", n,{n});
         /*else if (newItems) versionEvents.dispatchEvent("newItems", i, {n,i});*/
     }
 }
