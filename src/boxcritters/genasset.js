@@ -114,19 +114,19 @@ async function GetManifestLoc() {
 async function GetCritters() {
 	var critters = await getAssetInfo('critters');
 	var tp = await critters.reduceAsync(async (tp, critter) => {
-		tp[critter.critterId] = await fillURL(critter.images[0],'critters');
+		tp[critter.critterId] = await fillURL(critter.Sprites.images[0],'critters');
 		return tp;
 	}, {});
 	return tp;
 }
-async function GetSymbols() {
+/*async function GetSymbols() {
 	var symbols = await getAssetInfo('symbols');
 	var tp = await symbols.reduceAsync(async (tp, symbol) => {
 		tp[path.basename(symbol, path.extname(symbol))] = await fillURL(critter.images[0],'symbols');
 		return tp
 	}, {})
 	return tp;
-}
+}*/
 async function GetEffects() {
 	var siteUrl = getSiteUrl();
 	var effects = await getAssetInfo('effects');
