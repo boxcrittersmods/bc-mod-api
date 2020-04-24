@@ -215,7 +215,6 @@ module.exports = {
 	GetClientScript,
 	GetManifestLoc,
 	GetCritters,
-	GetSymbols,
 	GetItems,
 	GetIcons,
 	GetCritterBall,
