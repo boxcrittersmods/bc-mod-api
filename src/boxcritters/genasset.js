@@ -152,7 +152,8 @@ async function GetIcons() {
 	var itemsData = await getAssetInfo('items');
 	var icons = Object.keys(itemsData.items);
 	var tp = await icons.reduceAsync(async (tp,icon) => {
-		tp[icon] = await fillURL("/media/icons/" + icon + ".png");
+		tp[icon] = await fillURL("https://media.boxcritters.com/media/icons/" + icon + ".png");
+		tp[icon+"_hd"] = await fillURL("https://media.boxcritters.com/media/icons/800/" + icon + ".png");
 		return tp;
 	},{});
 	return tp;
