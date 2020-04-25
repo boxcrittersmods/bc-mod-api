@@ -159,19 +159,12 @@ async function GetIcons() {
 		itemTp[item.ItemId] = await fillURL("https://boxcritters.com/media/icons/" + item.ItemId + ".png");
 
 
-		//loop between 600 to 800 and store in itemTP.hd.["icon_"+i]
-		var theme = tp;
-		if(item.Theme) {
-			tp[item.Theme] = tp[item.Theme]||{};
-			theme = tp[item.Theme]
-		}
-		var slot = theme;
-		if(item.Slot) {
-			theme[item.Slot]=theme[item.Slot]||{};
-			slot = theme[item.Slot];
-		}
-		
-		tp[item.Slot][item.ItemId] = itemTp
+		var theme = item.Theme||'normal';
+		var slot = item.Slot;
+		tp[theme] = tp[theme]||{};
+		tp[theme][slot] = tp[theme][slot]||{};
+		tp[theme][slot][item.ItemId] = itemTp;
+
 		return tp;
 	},{});
 	return tp;
