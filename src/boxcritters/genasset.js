@@ -113,8 +113,13 @@ async function GetManifestLoc() {
 
 async function GetCritters() {
 	var critters = await getAssetInfo('critters');
+	var mascots = await getAssetInfo('mascots');
 	var tp = await critters.reduceAsync(async (tp, critter) => {
-		tp[critter.critterId] = await fillURL(critter.Sprites.images[0],'critters');
+		tp[critter.CritterId] = await fillURL(critter.Sprites.images[0],'critters');
+		return tp;
+	}, {});
+	tp.mascots = await mascots.reduceAsync(async (tp, mascot) => {
+		tp[mascot.MascotId] = await fillURL(critter.Sprites.images[0],'mascots');
 		return tp;
 	}, {});
 	return tp;
@@ -139,7 +144,7 @@ async function GetEffects() {
 }
 async function GetItems() {
 	var itemsData = await getAssetInfo('items');
-	var items = itemsData.images;
+	var items = itemsData.Sprites.images;
 	var tp = await items.reduceAsync(async (tp,item) => {
 		var id = path.basename(item, path.extname(item));
 		console.log(id);
