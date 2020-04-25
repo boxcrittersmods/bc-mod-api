@@ -222,6 +222,7 @@ async function GetTextureList() {
 }
 
 module.exports = {
+	getAssetInfo,
 	GetClientScript,
 	GetManifestLoc,
 	GetCritters,
