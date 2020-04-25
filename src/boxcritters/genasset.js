@@ -91,6 +91,16 @@ async function fillURL(url,type) {
 	}
 }
 
+async function getSprites(sprites,name,type) {
+	return sprites.images.reduceAsync(async (tp,sprite,i) =>{
+		var value = await fillURL(sprite,type);
+		var key = name;
+		if(sprites.images.length>1) key +=""+i;
+		tp[key] = value;
+		return tp;
+	},{});
+}
+
 async function getAssetInfo(type, site = 'boxcritters') {
 	var host = getSiteUrl(site);
 	var manifests = await BoxCritters.GetManifests();
@@ -114,51 +124,54 @@ async function GetManifestLoc() {
 async function GetCritters() {
 	var critters = await getAssetInfo('critters');
 	var mascots = await getAssetInfo('mascots');
-	var tp = await critters.reduceAsync(async (tp, critter) => {
-		tp[critter.CritterId] = await fillURL(critter.Sprites.images[0],'critters');
+	var tp = {};
+	tp.critters = await critters.reduceAsync(async (tp, critter) => {
+		tp[critter.CritterId] = await getSprites(critter.Sprites,critter.CritterId,"critters");
 		return tp;
 	}, {});
 	tp.mascots = await mascots.reduceAsync(async (tp, mascot) => {
-		tp[mascot.MascotId] = await fillURL(critter.Sprites.images[0],'mascots');
+		tp[mascot.MascotId] = await getSprites(mascot.Sprites,mascot.MascotId,"mascots");
 		return tp;
 	}, {});
 	return tp;
 }
-/*async function GetSymbols() {
-	var symbols = await getAssetInfo('symbols');
-	var tp = await symbols.reduceAsync(async (tp, symbol) => {
-		tp[path.basename(symbol, path.extname(symbol))] = await fillURL(critter.images[0],'symbols');
-		return tp
-	}, {})
-	return tp;
-}*/
 async function GetEffects() {
 	var siteUrl = getSiteUrl();
 	var effects = await getAssetInfo('effects');
-	var tp = await effects.images.reduceAsync(async (tp, effect) => {
-		var key = path.basename(effect, path.extname(effect));
-		tp[key] = await fillURL(effect,'effects')
-		return tp;
-	}, {});
+	var tp = await getSprites(effects,"effects","effects");
 	return tp;
 }
 async function GetItems() {
 	var itemsData = await getAssetInfo('items');
-	var items = itemsData.Sprites.images;
-	var tp = await items.reduceAsync(async (tp,item) => {
+	var tp = await getSprites(itemsData.Sprites,"items","items")
+	/*var tp = await items.reduceAsync(async (tp,item) => {
 		var id = path.basename(item, path.extname(item));
 		console.log(id);
 		tp[id]= await fillURL(item,'items');
 		return tp;
-	},{});
+	},{});*/
 	return tp;
 }
 async function GetIcons() {
 	var itemsData = await getAssetInfo('items');
-	var icons = Object.keys(itemsData.items);
-	var tp = await icons.reduceAsync(async (tp,icon) => {
-		tp[icon] = await fillURL("https://media.boxcritters.com/media/icons/" + icon + ".png");
-		tp[icon+"_hd"] = await fillURL("https://media.boxcritters.com/media/icons/800/" + icon + ".png");
+	var tp = await itemsData.Items.reduceAsync(async (tp,item) => {
+		var itemTp = {};
+		itemTp[item.ItemId] = await fillURL("https://boxcritters.com/media/icons/" + item.ItemId + ".png");
+
+
+		//loop between 600 to 800 and store in itemTP.hd.["icon_"+i]
+		var theme = tp;
+		if(item.Theme) {
+			tp[item.Theme] = tp[item.Theme]||{};
+			theme = tp[item.Theme]
+		}
+		var slot = theme;
+		if(item.Slot) {
+			theme[item.Slot]=theme[item.Slot]||{};
+			slot = theme[item.Slot];
+		}
+		
+		tp[item.Slot][item.ItemId] = itemTp
 		return tp;
 	},{});
 	return tp;
@@ -172,13 +185,12 @@ async function GetRooms() {
 		roomData.ServerMap = "/map_server.png"
 		roomData.ServerMap = roomData.Background.replace("background","map_server");
 	var room = {}
-		//[roomData.RoomId + "_tn"]: fillURL(roomData.Thumbnail),
 		if(roomData.Background) room[roomData.RoomId + "_bg"] =   await fillURL(roomData.Background,'rooms');
 		if(roomData.Foreground) room[roomData.RoomId + "_fg"] = await fillURL(roomData.Foreground,'rooms');
 		if(roomData.NavMesh) room[roomData.RoomId + "_nm"]= await fillURL(roomData.NavMesh,'rooms');
 		if(roomData.Map) room[roomData.RoomId + "_map"]= await fillURL(roomData.Map,'rooms');
 		if(roomData.ServerMap) room[roomData.RoomId + "_server_map"]= await fillURL(roomData.ServerMap,'rooms');
-		if(roomData.Sprites.images) room[roomData.RoomId + "_sprites"]= await Promise.all(roomData.Sprites.images.map(async (url)=>(await fillURL(url,'rooms'))));
+		if(roomData.Sprites) room[roomData.RoomId + "_sprites"]= await getSprites(roomData.Sprites,roomData.RoomId + "_sprites",'rooms');
 		
 		tp[roomData.RoomId] = room;
 		return tp;
