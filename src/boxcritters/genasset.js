@@ -8,7 +8,6 @@ const textureDataJson = require('#data/texture-data.json');
 const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
-const defaultTexturePack = require('#data/boxcritters.bctp.json');
 
 var SITE_URL= getSiteUrl();
 
@@ -215,7 +214,7 @@ async function GetTextureData() {
 }
 
 async function GetTextureList() {
-	var things = Object.assign(defaultTexturePack,await GetTextureData());
+	var things = await GetTextureData();
 	var tp = explode(things);
 	tp.packVersion = (await BoxCritters.GetVersion())+"";
 	return tp;
