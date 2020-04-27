@@ -3,23 +3,25 @@
         "name": "boxcritters",
         "url": "https://boxcritters.com",
         "media": {
-            "cards": "/media/cards/",
+            "cards": "/media/cards/oomm/",
             "critters": "/media/critters/",
             "monsters": "/media/monsters/",
             "effects": "/media/effects/",
             "symbols": "/media/symbols/",
             "icons": "/media/icons/",
             "items": "/media/items/",
-            "rooms": "/media/rooms/",
             "ui": "/media/ui/",
-            "ux": "/media/ux/"
+            "ux": "/media/ux/",
+            "rooms": "/"
         },
         "js": "/lib/",
-        "website":"/play/"
+		"website":"/play/",
+		"manifests":"/",
+		"misc":"/"
     },
     {
         "name":"boxcritters-base",
-        "url": "https://base.boxcritters.com/",
+        "url": "https://base.boxcritters.com",
         "media":"/"
     },
     {

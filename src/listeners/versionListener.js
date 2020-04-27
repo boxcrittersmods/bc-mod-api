@@ -1,6 +1,6 @@
 const bcVersions = require("#src/boxcritters/versions");
-const github = require('#src/util/github');
-const WebhookManager = require('#src/util/webhook');
+const github = require("#src/util/github");
+const WebhookManager = require("#src/util/webhook");
 
 var _sha = "";
 var whUrl = process.env.DISCORD_WEBHOOK;
@@ -16,33 +16,47 @@ async function Init() {
 
 function SaveToGithub() {
     var v = bcVersions.GetVersions();
-    github.saveVersions(v,_sha);
+    github.saveVersions(v, _sha);
 }
 
 var listeners = (() => {
     function NewClient(n, v) {
         webhook.Invoke("New Client Version", {
-            "client": v.n,
-            "itemsFolder":v.i
-        })
+            client: v.n//,
+            /*itemsFolder: v.i*/
+        });
         SaveToGithub(v);
     }
-    function NewItems(i,v) {
+
+    /*function NewItems(i, v) {
         webhook.Invoke("New Items Folder", {
-            "client": v.n,
-            "itemsFolder":v.i
+            client: v.n,
+            itemsFolder: v.i
         });
         SaveToGithub();
-    }
+    }*/
     return {
         NewClient,
-        NewItems
-    }
+        //NewItems
+    };
 })();
 
-bcVersions.versionEvents.addEventListener("newClient",listeners, listeners.NewClient);
-bcVersions.versionEvents.addEventListener("newItems", listeners, listeners.NewItems);
+bcVersions.versionEvents.addEventListener(
+    "newClient",
+    listeners,
+    listeners.NewClient
+);
+/*bcVersions.versionEvents.addEventListener(
+    "newItems",
+    listeners,
+    listeners.NewItems
+);*/
 
-module.exports = {
-    Init
-};
+github.init().then(() => {
+    Init().then(() => {
+        console.log("yea");
+
+    }).catch(e => {
+        console.log(e);
+    });
+});

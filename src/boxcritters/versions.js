@@ -30,7 +30,7 @@ function GetVersions() {
 }
 
 function CreateVersion(name,items) {
-    return { date: GetDate(), name, items };
+    return { date: GetDate(), name/*, items */};
 }
 
 function GetLatest() {
@@ -45,19 +45,19 @@ function GetVersion(name) {
 
 async function CheckForNewVersion() {
 	var n = await BoxCritters.GetVersion();
-	var i = await BoxCritters.GetItemsFolder();
+	/*var i = await BoxCritters.GetItemsFolder();*/
     var l = GetLatest();
 
     if(l != undefined){
-        if(l.name == n && l.items == i) return;
+        if(l.name == n /*&& l.items == i*/) return;
     }
-	var v = CreateVersion(n, i);
+	var v = CreateVersion(n);
     versions.push(v);
     if (l != undefined) {
         var newClient = l.name != n;
-        var newItems = l.items != i;
-        if (newClient) versionEvents.dispatchEvent("newClient", n,{n,i});
-        else if (newItems) versionEvents.dispatchEvent("newItems", i, {n,i});
+        /*var newItems = l.items != i;*/
+        if (newClient) versionEvents.dispatchEvent("newClient", n,{n});
+        /*else if (newItems) versionEvents.dispatchEvent("newItems", i, {n,i});*/
     }
 }
 

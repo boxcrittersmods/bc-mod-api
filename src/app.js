@@ -11,10 +11,13 @@ const feedback = require('./routes/feedback');
 const corsProxy = require('./routes/cors');
 const desc = require('./routes/description');
 const items = require('./routes/items');
+const manifests = require('./routes/manifests');
+const paths = require('./routes/paths');
+const textures = require('./routes/textures')
+const getassets = require('./routes/getassets')
+const mod = require('./routes/mod');
 
 //data
-const textureData = require('./boxcritters/genasset');
-//const textureData = require('#data/texture-data.json');
 const sitesData = require('#data/sites.json');
 
 var app = express();
@@ -43,14 +46,18 @@ app.use(function(req, res, next) {
 /**
  * Routes
  */
+app.use('/manifests',manifests);
+app.use('/paths',paths);
 app.use('/versions',versions);
 app.use('/items',items);
+app.use('/textures',textures)
 app.use(
 	"/scripts",
 	express.static("public"),
 	serveIndex("public", { icons: true })
 );
 app.use('/cors',corsProxy);
+app.use('/mod',mod);
 
 app.use('/description',desc);
 app.use('/feedback',feedback);
@@ -58,11 +65,6 @@ app.use('/feedback',feedback);
 /**
  * Paths
  */
-app.get('/texture-data', async (req,res)=>{
-    res.type("application/json");
-    var textures = await textureData.GetTextureData();
-    res.json(textures);
-});
 app.get('/sites',(req,res)=>{
     res.type("application/json");
     res.json(sitesData);

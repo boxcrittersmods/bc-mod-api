@@ -1,10 +1,6 @@
 const express = require("express");
 const bcVersions = require("#src/boxcritters/versions");
-const listener = require('#src/listeners/versionListener')
-listener.Init().catch((e)=>{
-	console.log(e)
-});
-
+if (process.env.NODE_ENV=='production') require('#src/listeners/versionListener');
 var router = express.Router();
 
 

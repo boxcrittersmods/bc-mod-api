@@ -1,0 +1,14 @@
+{
+"critterball_sprites_512x512": "https://critterball.herokuapp.com/img/critterball_sprites_512x512.png",
+"background_grid": "https://critterball.herokuapp.com/img/background_grid.png",
+"player_1": "https://critterball.herokuapp.com/img/player_1.png",
+"player_2": "https://critterball.herokuapp.com/img/player_2.png",
+"player_3": "https://critterball.herokuapp.com/img/player_3.png",
+"player_4": "https://critterball.herokuapp.com/img/player_4.png",
+"player_5": "https://critterball.herokuapp.com/img/player_5.png",
+"player_6": "https://critterball.herokuapp.com/img/player_6.png",
+"player_7": "https://critterball.herokuapp.com/img/player_7.png",
+"player_8": "https://critterball.herokuapp.com/img/player_8.png",
+"player_9": "https://critterball.herokuapp.com/img/player_9.png",
+"player_10": "https://critterball.herokuapp.com/img/player_10.png"
+}

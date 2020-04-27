@@ -32,7 +32,7 @@ function getDescriptionText(document) {
 
 
 
-function getNewDesciption() {
+function getNewDescription() {
     return new Promise((resolve,reject)=>{
         getSiteText(bcurl).then(body=>{
             var document = getSiteDocument(body);
@@ -44,7 +44,7 @@ function getNewDesciption() {
 
 
 router.get('/',(req,res)=>{
-    getNewDesciption().then((d)=>{
+    getNewDescription().then((d)=>{
         res.send(d);
     })
 });
