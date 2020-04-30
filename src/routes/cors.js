@@ -78,7 +78,7 @@ router.use("/", async (req, res) => {
 				res.set(sub_res.rawHeaders[i], sub_res.rawHeaders[i + 1]);
 				i += 2;
 			}
-			if (response.caseless.dict["content-type"] == "text/html")
+			if (sub_res.caseless.dict["content-type"] == "text/html")
 			{
 				document = absolutify(sub_body, `/cors/${getHostName(url)}`);
 			}
