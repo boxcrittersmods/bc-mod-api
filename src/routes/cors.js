@@ -72,7 +72,7 @@ router.use("/", async (req, res) => {
 
 		request(settings, function (sub_err, sub_res, sub_body) {
 			i = 0;
-			document = body;
+			document = sub_body;
 			while (i < sub_res.rawHeaders.length)
 			{
 				res.set(sub_res.rawHeaders[i], sub_res.rawHeaders[i + 1]);
