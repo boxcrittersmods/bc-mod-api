@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
-const puppeteer = require("puppeteer");
 const absolutify = require("absolutify");
 const imageDataURI = require("image-data-uri");
 
@@ -63,31 +62,28 @@ router.use("/", async (req, res) => {
 		return;
 	}
 	try {
-		const browser = await puppeteer.launch({
-			args: ["--no-sandbox", /*"--disable-setuid-sandbox"*/],
-			//ignoreDefaultArgs: ['--disable-extensions'],
-		});
-		const page = await browser.newPage();
+		var document = "";
+		var i = 0;
 
-		await page.setRequestInterception(true);
+		var settings = {
+			url: url,
+			encoding: null
+		};
 
-		page.on("request", request => {
-			if (
-				request.isNavigationRequest() &&
-				request.redirectChain().length !== 0
-			) {
-				request.abort();
-			} else {
-				request.continue();
+		request(settings, function (sub_err, sub_res, sub_body) {
+			i = 0;
+			document = sub_body;
+			while (i < sub_res.rawHeaders.length)
+			{
+				res.set(sub_res.rawHeaders[i], sub_res.rawHeaders[i + 1]);
+				i += 2;
 			}
+			if (sub_res.caseless.dict["content-type"] == "text/html")
+			{
+				document = absolutify(sub_body, `/cors/${getHostName(url)}`);
+			}
+			res.send(document);
 		});
-
-		await page.goto(`${url}`);
-		var document = await page.evaluate(() => document.documentElement.outerHTML);
-		document = absolutify(document, `/cors/${getHostName(url)}`);
-
-		res.send(document);
-		//request(url).pipe(res);
 	} catch (e) {
 		console.log(e);
 
