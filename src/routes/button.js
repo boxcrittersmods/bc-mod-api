@@ -44,8 +44,8 @@ router.use("/", async (req, res) => {
 						<g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
 							<text x="460" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="825">BCMC Published!</text>
 							<text x="460" y="140" transform="scale(.1)" textLength="825">BCMC Published!</text>
-							<text x="1100" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="${version.length * 60}">${"v" + version}</text>
-							<text x="1100" y="140" transform="scale(.1)" textLength="${version.length * 60}">${"v" + version}</text>
+							<text x="${1024 + (version.length * 8)}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="${version.length * 65}">${"v" + version}</text>
+							<text x="${1024 + (version.length * 8)}" y="140" transform="scale(.1)" textLength="${version.length * 65}">${"v" + version}</text>
 						</g>
 					</svg>`);
 		});
