@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const request = require("request");
 const bodyParser = require("body-parser");
-const gniddom = require("./github.js");
+const gniddom = require("./github");
 
 var router = express.Router();
 

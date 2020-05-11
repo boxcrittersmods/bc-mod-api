@@ -98,9 +98,11 @@ function createMod(data, url)
 	data += `---\n`;
 	var path = `_mods/${name.toLowerCase()}.md`;
 	var message = `New mod: ${name}.`;
+	var org = "boxcritters";
+	var repo = "boxcrittersmods.ga";
 	octokit.repos.createOrUpdateFile({
-		"boxcritters",
-		"boxcrittersmods.ga",
+		org,
+		repo,
 		path,
 		message,
 		data
