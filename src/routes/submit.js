@@ -39,6 +39,7 @@ router.use(`/approve/${process.env.SUBMIT_TOKEN || token}/:url`, async function 
 
 /* /submit/(url) */
 router.use("/:url", async function (req, res) {
+	console.log(req.path);
 	request({
 		"url": "http://" + req.path.substr(1)
 	}, function (sub_err, sub_res, sub_body) {
