@@ -17,7 +17,7 @@ var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
  **/
 
 /* /modapprove/(token)/(base64_url) */
-router.use(`/approve/${process.env.SUBMIT_TOKEN}/:url`, async function (req, res) {
+router.use(`/${process.env.SUBMIT_TOKEN}/:url`, async function (req, res) {
 	console.log(req.params.url);
 	var url = new Buffer.from(req.params.url, "base64").toString("ascii");
 	request({
