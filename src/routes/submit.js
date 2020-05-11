@@ -52,7 +52,7 @@ router.use("/:url", async function (req, res) {
 		var description = sub_body.match(/\/\/\s*@description\s+(.*)\s*\n/i);
 		var author = sub_body.match(/\/\/\s*@author\s+(.*)\s*\n/i);
 		var icon = sub_body.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-		var approve = `http://localhost:3000/submit/approve/${process.env.SUBMIT_TOKEN || token}/${new Buffer("http://" + req.path.substr(1)).toString("base64")}`;
+		var approve = `http://api.boxcrittersmods.ga/submit/approve/${process.env.SUBMIT_TOKEN || token}/${new Buffer("http://" + req.path.substr(1)).toString("base64")}`;
 
 		if (version && name && description && author)
 		{
