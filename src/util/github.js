@@ -82,7 +82,7 @@ init().then(() => {
 	console.log(e)
 });*/
 
-function createMod(data, url)
+async function createMod(data, url)
 {
 	if (DISABLE_GITHUB) return;
 	var tmp_octokit = await GniddomApp.getClient(await GniddomApp.getAccessToken(owner, "boxcrittersmods.ga"));
