@@ -26,7 +26,7 @@ router.use(`/approve/${process.env.SUBMIT_TOKEN || token}/:url`, async function 
 	var url = new Buffer(req.params.url, "base64").toString("ascii");
 	request({
 		"url": url
-	}, function (sub_err, sub_res, sub_body) {
+	}, async function (sub_err, sub_res, sub_body) {
 		if (sub_err)
 		{
 			res.send(`Error: ${sub_err}.`);
