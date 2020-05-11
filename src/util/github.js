@@ -7,8 +7,6 @@ var repo = "bc-mod-api";
 
 if (DISABLE_GITHUB) {
 	console.log("Github Disabled for testing");
-} else {
-
 }
 
 async function init() {
@@ -84,7 +82,32 @@ init().then(() => {
 	console.log(e)
 });*/
 
-module.exports = { init,sendFeedback, saveVersions, loadVersions };
+function createMod(data, url)
+{
+	if (DISABLE_GITHUB) return;
+	var version = data.match(/\/\/\s*@version\s+(.*)\s*\n/i)[1];
+	var name = data.match(/\/\/\s*@name\s+(.*)\s*\n/i)[1];
+	var description = data.match(/\/\/\s*@description\s+(.*)\s*\n/i)[1];
+	var author = data.match(/\/\/\s*@author\s+(.*)\s*\n/i)[1];
+	var icon = data.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
+	data = `---\ntitle: ${name}\nauthor:\n  - ${author}\ndescription: ${description}\ndate: 14-04-2019\nfeatured: false\nuserscript: true\ninstall: ${url}\nrecommend: false\n`
+	if (icon)
+	{
+		data += `icon: ${icon[1]}`;
+	}
+	data += `---\n`;
+	var path = `_mods/${name.toLowerCase()}.md`;
+	var message = `New mod: ${name}.`;
+	octokit.repos.createOrUpdateFile({
+		"boxcritters",
+		"boxcrittersmods.ga",
+		path,
+		message,
+		data
+	});
+}
+
+module.exports = { init, sendFeedback, saveVersions, loadVersions, createMod };
 var none = function() {
 	return {};
 };

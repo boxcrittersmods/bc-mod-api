@@ -17,6 +17,7 @@ const textures = require('./routes/textures')
 const getassets = require('./routes/getassets')
 const mod = require('./routes/mod');
 const button = require('./routes/button');
+const submit = require('./routes/submit');
 
 //data
 const sitesData = require('#data/sites.json');
@@ -64,6 +65,7 @@ app.use('/description',desc);
 app.use('/feedback',feedback);
 
 app.use("/button", button);
+app.use("/submit", submit);
 
 /**
  * Paths
