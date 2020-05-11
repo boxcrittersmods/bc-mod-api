@@ -1,4 +1,4 @@
-const Octokit = require("@octokit/rest");
+const { Octokit } = require("@octokit/rest");
 const { App } = require("@octokit/app");
 const fetch = require("node-fetch");
 
