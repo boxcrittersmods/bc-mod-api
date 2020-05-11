@@ -57,7 +57,7 @@ router.use("/:url", async function (req, res) {
 		if (version && name && description && author)
 		{
 			request.post({
-				"url": "https://discord.com/api/webhooks/705938295779229707/GyJ4oC3lndFRwRJvFdI5dwiO-KDqydtNG7xYNI9c_fI6H0eGDnL9haRVf4Gjt7Ex6sJe/slack",
+				"url": process.env.SUBMIT_WEBHOOK,
 				"headers": {
 					"Content-Type" : "application/json"
 				},
