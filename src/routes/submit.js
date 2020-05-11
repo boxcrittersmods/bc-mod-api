@@ -15,8 +15,6 @@ router.use("/", bodyParser.text());
 
 var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
 
-gniddom.init();
-
 /**
  * Paths
  **/
@@ -38,7 +36,7 @@ router.use(`/approve/${process.env.SUBMIT_TOKEN || token}/:url`, async function 
 });
 
 /* /submit/(url) */
-router.use("/:url", async function (req, res) {
+router.use("/:url", function (req, res) {
 	console.log(req.path);
 	request({
 		"url": "http://" + req.path.substr(1)

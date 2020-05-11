@@ -94,13 +94,14 @@ async function createMod(data, url)
 	var content = `---\ntitle: ${name}\nauthor:\n  - ${author}\ndescription: ${description}\ndate: 14-04-2019\nfeatured: false\nuserscript: true\ninstall: ${url}\nrecommend: false\n`
 	if (icon)
 	{
-		content += `icon: ${icon[1]}`;
+		content += `icon: ${icon[1]}\n`;
 	}
 	content += `---\n`;
+	content = new Buffer(content).toString("base64");
 	var path = `_mods/${name.toLowerCase()}.md`;
 	var message = `New mod: ${name}.`;
 	var repo = "boxcrittersmods.ga";
-	tmp_octokit.repos.createOrUpdateFile({
+	tmp_octokit.repos.createFile({
 		owner,
 		repo,
 		path,
