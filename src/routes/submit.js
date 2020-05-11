@@ -32,7 +32,7 @@ router.use(`/approve/${process.env.SUBMIT_TOKEN || token}/:url`, async function 
 			res.send(`Error: ${sub_err}.`);
 			return;
 		}
-		createMod(sub_body, url);
+		gniddom.createMod(sub_body, url);
 		res.send("{\"ok\": \"ok\"}");
 	});
 });
