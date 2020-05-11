@@ -8,6 +8,7 @@ var router = express.Router();
 
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
+	res.type("application/json");
 	next();
 });
 
@@ -56,7 +57,7 @@ router.use("/:url", function (req, res) {
 		if (version && name && description && author)
 		{
 			request.post({
-				"url": process.env.SUBMIT_WEBHOOK || "https://discord.com/api/webhooks/709475786960142496/JtKa2Jz_PVnL5w65ZQALT0e8tip1S_zVnS2fxBPsDVGlCyZhuM_rIJDLalA9gK9fNHoM/slack",
+				"url": process.env.SUBMIT_WEBHOOK,
 				"headers": {
 					"Content-Type": "application/json"
 				},
