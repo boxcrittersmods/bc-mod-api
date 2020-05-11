@@ -10,8 +10,6 @@ router.use("/", (req, res, next) => {
 	next();
 });
 
-router.use("/", bodyParser.text());
-
 var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
 
 /**
