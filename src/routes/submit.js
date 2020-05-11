@@ -21,7 +21,7 @@ var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
 
 /* /submit/approve/(token)/(base64_url) */
 router.use(`/approve/${process.env.SUBMIT_TOKEN || token}/:url`, async function (req, res) {
-	var url = new Buffer(req.params.url, "base64").toString("ascii");
+	var url = new Buffer.from(req.params.url, "base64").toString("ascii");
 	request({
 		"url": url
 	}, async function (sub_err, sub_res, sub_body) {
@@ -51,14 +51,14 @@ router.use("/:url", function (req, res) {
 		var description = sub_body.match(/\/\/\s*@description\s+(.*)\s*\n/i);
 		var author = sub_body.match(/\/\/\s*@author\s+(.*)\s*\n/i);
 		var icon = sub_body.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-		var approve = `http://api.boxcrittersmods.ga/submit/approve/${process.env.SUBMIT_TOKEN || token}/${new Buffer("http://" + req.path.substr(1)).toString("base64")}`;
+		var approve = `https://api.boxcrittersmods.ga/submit/approve/${process.env.SUBMIT_TOKEN || token}/${new Buffer.from("http://" + req.path.substr(1)).toString("base64")}`;
 
 		if (version && name && description && author)
 		{
 			request.post({
-				"url": process.env.SUBMIT_WEBHOOK,
+				"url": process.env.SUBMIT_WEBHOOK || "https://discord.com/api/webhooks/709475786960142496/JtKa2Jz_PVnL5w65ZQALT0e8tip1S_zVnS2fxBPsDVGlCyZhuM_rIJDLalA9gK9fNHoM/slack",
 				"headers": {
-					"Content-Type" : "application/json"
+					"Content-Type": "application/json"
 				},
 				"body": `{
 							"username": "Gniddom",

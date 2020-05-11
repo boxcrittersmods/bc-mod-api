@@ -97,7 +97,7 @@ async function createMod(data, url)
 		content += `icon: ${icon[1]}\n`;
 	}
 	content += `---\n`;
-	content = new Buffer(content).toString("base64");
+	content = new Buffer.from(content).toString("base64");
 	var path = `_mods/${name.toLowerCase()}.md`;
 	var message = `New mod: ${name}.`;
 	var repo = "boxcrittersmods.ga";
