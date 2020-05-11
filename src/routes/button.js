@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 const request = require("request");
 
 var router = express.Router();

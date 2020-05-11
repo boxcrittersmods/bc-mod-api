@@ -1,14 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
-const bodyParser = require("body-parser");
-const gniddom = require("../util/github");
 
 var router = express.Router();
 
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.type("application/json");
+	res.set("Content-Type", "application/json");
 	next();
 });
 
@@ -20,24 +18,7 @@ var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
  * Paths
  **/
 
-/* /submit/approve/(token)/(base64_url) */
-router.use(`/approve/${process.env.SUBMIT_TOKEN}/:url`, async function (req, res) {
-	console.log(req.params.url);
-	var url = new Buffer.from(req.params.url, "base64").toString("ascii");
-	request({
-		"url": url
-	}, async function (sub_err, sub_res, sub_body) {
-		if (sub_err)
-		{
-			res.send(`Error: ${sub_err}.`);
-			return;
-		}
-		await gniddom.createMod(sub_body, url);
-		res.send("{\"ok\": \"ok\"}");
-	});
-});
-
-/* /submit/(url) */
+/* /modsubmit/(url) */
 router.use("/:url", function (req, res) {
 	console.log(req.path);
 	request({
@@ -53,7 +34,7 @@ router.use("/:url", function (req, res) {
 		var description = sub_body.match(/\/\/\s*@description\s+(.*)\s*\n/i);
 		var author = sub_body.match(/\/\/\s*@author\s+(.*)\s*\n/i);
 		var icon = sub_body.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-		var approve = `https://api.boxcrittersmods.ga/submit/approve/${process.env.SUBMIT_TOKEN}/${new Buffer.from("http://" + req.path.substr(1)).toString("base64")}`;
+		var approve = `https://api.boxcrittersmods.ga/modapprove/${process.env.SUBMIT_TOKEN}/${new Buffer.from("http://" + req.path.substr(1)).toString("base64")}`;
 
 		if (version && name && description && author)
 		{
