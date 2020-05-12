@@ -16,11 +16,11 @@ var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
  * Paths
  **/
 
-/* /modsubmit/(url) */
-router.use("/:url", function (req, res) {
+/* /modsubmit/(base64_url) */
+router.use("/:base64_url", function (req, res) {
 	console.log(req.path);
 	request({
-		"url": "http://" + req.path.substr(1) + ".user.js"
+		"url": new Buffer.from(req.path.substr(1), "base64").toString("ascii")
 	}, function (sub_err, sub_res, sub_body) {
 		if (sub_err)
 		{
@@ -32,7 +32,7 @@ router.use("/:url", function (req, res) {
 		var description = sub_body.match(/\/\/\s*@description\s+(.*)\s*\n/i);
 		var author = sub_body.match(/\/\/\s*@author\s+(.*)\s*\n/i);
 		var icon = sub_body.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-		var approve = `https://api.boxcrittersmods.ga/modapprove/${process.env.SUBMIT_TOKEN}/${new Buffer.from("http://" + req.path.substr(1) + ".user.js").toString("base64")}`;
+		var approve = `https://api.boxcrittersmods.ga/modapprove/${process.env.SUBMIT_TOKEN}/${req.path.substr(1)}`;
 
 		if (version && name && description && author)
 		{
