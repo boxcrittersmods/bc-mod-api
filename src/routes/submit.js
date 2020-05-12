@@ -20,7 +20,7 @@ var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
 router.use("/:base64_url", function (req, res) {
 	console.log(req.path);
 	request({
-		"url": new Buffer.from(req.path.substr(1), "base64").toString("ascii")
+		"url": new Buffer.from(req.params.base64_url, "base64").toString("ascii")
 	}, function (sub_err, sub_res, sub_body) {
 		if (sub_err)
 		{
@@ -32,7 +32,7 @@ router.use("/:base64_url", function (req, res) {
 		var description = sub_body.match(/\/\/\s*@description\s+(.*)\s*\n/i);
 		var author = sub_body.match(/\/\/\s*@author\s+(.*)\s*\n/i);
 		var icon = sub_body.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-		var approve = `https://api.boxcrittersmods.ga/modapprove/${process.env.SUBMIT_TOKEN}/${req.path.substr(1)}`;
+		var approve = `https://api.boxcrittersmods.ga/modapprove/${process.env.SUBMIT_TOKEN}/${req.params.base64_url}`;
 
 		if (version && name && description && author)
 		{
@@ -48,7 +48,7 @@ router.use("/:base64_url", function (req, res) {
 								{
 									"author_name": "${author[1]}",
 									"title": "${name[1]}",
-									"title_link": "${"http://" + req.path.substr(1) + ".user.js"}",
+									"title_link": "${new Buffer.from(req.params.base64_url, "base64").toString("ascii")}",
 									"text": "${description[1]}",
 									"color": "#ffaa00",
 									"fields": [
