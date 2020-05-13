@@ -43,6 +43,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "serve-index": "^1.9.1",
+    "socket.io": "^2.3.0",
     "tn-webserver": "^1.0.0",
     "webhook-discord": "^3.2.0"
   }

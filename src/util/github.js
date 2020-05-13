@@ -98,7 +98,7 @@ async function createMod(data, url)
 	}
 	content += `---\n`;
 	content = new Buffer.from(content).toString("base64");
-	var path = `_mods/${name.toLowerCase()}.md`;
+	var path = `_mods/${name.toLowerCase().replace(" ", "-")}.md`;
 	var message = `New mod: ${name}.`;
 	var repo = "boxcrittersmods.ga";
 	tmp_octokit.repos.createFile({

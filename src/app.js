@@ -1,6 +1,7 @@
 const express = require("express");
 const serveIndex = require('serve-index');
 const adminLogin = require('bc-admin-login');
+const io = require("socket.io");
 
 //middleware
 const cors = require("cors");
@@ -19,11 +20,13 @@ const mod = require('./routes/mod');
 const button = require("./routes/button");
 const submit = require("./routes/submit");
 const approve = require("./routes/approve");
+const auth = require("./routes/auth");
 
 //data
 const sitesData = require('#data/sites.json');
 
 var app = express();
+var server;
 
 //Setup Admin login for boxcritters.github.io
 app.use(adminLogin);
@@ -68,6 +71,7 @@ app.use('/feedback',feedback);
 app.use("/button", button);
 app.use("/modsubmit", submit);
 app.use("/modapprove", approve);
+app.use("/auth", auth);
 
 /**
  * Paths
