@@ -20,7 +20,6 @@ const mod = require('./routes/mod');
 const button = require("./routes/button");
 const submit = require("./routes/submit");
 const approve = require("./routes/approve");
-const auth = require("./routes/auth");
 
 //data
 const sitesData = require('#data/sites.json');
@@ -71,7 +70,6 @@ app.use('/feedback',feedback);
 app.use("/button", button);
 app.use("/modsubmit", submit);
 app.use("/modapprove", approve);
-app.use("/auth", auth);
 
 /**
  * Paths
