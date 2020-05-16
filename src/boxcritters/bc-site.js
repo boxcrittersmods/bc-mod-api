@@ -12,7 +12,6 @@ async function GetClientScriptURL() {
 	var scripts = await bcWebsite.getScripts();
 	var script = scripts.find(s => s.src.startsWith(pre));
 	return script.src;
-
 }
 
 async function GetVersion() {

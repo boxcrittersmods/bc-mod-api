@@ -14,12 +14,12 @@ const desc = require('./routes/description');
 const items = require('./routes/items');
 const manifests = require('./routes/manifests');
 const paths = require('./routes/paths');
-const textures = require('./routes/textures')
-const getassets = require('./routes/getassets')
-const mod = require('./routes/mod');
+const textures = require('./routes/textures');
+const getassets = require('./routes/getassets');
 const button = require("./routes/button");
 const submit = require("./routes/submit");
 const approve = require("./routes/approve");
+const apply = require("./routes/apply");
 
 //data
 const sitesData = require('#data/sites.json');
@@ -62,7 +62,6 @@ app.use(
 	serveIndex("public", { icons: true })
 );
 app.use('/cors',corsProxy);
-app.use('/mod',mod);
 
 app.use('/description',desc);
 app.use('/feedback',feedback);
@@ -70,6 +69,7 @@ app.use('/feedback',feedback);
 app.use("/button", button);
 app.use("/modsubmit", submit);
 app.use("/modapprove", approve);
+app.use("/applymod", apply);
 
 /**
  * Paths
