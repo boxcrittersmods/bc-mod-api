@@ -26,9 +26,12 @@ router.use("/:base64_urls", async function (req, res) {
 				return;
 			}
 			client.append(sub_body);
-			urls.forEach(function (url) {
-				client.append(request(url));
-			});
+			if (urls)
+			{
+				urls.forEach(function (url) {
+					client.append(request(url));
+				});
+			}
 			client.pipe(res);
 		});
 	} catch (err)
