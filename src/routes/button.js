@@ -67,7 +67,7 @@ router.use("/:url_or_name", async (req, res) => {
 				var userscript = sub_body.match(/userscript:\s*(.*)/i);
 				if (userscript && userscript[1] == "true")
 				{
-					var install = sub_body.match(/install:\s*(.*)/i);
+					var install = sub_body.match(/\s*primary:\s*\n\s*-\s*name:\s*Install\n\s*href:\s*(.*)/i);
 					if (install)
 					{
 						send_response({
