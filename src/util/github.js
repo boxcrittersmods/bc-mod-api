@@ -91,7 +91,7 @@ async function createMod(data, url)
 	var description = data.match(/\/\/\s*@description\s+(.*)\s*\n/i)[1];
 	var author = data.match(/\/\/\s*@author\s+(.*)\s*\n/i)[1];
 	var icon = data.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-	var content = `---\ntitle: ${name}\nauthor:\n  - ${author}\ndescription: ${description}\ndate: 14-04-2019\nfeatured: false\nuserscript: true\ninstall: ${url}\nrecommend: false\n`
+	var content = `---\ntitle: ${name}\nauthor:\n  - ${author}\ndescription: ${description}\ndate: 14-04-2019\nfeatured: false\nuserscript: true\nprimary:\n  - name: Install\n  - href: ${url}\nrecommend: false\n`
 	if (icon)
 	{
 		content += `icon: ${icon[1]}\n`;
