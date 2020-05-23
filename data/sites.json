@@ -1,7 +1,7 @@
 [
     {
-        "name": "boxcritters",
-        "url": "https://boxcritters.com",
+        "name": "play.boxcritters",
+        "url": "https://play.boxcritters.com",
         "media": {
             "cards": "/media/cards/oomm/",
             "critters": "/media/critters/",
