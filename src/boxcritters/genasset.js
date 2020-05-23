@@ -75,7 +75,7 @@ function urlIsRoot(url) {
 	return url.startsWith("http://") || url.startsWith("https://");
 }
 
-function getSiteUrl(site = 'boxcritters') {
+function getSiteUrl(site = 'play.boxcritters') {
 	return sitesJson.find(s => s.name == site).url;
 }
 
@@ -100,7 +100,7 @@ async function getSprites(sprites,name,type) {
 	},{});
 }
 
-async function getAssetInfo(type, site = 'boxcritters') {
+async function getAssetInfo(type, site = 'play.boxcritters') {
 	var host = getSiteUrl(site);
 	var manifests = await BoxCritters.GetManifests();
 	var loc = manifests[type];
@@ -155,7 +155,7 @@ async function GetIcons() {
 	var itemsData = await getAssetInfo('items');
 	var tp = await itemsData.Items.reduceAsync(async (tp,item) => {
 		var itemTp = {};
-		itemTp[item.ItemId] = await fillURL("https://boxcritters.com/media/icons/" + item.ItemId + ".png");
+		itemTp[item.ItemId] = await fillURL("https://play.boxcritters.com/media/icons/" + item.ItemId + ".png");
 
 
 		var theme = item.Theme||'normal';
