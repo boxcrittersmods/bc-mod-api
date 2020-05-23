@@ -1,5 +1,25 @@
 [
     {
+        "name": "boxcritters",
+        "url": "https://boxcritters.com",
+        "media": {
+            "cards": "/media/cards/oomm/",
+            "critters": "/media/critters/",
+            "monsters": "/media/monsters/",
+            "effects": "/media/effects/",
+            "symbols": "/media/symbols/",
+            "icons": "/media/icons/",
+            "items": "/media/items/",
+            "ui": "/media/ui/",
+            "ux": "/media/ux/",
+            "rooms": "/"
+        },
+        "js": "/lib/",
+		"website":"/play/",
+		"manifests":"/",
+		"misc":"/"
+    },
+    {
         "name": "play.boxcritters",
         "url": "https://play.boxcritters.com",
         "media": {
@@ -15,7 +35,7 @@
             "rooms": "/"
         },
         "js": "/lib/",
-		"website":"/play/",
+		"website":"/",
 		"manifests":"/",
 		"misc":"/"
     },
