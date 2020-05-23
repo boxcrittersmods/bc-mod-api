@@ -4,7 +4,7 @@ const { JSDOM } = require("jsdom");
 const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
-var bcWebsite = Website.Connect("https://play.boxcritters.com/play/index.html");
+var bcWebsite = Website.Connect("https://play.boxcritters.com/");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {

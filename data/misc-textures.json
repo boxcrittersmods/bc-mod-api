@@ -1,11 +1,11 @@
 {
-	"index": "http://boxcritters.com/play/index.html",
-	"favicon": "http://boxcritters.com/favicon.ico",
-	"favicon16": "http://boxcritters.com/favicon-16x16.png",
-	"favicon32": "http://boxcritters.com/favicon-32x32.png",
-	"ux": "http://boxcritters.com/media/ux/ux.png",
-	"edit_btn": "http://boxcritters.com/media/ui/edit_btn.png",
-	"coins_background": "http://boxcritters.com/media/ui/coins_background.png",
-	"bridge": "http://boxcritters.com/media/cards/oomm/bridge.png",
-	"ghost_ship": "http://boxcritters.com/media/cards/oomm/ghost_ship.png"
+	"index": "http://play.boxcritters.com/",
+	"favicon": "http://play.boxcritters.com/favicon.ico",
+	"favicon16": "http://play.boxcritters.com/favicon-16x16.png",
+	"favicon32": "http://play.boxcritters.com/favicon-32x32.png",
+	"ux": "http://play.boxcritters.com/media/ux/ux.png",
+	"edit_btn": "http://play.boxcritters.com/media/ui/edit_btn.png",
+	"coins_background": "http://play.boxcritters.com/media/ui/coins_background.png",
+	"bridge": "http://play.boxcritters.com/media/cards/oomm/bridge.png",
+	"ghost_ship": "http://play.boxcritters.com/media/cards/oomm/ghost_ship.png"
 }

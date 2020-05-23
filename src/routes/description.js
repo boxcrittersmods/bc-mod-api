@@ -4,7 +4,7 @@ const { JSDOM } = require("jsdom");
 
 var router = express.Router();
 
-var bcurl = "https://boxcritters.com/play/index.html";
+var bcurl = "https://boxcritters.com/";
 
 function getSiteText(url) {
     return new Promise((resolve,reject)=>{
