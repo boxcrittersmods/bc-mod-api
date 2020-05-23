@@ -8,7 +8,7 @@ var bcWebsite = Website.Connect("https://play.boxcritters.com/play/index.html");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {
-	var pre = "../lib/client";
+	var pre = "/lib/client";
 	var scripts = await bcWebsite.getScripts();
 	var script = scripts.find(s => s.src.startsWith(pre));
 	return script.src;
@@ -17,7 +17,7 @@ async function GetClientScriptURL() {
 async function GetVersion() {
 	var version = bcCache.get("version");
 	if (version == undefined) {
-		var pre = "../lib/client";
+		var pre = "lib/client";
 		var suf = ".min.js";
 		var scripts = await bcWebsite.getScripts();
 

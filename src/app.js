@@ -27,7 +27,7 @@ const sitesData = require('#data/sites.json');
 var app = express();
 var server;
 
-//Setup Admin login for boxcritters.github.io
+//Setup Admin login for boxcrittersmods.ga
 app.use(adminLogin);
 
 /**
