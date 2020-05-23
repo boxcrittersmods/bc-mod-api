@@ -54,7 +54,7 @@ router.get('/download',async (req,res)=>{
 	}
 	zip.finalize();
 
-})*/
+})
 
 
 // /textures
