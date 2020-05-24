@@ -116,8 +116,6 @@ async function getAssetInfo(type, site = 'play.boxcritters') {
 	return assetInfo;
 }
 
-async function getSpriteSheet() {}
-
 async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
@@ -131,12 +129,14 @@ async function GetCritters() {
 	var critters = await getAssetInfo('critters');
 	var mascots = await getAssetInfo('mascots');
 	var tp = {};
-	tp.critters = await critters.reduceAsync(async (tp, critter) => {
-		tp[critter.critterId] = await getSprites(critter.spriteSheet,critter.critterId,"critters");
+	tp.critters = await critters.reduceAsync(async (tp, critterData) => {
+		console.log("Critter: " +critterData.critterId);
+		tp[critterData.critterId] = await getSprites(critterData.spriteSheet,critterData.critterId,"critters");
 		return tp;
 	}, {});
-	tp.mascots = await mascots.reduceAsync(async (tp, critter) => {
-		tp[critter.critterId] = await getSprites(critter.spriteSheet,critter.critterId,"mascots");
+	tp.mascots = await mascots.reduceAsync(async (tp, critterData) => {
+		console.log("Mascot: " +critterData.critterId);
+		tp[critterData.critterId] = await getSprites(critterData.spriteSheet,critterData.critterId,"mascots");
 		return tp;
 	}, {});
 	return tp;
@@ -150,26 +150,31 @@ async function GetCritters() {
 }*/
 async function GetItems() {
 	var itemsData = await getAssetInfo('items');
-	var tp = itemsData.reduceAsync(async (tp,item) => {
-
-		console.log(id);
-		tp[id]= await fillURL(item,'items');
+	var sheetsUsed = [];
+	var tp = itemsData.reduceAsync(async (tp,itemData) => {
+		if(sheetsUsed.includes(itemData.spriteSheet)) {
+			return;
+		} else {
+			sheetsUsed.push(itemData.spriteSheet)
+		}
+		var spriteSheetParts = itemData.spriteSheet.split("/");
+		var series = spriteSheetParts[3];
+		console.log(itemData.spriteSheet);
+		tp[series] = await getSprites(itemData.spriteSheet,series,'items');
 		return tp;
 	},{});
 	return tp;
 }
 async function GetIcons() {
 	var itemsData = await getAssetInfo('items');
-	var tp = await itemsData.Items.reduceAsync(async (tp,item) => {
-		var itemTp = {};
-		itemTp[item.itemId] = await fillURL("https://play.boxcritters.com/media/icons/" + item.itemId + ".png");
+	var tp = await itemsData.reduceAsync(async (tp,itemData) => {
+		console.log("Item: " +itemData.itemId);
 
-
-		var theme = item.Theme||'normal';
-		var slot = item.Slot;
+		var theme = itemData.theme||'normal';
+		var slot = itemData.slot;
 		tp[theme] = tp[theme]||{};
 		tp[theme][slot] = tp[theme][slot]||{};
-		tp[theme][slot][item.ItemId] = itemTp;
+		tp[theme][slot][itemData.itemId] = itemData.icon;
 
 		return tp;
 	},{});
@@ -179,12 +184,11 @@ async function GetIcons() {
 async function GetRooms() {
 	var rooms = await getAssetInfo('rooms');
 	var tp = rooms.reduceAsync(async (tp, roomData) => {
-		
 		console.log("Room: " +roomData.roomId);
 		roomData.serverMap = "/map_server.png"
 		roomData.serverMap = roomData.background.replace("background","map_server");
 	var room = {}
-		if(roomData.background) room[roomData.roomId + "_bg"] =   await fillURL(roomData.background,'rooms');
+		if(roomData.background) room[roomData.roomId + "_bg"] =  await fillURL(roomData.background,'rooms');
 		if(roomData.foreground) room[roomData.roomId + "_fg"] = await fillURL(roomData.foreground,'rooms');
 		if(roomData.navMesh) room[roomData.roomId + "_nm"]= await fillURL(roomData.navMesh,'rooms');
 		if(roomData.map) room[roomData.roomId + "_map"]= await fillURL(roomData.map,'rooms');
@@ -213,7 +217,7 @@ async function GetTextureData() {
 		critters: await GetCritters(),
 		//effects: await GetEffects(),
 		//items: await GetItems(),
-		//icons: await GetIcons(),
+		icons: await GetIcons(),
 		rooms: await GetRooms(),
 		critterball: await GetCritterBall()
 	}
