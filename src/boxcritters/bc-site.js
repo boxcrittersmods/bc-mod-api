@@ -5,6 +5,7 @@ const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
 var bcWebsite = Website.Connect("https://play.boxcritters.com/");
+var bcInitScript = Website.Connect("https://play.boxcritters.com/index.js");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {
@@ -71,22 +72,24 @@ String.prototype.replaceAll = function (from,to) {
 	}
 	return paths;
 
-}
+}*/
 
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		var manstart = "var world = new World('stage', {";
-		var manend = "});";
+		var manstart = "world.loadManifest([";
+		var manend = "]);";
 		var manifestRegex = getStringBetweenStrings(manstart,manend)
-		var scripts = await bcWebsite.getScripts();
-		var script = scripts.filter(s => s.text.includes(manstart))[0];
+		var script = await bcInitScript.getText();
 		
-		var manRaw = ("{"+script.text.match(manifestRegex)[0].split(manend)[0]+"}")
+		var manRaw = ("["+script.match(manifestRegex)[0].split(manend)[0]+"]")
 		.replace(/\s+/gm," ")
-		.replace(/(?<=[{,] )\w+/gms,"'$&'")
-		.replace(/'/g,'"');
-		manifests = JSON.parse(manRaw);
+		.replace(/\w+(?=:)/gms,"'$&'")
+		.replace(/'/g,'"')
+		manifests = JSON.parse(manRaw).reduce((manifests,m)=>{
+			manifests[m.id] = m.src;
+			return manifests;
+		},{});
 		delete manifests.lobby;
 		
 		bcCache.set("manifests", manifests);
@@ -94,9 +97,9 @@ async function GetManifests() {
 	return manifests;
 }
 (async () => {
-	//console.log(await GetManifests())	
+	console.log(await GetManifests())	
 })()
-
+/*
 async function GetItemsFolder() {
 	var itemsfolder = bcCache.get("itemsfolder");
 	if (itemsfolder == undefined) {
@@ -112,8 +115,8 @@ async function GetItemsFolder() {
 }*/
 
 module.exports = {
-	/*GetManifests,
-	/GetPaths,
+	GetManifests,
+	/*GetPaths,
 	GetVersion,*/
 	GetClientScriptURL
 	//GetItemsFolder

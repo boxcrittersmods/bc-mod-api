@@ -22,6 +22,10 @@ Website.prototype.getJson = async function () {
 	return json;
 }
 
+Website.prototype.getText = async function () {
+	return await this.body();
+}
+
 Website.prototype.getDocument = async function() {
 	var { window } = new JSDOM(await this.body());
 	var document = window.document;

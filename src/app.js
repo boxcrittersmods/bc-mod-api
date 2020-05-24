@@ -10,10 +10,14 @@ const cors = require("cors");
 
 /*
  * START Broken
- * const versions = require('./routes/versions');
+ */
+const versions = require('./routes/versions');
+/*
  * const desc = require('./routes/description');
  * const items = require('./routes/items');
- * const manifests = require('./routes/manifests');
+ */
+const manifests = require('./routes/manifests');
+/*
  * const paths = require('./routes/paths');
  * const textures = require('./routes/textures');
  * const getassets = require('./routes/getassets');
@@ -60,9 +64,13 @@ app.use(function(req, res, next) {
  */
 /*
  * START Broken
- * app.use('/manifests',manifests);
+ */
+app.use('/manifests',manifests);
+/*
  * app.use('/paths',paths);
- * app.use('/versions',versions);
+ */
+app.use('/versions',versions);
+/*
  * app.use('/items',items);
  * app.use('/textures',textures)
  * app.use('/description',desc);

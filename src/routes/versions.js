@@ -9,7 +9,8 @@ var router = express.Router();
  */
 router.use(async (req, res, next) => {
 	res.type("application/json");
-	await bcVersions.CheckForNewVersion();
+	///TODO: Find out how clienet version names work
+	//await bcVersions.CheckForNewVersion();
 	next();
 });
 
