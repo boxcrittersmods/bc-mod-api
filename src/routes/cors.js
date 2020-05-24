@@ -22,32 +22,37 @@ router.use("/", (req, res, next) => {
  * Paths
  */
 
-// /cors/data/(url)
+/* /cors/data/(url) */
 router.use("/data", async (req, res) => {
 	var url = req.path.substr(1);
 	console.log("URL:", url);
 	if (!url) {
-		res.send("No URL provided");
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(400).send(`{"err": "No URL provided."`);
 		return;
 	}
 	try {
 		imageDataURI.encodeFromURL(url).then(data => {
 			res.json({ url: data });
 		});
-	} catch (e) {
-		console.log(e);
-
-		res.send("Error: " + e);
+	} catch (err) {
+		console.log(err);
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(503).send(`{"err": "${err}"`);
 		return;
 	}
 });
 
-// /cors/file/(url)
+/* /cors/file/(url) */
 router.use("/file", async (req, res) => {
 	var url = req.path.substr(1);
 	console.log("URL:", url);
 	if (!url) {
-		res.send("No URL provided");
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(400).send(`{"err": "No URL provided."`);
 		return;
 	}
 	request(url).pipe(res)
@@ -58,7 +63,9 @@ router.use("/", async (req, res) => {
 	var url = req.path.substr(1);
 	console.log("URL:", url);
 	if (!url) {
-		res.send("No URL provided");
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(400).send(`{"err": "No URL provided."`);
 		return;
 	}
 	try {
@@ -84,10 +91,11 @@ router.use("/", async (req, res) => {
 			}
 			res.send(document);
 		});
-	} catch (e) {
-		console.log(e);
-
-		res.send("Error: " + e);
+	} catch (err) {
+		console.log(err);
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(503).send(`{"err": "${err}"`);
 		return;
 	}
 });

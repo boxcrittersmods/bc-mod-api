@@ -14,10 +14,13 @@ function send_response(settings, res)
 		request(settings, function (sub_err, sub_res, sub_body) {
 			if (sub_err)
 			{
-				res.send(`Error: ${sub_err}.`);
+				res.set("Content-Type", "application/json");
+				res.type("application/json");
+				res.status(503).send(`{"err": "${sub_err}"`);
 				return;
 			}
 			res.set("Content-Type", "image/svg+xml");
+			res.type("image/svg+xml");
 			var version = sub_body.match(/\/\/\s*@version\s+(.*)\s*\n/i);
 			if (version)
 			{
@@ -26,16 +29,20 @@ function send_response(settings, res)
 				}, function (sub_err, sub_res, sub_body) {
 					if (sub_err)
 					{
-						res.send(`Error: ${sub_err}.`);
+						res.set("Content-Type", "application/json");
+						res.type("application/json");
+						res.status(503).send(`{"err": "${sub_err}"`);
 						return;
 					}
 					res.send(sub_body);
 				});
 			}
 		});
-	} catch (e) {
-		console.log(e);
-		res.send("Error: " + e);
+	} catch (err) {
+		console.log(err);
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(500).send(`{"err": "${sub_err}"`);
 		return;
 	}
 }
@@ -59,15 +66,18 @@ router.use("/:url_or_name", async (req, res) => {
 			request({
 				"url": "https://raw.githubusercontent.com/boxcritters/boxcrittersmods.ga/master/_mods/" + req.params.url_or_name + ".md"
 			}, function (sub_err, sub_res, sub_body) {
+				/* console.log(sub_body); */
 				if (sub_err)
 				{
-					res.send(`Error: ${sub_err}.`);
+					res.set("Content-Type", "application/json");
+					res.type("application/json");
+					res.status(503).send(`{"err": "${sub_err}"`);
 					return;
 				}
 				var userscript = sub_body.match(/userscript:\s*(.*)/i);
 				if (userscript && userscript[1] == "true")
 				{
-					var install = sub_body.match(/\s*primary:\s*\n\s*-\s*name:\s*Install\n\s*href:\s*(.*)/i);
+					var install = sub_body.match(/\s*buttons:\s*\n\s*-\s*name:\s*Install\n\s*href:\s*(.*)/i);
 					if (install)
 					{
 						send_response({
@@ -76,14 +86,18 @@ router.use("/:url_or_name", async (req, res) => {
 					}
 				} else
 				{
-					res.send("The mod is not a user script mod.");
+					res.set("Content-Type", "application/json");
+					res.type("application/json");
+					res.status(503).send(`{"err": "The mod is not a user script mod."`);
 					return;
 				}
 			});
 		}
-	} catch (e) {
-		console.log(e);
-		res.send("Error: " + e);
+	} catch (err) {
+		console.log(err);
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(500).send(`{"err": "${err}"`);
 		return;
 	}
 });

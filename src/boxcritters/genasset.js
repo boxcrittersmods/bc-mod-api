@@ -9,7 +9,7 @@ const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
 
-var SITE_URL= getSiteUrl();
+var SITE_URL = getSiteUrl();
 
 Object.defineProperty(Array.prototype, 'reduceAsync', {
     value:  async function(action,def) {
@@ -64,11 +64,9 @@ function explode(obj) {
 	},{});
 }
 
-async function GetClientScript() {
-	var siteUrl = getSiteUrl();
-	var tp = await BoxCritters.GetClientScriptURL()
-	tp = tp.replace("..",siteUrl);
-	return tp;
+function GetClientScript()
+{
+	return "https://play.boxcritters.com/lib/client.min.js";
 }
 
 function urlIsRoot(url) {
@@ -229,5 +227,5 @@ module.exports = {
 	GetIcons,
 	GetCritterBall,
 	GetTextureData,
-	GetTextureList,
+	GetTextureList
 }

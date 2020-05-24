@@ -7,6 +7,7 @@ var router = express.Router();
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.set("Content-Type", "application/json");
+	res.type("application/json");
 	next();
 });
 
@@ -24,7 +25,9 @@ router.use("/:base64_url", function (req, res) {
 	}, function (sub_err, sub_res, sub_body) {
 		if (sub_err)
 		{
-			res.send(`Error: ${sub_err}.`);
+			res.set("Content-Type", "application/json");
+			res.type("application/json");
+			res.status(503).send(`{"err": "${sub_err}"`);
 			return;
 		}
 		var version = sub_body.match(/\/\/\s*@version\s+(.*)\s*\n/i);
@@ -62,7 +65,7 @@ router.use("/:base64_url", function (req, res) {
 						}`
 			});
 		}
-		res.send("{\"ok\": \"ok\"}");
+		res.send(`{"ok": "ok"}`);
 	});
 });
 

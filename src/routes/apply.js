@@ -7,22 +7,24 @@ var router = express.Router();
 
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.type(".js");
+	res.type("application/javascript");
 	next();
 });
 
-// /applymods/(base64_urls[])
+/* /applymods/(base64_urls[]) */
 router.use("/:base64_urls", async function (req, res) {
 	var urls = JSON.parse(Buffer.from(req.params.base64_urls, "base64").toString("ascii"));
 	try
 	{
 		var client = combinedstream.create();
 		request({
-			"url": await genasset.GetClientScript()
+			"url": genasset.GetClientScript()
 		}, function (sub_err, sub_res, sub_body) {
 			if (sub_err)
 			{
-				res.send(`Error: ${sub_err}.`);
+				res.set("Content-Type", "application/json");
+				res.type("application/json");
+				res.status(503).send(`{"err": "${sub_err}"`);
 				return;
 			}
 			client.append(sub_body);
@@ -37,7 +39,9 @@ router.use("/:base64_urls", async function (req, res) {
 	} catch (err)
 	{
 		console.log(err);
-		res.send(`Error: ${err}`);
+		res.set("Content-Type", "application/json");
+		res.type("application/json");
+		res.status(500).send(`{"err": "${rr}"`);
 		return;
 	}
 });

@@ -8,13 +8,13 @@ var bcWebsite = Website.Connect("https://play.boxcritters.com/");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {
-	var pre = "/lib/client";
+	/*var pre = "/lib/client";
 	var scripts = await bcWebsite.getScripts();
-	var script = scripts.find(s => s.src.startsWith(pre));
-	return script.src;
+	var script = scripts.find(s => s.src.startsWith(pre));*/
+	return "https://play.boxcritters.com/lib/client.min.js";
 }
 
-async function GetVersion() {
+/*async function GetVersion() {
 	var version = bcCache.get("version");
 	if (version == undefined) {
 		var pre = "lib/client";
@@ -27,7 +27,7 @@ async function GetVersion() {
 		bcCache.set("version", version);
 	}
 	return version;
-}
+}*/
 
 function getStringBetweenStrings(a,b) {
 	function escapeRegExp(string) {
@@ -71,7 +71,7 @@ String.prototype.replaceAll = function (from,to) {
 	}
 	return paths;
 
-}*/
+}
 
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
@@ -109,12 +109,12 @@ async function GetItemsFolder() {
 		bcCache.set("itemsfolder", itemsfolder);
 	}
 	return itemsfolder;
-}
+}*/
 
 module.exports = {
-	GetManifests,
-	//GetPaths,
-	GetVersion,
+	/*GetManifests,
+	/GetPaths,
+	GetVersion,*/
 	GetClientScriptURL
 	//GetItemsFolder
 };
