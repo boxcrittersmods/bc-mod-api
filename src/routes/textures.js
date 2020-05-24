@@ -61,12 +61,12 @@ router.get('/download',async (req,res)=>{
 router.get('/BoxCritters.bctp.json',async (req,res)=>{
 	res.type("application/json");
 	var textures = await textureData.GetTextureList();
-	textures = Object.assign(textures,{
+	textures = Object.assign({
 		"name": "BoxCritters",
 		"author": "RocketSnail",
 		"date": 1564832528955,
 		"description": "This is the classical look of Box Critters"
-	  });
+	  },textures);
     res.json(textures);
 
 })

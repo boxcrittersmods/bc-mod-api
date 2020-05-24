@@ -221,7 +221,7 @@ async function GetTextureData() {
 async function GetTextureList() {
 	var things = await GetTextureData();
 	var tp = explode(things);
-	tp.packVersion = (await BoxCritters.GetVersion())+"";
+	//tp.packVersion = "UNKNOWN";
 	return tp;
 }
 
@@ -229,9 +229,9 @@ module.exports = {
 	getAssetInfo,
 	GetClientScript,
 	GetManifestLoc,
-	GetCritters,
-	GetItems,
-	GetIcons,
+	//GetCritters,
+	//GetItems,
+	//GetIcons,
 	GetCritterBall,
 	GetTextureData,
 	GetTextureList
