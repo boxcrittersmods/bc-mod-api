@@ -193,6 +193,7 @@ async function GetRooms() {
 		if(roomData.navMesh) room[roomData.roomId + "_nm"]= await fillURL(roomData.navMesh,'rooms');
 		if(roomData.map) room[roomData.roomId + "_map"]= await fillURL(roomData.map,'rooms');
 		if(roomData.serverMap) room[roomData.roomId + "_server_map"]= await fillURL(roomData.serverMap,'rooms');
+		if(roomData.music) room[roomData.roomId + "_music"]= await fillURL(roomData.music,'rooms');
 		if(roomData.spriteSheet) room[roomData.roomId + "_sprites"]= await getSprites(roomData.spriteSheet,roomData.roomId + "_sprites",'rooms');
 		
 		tp[roomData.roomId] = room;
