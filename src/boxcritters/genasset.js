@@ -88,7 +88,12 @@ async function fillURL(url,type) {
 	}
 }
 
-async function getSprites(sprites,name,type) {
+async function getSprites(spriteSheet,name,type) {
+	var host = getSiteUrl("play.boxcritters");
+	var url = host + spriteSheet;
+	var website = Website.Connect(url);
+	var sprites = await website.getJson();
+
 	return sprites.images.reduceAsync(async (tp,sprite,i) =>{
 		var value = await fillURL(sprite,type);
 		var key = name;
@@ -109,6 +114,8 @@ async function getAssetInfo(type, site = 'play.boxcritters') {
 	return assetInfo;
 }
 
+async function getSpriteSheet() {}
+
 async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
@@ -123,37 +130,37 @@ async function GetCritters() {
 	var mascots = await getAssetInfo('mascots');
 	var tp = {};
 	tp.critters = await critters.reduceAsync(async (tp, critter) => {
-		tp[critter.CritterId] = await getSprites(critter.Sprites,critter.CritterId,"critters");
+		tp[critter.critterId] = getSprites(critter.spriteSheet,critter.critterId,"critters");
 		return tp;
 	}, {});
-	tp.mascots = await mascots.reduceAsync(async (tp, mascot) => {
-		tp[mascot.MascotId] = await getSprites(mascot.Sprites,mascot.MascotId,"mascots");
+	tp.mascots = await mascots.reduceAsync(async (tp, critter) => {
+		tp[critter.critterId] = getSprites(critter.spriteSheet,critter.critterId,"mascots");
 		return tp;
 	}, {});
 	return tp;
 }
-async function GetEffects() {
+/*async function GetEffects() {
 	var siteUrl = getSiteUrl();
 	var effects = await getAssetInfo('effects');
-	var tp = await getSprites(effects,"effects","effects");
+	console.log(effects);
+	//var tp = await getSprites(effects,"effects","effects");
 	return tp;
-}
+}*/
 async function GetItems() {
 	var itemsData = await getAssetInfo('items');
-	var tp = await getSprites(itemsData.Sprites,"items","items")
-	/*var tp = await items.reduceAsync(async (tp,item) => {
-		var id = path.basename(item, path.extname(item));
+	var tp = itemsData.reduceAsync(async (tp,item) => {
+
 		console.log(id);
 		tp[id]= await fillURL(item,'items');
 		return tp;
-	},{});*/
+	},{});
 	return tp;
 }
 async function GetIcons() {
 	var itemsData = await getAssetInfo('items');
 	var tp = await itemsData.Items.reduceAsync(async (tp,item) => {
 		var itemTp = {};
-		itemTp[item.ItemId] = await fillURL("https://play.boxcritters.com/media/icons/" + item.ItemId + ".png");
+		itemTp[item.itemId] = await fillURL("https://play.boxcritters.com/media/icons/" + item.itemId + ".png");
 
 
 		var theme = item.Theme||'normal';
@@ -171,18 +178,18 @@ async function GetRooms() {
 	var rooms = await getAssetInfo('rooms');
 	var tp = rooms.reduceAsync(async (tp, roomData) => {
 		
-		console.log("Room: " +roomData.RoomId);
-		roomData.ServerMap = "/map_server.png"
-		roomData.ServerMap = roomData.Background.replace("background","map_server");
+		console.log("Room: " +roomData.roomId);
+		roomData.serverMap = "/map_server.png"
+		roomData.serverMap = roomData.background.replace("background","map_server");
 	var room = {}
-		if(roomData.Background) room[roomData.RoomId + "_bg"] =   await fillURL(roomData.Background,'rooms');
-		if(roomData.Foreground) room[roomData.RoomId + "_fg"] = await fillURL(roomData.Foreground,'rooms');
-		if(roomData.NavMesh) room[roomData.RoomId + "_nm"]= await fillURL(roomData.NavMesh,'rooms');
-		if(roomData.Map) room[roomData.RoomId + "_map"]= await fillURL(roomData.Map,'rooms');
-		if(roomData.ServerMap) room[roomData.RoomId + "_server_map"]= await fillURL(roomData.ServerMap,'rooms');
-		if(roomData.Sprites) room[roomData.RoomId + "_sprites"]= await getSprites(roomData.Sprites,roomData.RoomId + "_sprites",'rooms');
+		if(roomData.background) room[roomData.roomId + "_bg"] =   await fillURL(roomData.background,'rooms');
+		if(roomData.foreground) room[roomData.roomId + "_fg"] = await fillURL(roomData.foreground,'rooms');
+		if(roomData.navMesh) room[roomData.roomId + "_nm"]= await fillURL(roomData.navMesh,'rooms');
+		if(roomData.map) room[roomData.roomId + "_map"]= await fillURL(roomData.map,'rooms');
+		if(roomData.serverMap) room[roomData.roomId + "_server_map"]= await fillURL(roomData.serverMap,'rooms');
+		if(roomData.sprites) room[roomData.roomId + "_sprites"]= await getSprites(roomData.spriteSheet,roomData.roomId + "_sprites",'rooms');
 		
-		tp[roomData.RoomId] = room;
+		tp[roomData.roomId] = room;
 		return tp;
 
 	}, {});
@@ -201,10 +208,10 @@ async function GetTextureData() {
 		clientscript: await GetClientScript(),
 		misc: textureMisc,
 		manifests: await GetManifestLoc(),
-		critters: await GetCritters(),
-		effects: await GetEffects(),
-		items: await GetItems(),
-		icons: await GetIcons(),
+		//critters: await GetCritters(),
+		//effects: await GetEffects(),
+		//items: await GetItems(),
+		//icons: await GetIcons(),
 		rooms: await GetRooms(),
 		critterball: await GetCritterBall()
 	}

@@ -72,7 +72,7 @@ router.get('/BoxCritters.bctp.json',async (req,res)=>{
 })
 
 
-/*router.get('/:name/view',async (req,res)=>{
+router.get('/:name/view',async (req,res)=>{
 	//res.type("plain/text");
 	var textures = await textureData.GetTextureList();
     res.redirect(textures[req.params.name]);
@@ -91,7 +91,7 @@ router.get('/',async (req,res)=>{
     var textures = await textureData.GetTextureData();
     res.json(textures);
 
-})*/
+})
 
 
 

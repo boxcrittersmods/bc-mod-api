@@ -19,7 +19,9 @@ const versions = require('./routes/versions');
 const manifests = require('./routes/manifests');
 /*
  * const paths = require('./routes/paths');
- * const textures = require('./routes/textures');
+ */
+const textures = require('./routes/textures');
+/*
  * const getassets = require('./routes/getassets');
  * END Broken
  */
@@ -72,7 +74,9 @@ app.use('/manifests',manifests);
 app.use('/versions',versions);
 /*
  * app.use('/items',items);
- * app.use('/textures',textures)
+ */
+app.use('/textures',textures)
+/*
  * app.use('/description',desc);
  * END Broken
  */
