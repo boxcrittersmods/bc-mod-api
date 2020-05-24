@@ -157,7 +157,7 @@ async function GetItems() {
 		if(!sheetsUsed.includes(itemData.spriteSheet)) {
 			sheetsUsed.push(itemData.spriteSheet)
 			var spriteSheetParts = itemData.spriteSheet.split("/");
-			var series = spriteSheetParts[3];
+			var series = "items_"+spriteSheetParts[3];
 			console.log("ItemSheet: " +series);
 			tp[series] = await getSprites(itemData.spriteSheet,series,'items');
 		}
