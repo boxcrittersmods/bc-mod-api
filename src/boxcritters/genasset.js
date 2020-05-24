@@ -97,11 +97,12 @@ async function getSprites(spriteSheet,name,type) {
 	return sprites.images.reduceAsync(async (tp,sprite,i) =>{
 		var value = await fillURL(sprite,type);
 		var key = name;
-		if(sprites.images.length>1) {
-			key +=""+i;
-		} else {
+		if(sprites.images.length<=1) {
 			return value;
 		}
+		key +="_"+i;
+		tp[key] = value;
+		return tp;
 	},{});
 }
 
@@ -119,6 +120,7 @@ async function getAssetInfo(type, site = 'play.boxcritters') {
 async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
+		console.log("Manifest: " + m)
 		tp[m + "_manifest"] = await fillURL(manifests[m]);
 		return tp;
 	}, {});
@@ -152,15 +154,13 @@ async function GetItems() {
 	var itemsData = await getAssetInfo('items');
 	var sheetsUsed = [];
 	var tp = itemsData.reduceAsync(async (tp,itemData) => {
-		if(sheetsUsed.includes(itemData.spriteSheet)) {
-			return;
-		} else {
+		if(!sheetsUsed.includes(itemData.spriteSheet)) {
 			sheetsUsed.push(itemData.spriteSheet)
+			var spriteSheetParts = itemData.spriteSheet.split("/");
+			var series = spriteSheetParts[3];
+			console.log("ItemSheet: " +series);
+			tp[series] = await getSprites(itemData.spriteSheet,series,'items');
 		}
-		var spriteSheetParts = itemData.spriteSheet.split("/");
-		var series = spriteSheetParts[3];
-		console.log(itemData.spriteSheet);
-		tp[series] = await getSprites(itemData.spriteSheet,series,'items');
 		return tp;
 	},{});
 	return tp;
@@ -216,7 +216,7 @@ async function GetTextureData() {
 		manifests: await GetManifestLoc(),
 		critters: await GetCritters(),
 		//effects: await GetEffects(),
-		//items: await GetItems(),
+		items: await GetItems(),
 		icons: await GetIcons(),
 		rooms: await GetRooms(),
 		critterball: await GetCritterBall()
