@@ -200,6 +200,15 @@ async function GetRooms() {
 	return tp;
 }
 
+async function GetMedia() {
+	var media = await getAssetInfo('media');
+	var tp = Object.keys(media).reduceAsync(async (tp,type)=>{
+		tp[type] = await getSprites(media[type].spriteSheet,type,'media');
+		return tp;
+	},{});
+	return tp;
+}
+
 async function GetCritterBall() {
 	var tp = critterballJson;
 	return tp;
@@ -217,6 +226,7 @@ async function GetTextureData() {
 		items: await GetItems(),
 		icons: await GetIcons(),
 		rooms: await GetRooms(),
+		media: await GetMedia(),
 		critterball: await GetCritterBall()
 	}
 	return tp;
