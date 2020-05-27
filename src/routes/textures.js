@@ -87,8 +87,8 @@ router.get('/:type/:name',async (req,res)=>{
 router.get('/:type',async (req,res)=>{
 	//res.type("plain/text");
 	res.type("application/json");
-    var textures = await textureData.GetTextureData()[req.params.type];
-    res.json(textures);
+    var textures = await textureData.GetTextureData();
+    res.json(textures[req.params.type]);
 
 });
 
