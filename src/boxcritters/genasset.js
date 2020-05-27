@@ -232,8 +232,9 @@ async function GetTextureData() {
 	return tp;
 }
 
-async function GetTextureList() {
+async function GetTextureList(type) {
 	var things = await GetTextureData();
+	if(type) things = things[type];
 	var tp = explode(things);
 	//tp.packVersion = "UNKNOWN";
 	return tp;

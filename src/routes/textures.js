@@ -72,16 +72,23 @@ router.get('/BoxCritters.bctp.json',async (req,res)=>{
 })
 
 
-router.get('/:name/view',async (req,res)=>{
+router.get('/:type/:name/view',async (req,res)=>{
 	//res.type("plain/text");
-	var textures = await textureData.GetTextureList();
+	var textures = await textureData.GetTextureList(req.params.type);
     res.redirect(textures[req.params.name]);
 
 });
-router.get('/:name',async (req,res)=>{
+router.get('/:type/:name',async (req,res)=>{
 	//res.type("plain/text");
-	var textures = await textureData.GetTextureList();
+	var textures = await textureData.GetTextureList(req.params.type);
     res.send(textures[req.params.name]);
+
+});
+router.get('/:type',async (req,res)=>{
+	//res.type("plain/text");
+	res.type("application/json");
+    var textures = await textureData.GetTextureData()[req.params.type];
+    res.json(textures);
 
 });
 
