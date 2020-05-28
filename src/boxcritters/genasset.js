@@ -211,7 +211,10 @@ async function GetMedia() {
 }
 
 async function GetShop() {
-	var tp = shopJson;
+	var tp = Object.keys(shopJson).reduceAsync(async(tp,type)=>{
+		tp[type] =  await fillURL(shopJson[type],"shop")
+		return tp;
+	},{});
 	return tp;
 }
 
