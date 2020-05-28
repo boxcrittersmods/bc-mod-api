@@ -8,6 +8,7 @@ const textureDataJson = require('#data/texture-data.json');
 const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
+const shopJson = require('#data/shop.json');
 
 var SITE_URL = getSiteUrl();
 
@@ -209,6 +210,11 @@ async function GetMedia() {
 	return tp;
 }
 
+async function GetShop() {
+	var tp = shopJson;
+	return tp;
+}
+
 async function GetCritterBall() {
 	var tp = critterballJson;
 	return tp;
@@ -227,6 +233,7 @@ async function GetTextureData() {
 		icons: await GetIcons(),
 		rooms: await GetRooms(),
 		media: await GetMedia(),
+		shop: await GetShop(),
 		critterball: await GetCritterBall()
 	}
 	return tp;
