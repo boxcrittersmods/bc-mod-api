@@ -187,12 +187,19 @@ async function GetRooms() {
 	var tp = rooms.reduceAsync(async (tp, roomData) => {
 		console.log("Room: " +roomData.roomId);
 		var room = {}
-		if(roomData.background) room[roomData.roomId + "_bg"] =  await fillURL(roomData.background,'rooms');
-		if(roomData.foreground) room[roomData.roomId + "_fg"] = await fillURL(roomData.foreground,'rooms');
-		if(roomData.navMesh) room[roomData.roomId + "_nm"]= await fillURL(roomData.navMesh,'rooms');
-		if(roomData.map) room[roomData.roomId + "_map"]= await fillURL(roomData.map,'rooms');
-		if(roomData.music) room[roomData.roomId + "_music"]= await fillURL(roomData.music,'rooms');
-		if(roomData.spriteSheet) room[roomData.roomId + "_sprites"]= await getSprites(roomData.spriteSheet,roomData.roomId + "_sprites",'rooms');
+		let dataStrings = { // probably change the name for this variable
+			background: "bg",
+			foreground: "fg",
+			navMesh: "nm",
+			map: "map",
+			music: "music",
+		}
+		for (let i in dataStrings)
+			if(roomData[i])
+				room[roomData.roomId + "_" + dataStrings[i]] = await fillURL(roomData[i], 'rooms');
+		
+		if(roomData.spriteSheet)
+			room[roomData.roomId + "_sprites"] = await getSprites(roomData.spriteSheet, roomData.roomId + "_sprites", 'rooms');
 		
 		tp[roomData.roomId] = room;
 		return tp;
