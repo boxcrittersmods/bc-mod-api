@@ -51,15 +51,18 @@ function camelize(str) {
 	}).replace(/\s+/g, '');
 }
 
-function explode(obj) {
+function explode(obj,prefix) {
 	return Object.keys(obj).reduce((pieces,key)=>{
 		var value = obj[key];
+		if(typeof(prefix)=="string") key = prefix+"_"+key;
 		if(Array.isArray(value)) return Object.assign(pieces,value.reduce((arrObj,item,i)=>{
 			var suffix = value.length>1?i:"";
 			arrObj[key + suffix] = item;
 			return arrObj;
 		},{}))
-		if(typeof value == "object") return Object.assign(pieces,explode(value));
+		var p = undefined;
+		if(prefix) p = key;
+		if(typeof value == "object") return Object.assign(pieces,explode(value,p));
 		pieces[key] = value;
 		return pieces
 	},{});
@@ -89,14 +92,14 @@ async function fillURL(url) {
 	}
 }
 
-async function getSprites(spriteSheet,name,type) {
+async function getSprites(spriteSheet,name) {
 	var host = getSiteUrl("play.boxcritters");
 	var url = host + spriteSheet;
 	var website = Website.Connect(url);
 	var sprites = await website.getJson();
 
 	return sprites.images.reduceAsync(async (tp,sprite,i) =>{
-		var value = await fillURL(sprite,type);
+		var value = await fillURL(sprite);
 		var key = name;
 		if(sprites.images.length<=1) {
 			return value;
@@ -134,12 +137,12 @@ async function GetCritters() {
 	var tp = {};
 	tp.critters = await critters.reduceAsync(async (tp, critterData) => {
 		console.log("Critter: " +critterData.critterId);
-		tp[critterData.critterId] = await getSprites(critterData.spriteSheet,critterData.critterId,"critters");
+		tp[critterData.critterId] = await getSprites(critterData.spriteSheet,critterData.critterId);
 		return tp;
 	}, {});
 	tp.mascots = await mascots.reduceAsync(async (tp, critterData) => {
 		console.log("Mascot: " +critterData.critterId);
-		tp[critterData.critterId] = await getSprites(critterData.spriteSheet,critterData.critterId,"mascots");
+		tp[critterData.critterId] = await getSprites(critterData.spriteSheet,critterData.critterId);
 		return tp;
 	}, {});
 	return tp;
@@ -160,7 +163,7 @@ async function GetItems() {
 			var spriteSheetParts = itemData.spriteSheet.split("/");
 			var series = "items_"+spriteSheetParts[3];
 			console.log("ItemSheet: " +series);
-			tp[series] = await getSprites(itemData.spriteSheet,series,'items');
+			tp[series] = await getSprites(itemData.spriteSheet,series);
 		}
 		return tp;
 	},{});
@@ -175,7 +178,7 @@ async function GetIcons() {
 		var slot = itemData.slot;
 		tp[theme] = tp[theme]||{};
 		tp[theme][slot] = tp[theme][slot]||{};
-		tp[theme][slot][itemData.itemId] = await fillURL(itemData.icon,"icons");
+		tp[theme][slot][itemData.itemId] = await fillURL(itemData.icon);
 
 		return tp;
 	},{});
@@ -187,19 +190,19 @@ async function GetRooms() {
 	var tp = rooms.reduceAsync(async (tp, roomData) => {
 		console.log("Room: " +roomData.roomId);
 		var room = {}
-		let dataStrings = { // probably change the name for this variable
+		let roomParts = { // probably change the name for this variable
 			background: "bg",
 			foreground: "fg",
 			navMesh: "nm",
 			map: "map",
 			music: "music",
 		}
-		for (let i in dataStrings)
+		for (let i in roomParts)
 			if(roomData[i])
-				room[roomData.roomId + "_" + dataStrings[i]] = await fillURL(roomData[i], 'rooms');
+				room[roomData.roomId + "_" + roomParts[i]] = await fillURL(roomData[i]);
 		
 		if(roomData.spriteSheet)
-			room[roomData.roomId + "_sprites"] = await getSprites(roomData.spriteSheet, roomData.roomId + "_sprites", 'rooms');
+			room[roomData.roomId + "_sprites"] = await getSprites(roomData.spriteSheet, roomData.roomId + "_sprites");
 		
 		tp[roomData.roomId] = room;
 		return tp;
@@ -211,7 +214,7 @@ async function GetRooms() {
 async function GetMedia() {
 	var media = await getAssetInfo('media');
 	var tp = Object.keys(media).reduceAsync(async (tp,type)=>{
-		tp[type] = await getSprites(media[type].spriteSheet,type,'media');
+		tp[type] = await getSprites(media[type].spriteSheet,type);
 		return tp;
 	},{});
 	return tp;
@@ -219,7 +222,7 @@ async function GetMedia() {
 
 async function GetShop() {
 	var tp = Object.keys(shopJson).reduceAsync(async(tp,type)=>{
-		tp[type] =  await fillURL(shopJson[type],"shop")
+		tp[type] = await getSprites(shopJson[type].spriteSheet,type);
 		return tp;
 	},{});
 	return tp;
@@ -252,7 +255,7 @@ async function GetTextureData() {
 async function GetTextureList(type) {
 	var things = await GetTextureData();
 	if(type) things = things[type];
-	var tp = explode(things);
+	var tp = explode(things,type?true:false);
 	//tp.packVersion = "UNKNOWN";
 	return tp;
 }
