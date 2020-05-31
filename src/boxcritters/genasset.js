@@ -78,7 +78,7 @@ function getSiteUrl(site = 'play.boxcritters') {
 	return sitesJson.find(s => s.name == site).url;
 }
 
-async function fillURL(url,type) {
+async function fillURL(url) {
 	if(!url) return "";
 	//var paths = await BoxCritters.GetPaths();
 	var base = SITE_URL;
