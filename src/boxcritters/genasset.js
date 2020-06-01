@@ -199,10 +199,10 @@ async function GetRooms() {
 		}
 		for (let i in roomParts)
 			if(roomData[i])
-				room[roomParts[i]] = await fillURL(roomData[i]);
+				room[roomData.roomId + "_" + roomParts[i]] = await fillURL(roomData[i]);
 		
 		if(roomData.spriteSheet)
-			room["sprites"] = await getSprites(roomData.spriteSheet, "sprites");
+			room[roomData.roomId + "_sprites"] = await getSprites(roomData.spriteSheet, roomData.roomId + "_sprites");
 		
 		tp[roomData.roomId] = room;
 		return tp;
@@ -255,7 +255,7 @@ async function GetTextureData() {
 async function GetTextureList(type) {
 	var things = await GetTextureData();
 	if(type) things = things[type];
-	var tp = explode(things,true);
+	var tp = explode(things);
 	//tp.packVersion = "UNKNOWN";
 	return tp;
 }
