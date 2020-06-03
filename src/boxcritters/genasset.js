@@ -178,7 +178,7 @@ async function GetIcons() {
 		var slot = itemData.slot;
 		tp[theme] = tp[theme]||{};
 		tp[theme][slot] = tp[theme][slot]||{};
-		tp[theme][slot][itemData.itemId] = await fillURL(itemData.icon);
+		tp[theme][slot][itemData.itemId] = await fillURL("/media/icons/" + itemData.itemId + ".png");
 
 		return tp;
 	},{});
