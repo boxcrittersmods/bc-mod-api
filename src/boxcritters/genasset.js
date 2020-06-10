@@ -276,29 +276,89 @@ async function getObjectSchematic(obj) {
 	}
 	return typeof (obj);
 }
-
 async function GetTextureData() {
 	//var symbols = await GetSymbols();
 
 	var manifests = await BoxCritters.GetManifests();
 
+	// Retreval Names
 	var idMap = {
+		id:"Id",
+		spriteSheet:"spriteSheet",
 		mascot: "critter"
 	}
-	let tpAttribs = {
-		background: "bg",
-		foreground: "fg",
-		navMesh: "nm",
-		sprites:"spriteSheet"
+
+	var PLURALIZER = "s";
+	//Saving Names
+	let keyAliases = {
+		items: "icons",
+		items_spriteSheet: "items",
+		__background: "_bg",
+		__foreground: "_fg",
+		__navMesh: "_nm",
+		__spriteSheet:"_sprites",
+		__icon:""
 	}
-	let keyPriorities = [
+	let manifestAlias = {
+		items:"icons",
+		items_sprites:"items"
+	}
+	let propertyAlias = {
+		background: "_bg",
+		foreground: "_fg",
+		navMesh: "_nm",
+		spriteSheet:"_sprites",
+		icon:""
+	}
+	let propertyOrder = [
 		'series',
 		'theme',
 		'slot'
 	]
-	var idSuffix = "Id";
 	var extentions = {
 		texture:".png",
+	}
+	/**
+	 * 
+	 * @param {string} m Manifest Name
+	 * @param {string} a Asset Name
+	 * @param {string} p Property Name
+	 */
+	function GetAlias(m,a,p) {
+		var alias = "";		
+
+		//					M				_			A			_			P
+		var keyP = 					((p||a)?"_":"") + 			(p?"_":"") + (p||"");
+		var keyAP = 				((p||a)?"_":"") + (a||"") + (p?"_":"") + (p||"");
+		var keyMAP =	(m||"") +	((p||a)?"_":"") + (a||"") + (p?"_":"") + (p||"");
+		var keyA =					((a)?"_":"") + (a||"");
+
+		var aliasP = keyAliases[keyP];
+		var aliasAP = keyAliases[keyAP];
+		var aliasMAP = keyAliases[keyMAP];
+		var aliasA = keyAliases[keyA];
+		var aliasM = keyAliases[(m||"")];
+
+		/*
+		If P
+			A_P
+		else
+			M_A
+		*/
+		var fallbackAlias = p
+		?(a||"") + "_" + p
+		:(m||"") + (a?"_"+a:"");
+
+		alias = aliasMAP || (aliasAP?(aliasM||m) + aliasAP:undefined)|| (aliasP?(aliasA||a) + aliasP:undefined) || fallbackAlias;
+
+		console.log("[" + (m||"") +		((p||a)?"_":"") + (a||"") + (p?"_":"") + (p||"") + "]:",alias);
+		console.log("P",aliasP);
+		console.log("AP",aliasAP);
+		console.log("MAP",aliasMAP);
+		console.log("A",aliasA);
+		console.log("M",aliasM);
+		console.log("fallback",fallbackAlias);
+		return alias;
 	}
 
 	var tp = Object.assign(
@@ -307,62 +367,91 @@ async function GetTextureData() {
 			misc: textureMisc,
 			manifests: await GetManifestLoc(),
 		},
+		/**
+		 * m:			Manifest Name
+		 * mSingualer:	Singular name of manifest
+		 * mTitle:		Manifest Title
+		 * mSingleTitle:	Singular Manifest Title
+		 * mData:			Manifest Data
+		 * mAlias			Manifest Alternate Name
+		 * mTypes			List of AssetProperty Types
+		 */
 		await Object.keys(manifests).reduceAsync(async (tp, m) => {
-			var singular = m[m.length - 1] == "s" ? m.substr(0, m.length - 1) : m;
+			var mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
 			var mTitle = titleize(m);
-			var singleTitle = titleize(singular);
-			var assetInfo = await getAssetInfo(m);
+			var mSingleTitle = titleize(mSingular);
+			var mData = await getAssetInfo(m);
+			var mAlias = GetAlias(m);
 			console.log("== " + mTitle + " ==");
-			if (!Array.isArray(assetInfo)) {
-				if (assetInfo.spriteSheet) {
-					assetInfo = [assetInfo];
+			if (!Array.isArray(mData)) {
+				if (mData.spriteSheet) {
+					mData = [mData];
 				}
-				assetInfo = !assetInfo.spriteSheet ? Object.keys(assetInfo).map(k => Object.assign({ [singular + idSuffix]: k }, assetInfo[k])) : [assetInfo]
+				mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData]
 			}
-			var types = await getObjectSchematic(assetInfo);
-
-			var mSpriteSheets = [];
-			console.log(types);
+			var mTypes = await getObjectSchematic(mData);
+			console.log(mTypes);
 			//console.log(assetInfo)
-			tp[m] = await assetInfo.reduceAsync(async (tp, asset) => {
-				var idKey = (idMap[singular] || singular) + idSuffix;
-				var assetName = asset[(idMap[singular] || singular) + idSuffix];
-				var assetTP = {};
-				console.log(singleTitle + ":", assetName);
+			var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
+
+			//SeperateSprites
+			var mSpritesAlias = GetAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
+			var mAllSpriteSheets = mData.map(a=>a.spriteSheet);
+			var mSpriteSheets = [...new Set(mAllSpriteSheets)];
+			if(mSpriteSheets.length != mAllSpriteSheets.length) {
+				tp[mSpritesAlias]={};
+				for(var i in mSpriteSheets){
+					var spriteSheet = mSpriteSheets[i];
+					tp[mSpritesAlias][mSpritesAlias+"_"+spriteSheet.split("/")[3]] = await fillURL(spriteSheet)
+				}
+			}
+			var mIncludeSprites = !tp[mSpritesAlias]
+
+			/**
+			 * a Asset Key Name
+			 * aData Asset Data
+			 * aAlias
+			 */
+			tp[mAlias] = await mData.reduceAsync(async (tp, aData) => {
+				var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
+				var aTextureList = {};
+				var aAlias = GetAlias(m,a);
+				//console.log(mSingleTitle + ":", a);
 
 				//Sprite Sheet
-				if (asset.spriteSheet) {
-					assetTP[assetName + "_sprites"] = await getSprites(asset.spriteSheet, assetName);
-					mSpriteSheets.concat(assetTP[assetName + "_sprites"]);
+				if (mIncludeSprites && aData.spriteSheet) {
+					var aSpriteAlias = GetAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
+					aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
 				}
 
 				//All textures tp the TP
-				for (var attribute in asset) {
-					if (typeof (asset[attribute]) !== "string")
+				for (var p in aData) {
+					if (typeof (aData[p]) !== "string")
 						continue;
-					var tpAttribute = tpAttribs[attribute] || attribute;
-					if (asset[attribute].includes(extentions.texture))
-						assetTP[assetName + "_" + tpAttribute] = await fillURL(asset[attribute]);
+					var pAlias = GetAlias(m,a,p);//propertyAlias[p] || "_"+p;
+					if (aData[p].includes(extentions.texture))
+						aTextureList[pAlias] = await fillURL(aData[p]);
 				}
 
 				//Cheack for if theres one asset piece
-				if (Object.values(assetTP).length == 1) assetTP = Object.values(assetTP)[0];
+				if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
 
 				//Herarchy setup
-				var assetHierachyParts = [];
-				for (var i in keyPriorities) {
-					var parent = assetHierachyParts[assetHierachyParts.length - 1] || tp;
-					var keyName = keyPriorities[i];
-					if (asset[keyName]) {
-						var key = asset[keyName];
-						assetHierachyParts[i] = parent[key] || {};
-						parent[key] = assetHierachyParts[i];
+				var aHierachyParts = [];
+				for (var i in propertyOrder) {
+					var parent = aHierachyParts[aHierachyParts.length - 1] || tp;
+					var keyName = propertyOrder[i];
+					if (aData[keyName]) {
+						var key = aData[keyName];
+						aHierachyParts[i] = parent[key] || {};
+						parent[key] = aHierachyParts[i];
 					}
 				}
-				var placeInHierarchy = assetHierachyParts[assetHierachyParts.length - 1]||tp;
-				placeInHierarchy[assetName] = assetTP;
+				var placeInHierarchy = aHierachyParts[aHierachyParts.length - 1]||tp;
+				placeInHierarchy[aAlias] = aTextureList;
 				return tp;
 			}, {});
+
 			return tp;
 		}, {}),
 		{
