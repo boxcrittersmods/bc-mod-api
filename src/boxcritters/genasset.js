@@ -315,16 +315,16 @@ async function GetTextureData() {
 	 * @author Sarpnt
 	 * @param  {...any} i m,a,p
 	 */
-	function getAlias(...i) {
-		var blankChar = "#";
-		for (let k in keyAliases) {
-			if (k.split(',').find((e, x) => e && e != i[x])) continue;
-			let a = keyAliases[k].split(',');
-			i = i.map((e, x) => a[x] || e);
-		}
-		if (i.length>2) i=i.splice(i.length-2,i.length-1)
-		return i.filter(e=>e!=blankChar).join('_');
+function getAlias(...i) {
+	var blankChar = "#";
+	for (let k in keyAliases) {
+		if (k.split(',').find((e, x) => e && e != i[x])) continue;
+		let a = keyAliases[k].split(',');
+		i = i.map((e, x) => a[x] || e);
 	}
+	if (i.length>2) i=i.splice(i.length-2,i.length-1)
+	return i.filter(e=>e!=blankChar).join('_');
+}
 
 	var tp = Object.assign(
 		{
