@@ -315,16 +315,13 @@ async function GetTextureData() {
 	 */
 	function getAlias(...i) {
 		var blankChar = "#";
-		var start = i.join("_");
 		for (let k in keyAliases) {
 			if (k.split(',').find((e, x) => e && e != i[x])) continue;
 			let a = keyAliases[k].split('_');
 			i = i.map((e, x) => a[x] || e);
 		}
 		if (i.length>2) i=i.splice(i.length-2,i.length-1).filter(e=>e!=blankChar);
-		var alias = i.join('_');
-		console.log("[" + start + "]",alias);
-		return alias;
+		return i.join('_');
 	}
 
 	var tp = Object.assign(
