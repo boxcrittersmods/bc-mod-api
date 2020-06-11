@@ -291,14 +291,16 @@ async function GetTextureData() {
 	}
 	//Saving Names
 	let keyAliases = {
-		"items,spriteSheet": "#_items",
+		"items,spriteSheet": "#,items",
 		"items": "icons",
-		"critters,,spriteSheet":"__#",
-		",,background": "__bg",
-		",,foreground": "__fg",
-		",,navMesh": "__nm",
-		",,spriteSheet":"__sprites",
-		",,icon":"__#"
+		"critters,,spriteSheet":",,#",
+		",,background": ",,bg",
+		",,foreground": ",,fg",
+		",,navMesh": ",,nm",
+		",,spriteSheet":",,sprites",
+		",,icon":",,#",
+		",,f":",,front",
+		",,b":",,back",
 	}
 	let propertyOrder = [
 		'series',
@@ -317,7 +319,7 @@ async function GetTextureData() {
 		var blankChar = "#";
 		for (let k in keyAliases) {
 			if (k.split(',').find((e, x) => e && e != i[x])) continue;
-			let a = keyAliases[k].split('_');
+			let a = keyAliases[k].split(',');
 			i = i.map((e, x) => a[x] || e);
 		}
 		if (i.length>2) i=i.splice(i.length-2,i.length-1)
