@@ -281,34 +281,24 @@ async function GetTextureData() {
 
 	var manifests = await BoxCritters.GetManifests();
 
+
+	var PLURALIZER = "s";
 	// Retreval Names
 	var idMap = {
 		id:"Id",
+		mascot: "critter",
 		spriteSheet:"spriteSheet",
-		mascot: "critter"
 	}
-
-	var PLURALIZER = "s";
 	//Saving Names
 	let keyAliases = {
-		items: "icons",
-		items_spriteSheet: "items",
-		__background: "_bg",
-		__foreground: "_fg",
-		__navMesh: "_nm",
-		__spriteSheet:"_sprites",
-		__icon:""
-	}
-	let manifestAlias = {
-		items:"icons",
-		items_sprites:"items"
-	}
-	let propertyAlias = {
-		background: "_bg",
-		foreground: "_fg",
-		navMesh: "_nm",
-		spriteSheet:"_sprites",
-		icon:""
+		"items": "icons",
+		"items,spriteSheet": "_items",
+		"critters,,spriteSheet":"__#",
+		",,background": "__bg",
+		",,foreground": "__fg",
+		",,navMesh": "__nm",
+		",,spriteSheet":"__sprites",
+		",,icon":"__#"
 	}
 	let propertyOrder = [
 		'series',
@@ -318,46 +308,22 @@ async function GetTextureData() {
 	var extentions = {
 		texture:".png",
 	}
+	
 	/**
-	 * 
-	 * @param {string} m Manifest Name
-	 * @param {string} a Asset Name
-	 * @param {string} p Property Name
+	 * @author Sarpnt
+	 * @param  {...any} i m,a,p
 	 */
-	function GetAlias(m,a,p) {
-		var alias = "";		
-
-		//					M				_			A			_			P
-		var keyP = 					((p||a)?"_":"") + 			(p?"_":"") + (p||"");
-		var keyAP = 				((p||a)?"_":"") + (a||"") + (p?"_":"") + (p||"");
-		var keyMAP =	(m||"") +	((p||a)?"_":"") + (a||"") + (p?"_":"") + (p||"");
-		var keyA =					((a)?"_":"") + (a||"");
-
-		var aliasP = keyAliases[keyP];
-		var aliasAP = keyAliases[keyAP];
-		var aliasMAP = keyAliases[keyMAP];
-		var aliasA = keyAliases[keyA];
-		var aliasM = keyAliases[(m||"")];
-
-		/*
-		If P
-			A_P
-		else
-			M_A
-		*/
-		var fallbackAlias = p
-		?(a||"") + "_" + p
-		:(m||"") + (a?"_"+a:"");
-
-		alias = aliasMAP || (aliasAP?(aliasM||m) + aliasAP:undefined)|| (aliasP?(aliasA||a) + aliasP:undefined) || fallbackAlias;
-
-		console.log("[" + (m||"") +		((p||a)?"_":"") + (a||"") + (p?"_":"") + (p||"") + "]:",alias);
-		console.log("P",aliasP);
-		console.log("AP",aliasAP);
-		console.log("MAP",aliasMAP);
-		console.log("A",aliasA);
-		console.log("M",aliasM);
-		console.log("fallback",fallbackAlias);
+	function getAlias(...i) {
+		var blankChar = "#";
+		var start = i.join("_");
+		for (let k in keyAliases) {
+			if (k.split(',').find((e, x) => e && e != i[x])) continue;
+			let a = keyAliases[k].split('_');
+			i = i.map((e, x) => a[x] || e);
+		}
+		if (i.length>2) i=i.splice(i.length-2,i.length-1).filter(e=>e!=blankChar);
+		var alias = i.join('_');
+		console.log("[" + start + "]",alias);
 		return alias;
 	}
 
@@ -381,7 +347,7 @@ async function GetTextureData() {
 			var mTitle = titleize(m);
 			var mSingleTitle = titleize(mSingular);
 			var mData = await getAssetInfo(m);
-			var mAlias = GetAlias(m);
+			var mAlias = getAlias(m);
 			console.log("== " + mTitle + " ==");
 			if (!Array.isArray(mData)) {
 				if (mData.spriteSheet) {
@@ -395,14 +361,15 @@ async function GetTextureData() {
 			var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
 
 			//SeperateSprites
-			var mSpritesAlias = GetAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
+			var mSpritesAlias = getAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
 			var mAllSpriteSheets = mData.map(a=>a.spriteSheet);
 			var mSpriteSheets = [...new Set(mAllSpriteSheets)];
 			if(mSpriteSheets.length != mAllSpriteSheets.length) {
 				tp[mSpritesAlias]={};
 				for(var i in mSpriteSheets){
 					var spriteSheet = mSpriteSheets[i];
-					tp[mSpritesAlias][mSpritesAlias+"_"+spriteSheet.split("/")[3]] = await fillURL(spriteSheet)
+					var spriteSheetAlias = getAlias(m,idMap.spriteSheet,spriteSheet.split("/")[3]);
+					tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet)
 				}
 			}
 			var mIncludeSprites = !tp[mSpritesAlias]
@@ -415,12 +382,12 @@ async function GetTextureData() {
 			tp[mAlias] = await mData.reduceAsync(async (tp, aData) => {
 				var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
 				var aTextureList = {};
-				var aAlias = GetAlias(m,a);
+				var aAlias = getAlias(m,a);
 				//console.log(mSingleTitle + ":", a);
 
 				//Sprite Sheet
 				if (mIncludeSprites && aData.spriteSheet) {
-					var aSpriteAlias = GetAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
+					var aSpriteAlias = getAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
 					aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
 				}
 
@@ -428,7 +395,7 @@ async function GetTextureData() {
 				for (var p in aData) {
 					if (typeof (aData[p]) !== "string")
 						continue;
-					var pAlias = GetAlias(m,a,p);//propertyAlias[p] || "_"+p;
+					var pAlias = getAlias(m,a,p);//propertyAlias[p] || "_"+p;
 					if (aData[p].includes(extentions.texture))
 						aTextureList[pAlias] = await fillURL(aData[p]);
 				}
