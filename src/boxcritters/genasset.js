@@ -291,8 +291,8 @@ async function GetTextureData() {
 	}
 	//Saving Names
 	let keyAliases = {
+		"items,spriteSheet": "#_items",
 		"items": "icons",
-		"items,spriteSheet": "_items",
 		"critters,,spriteSheet":"__#",
 		",,background": "__bg",
 		",,foreground": "__fg",
@@ -320,8 +320,8 @@ async function GetTextureData() {
 			let a = keyAliases[k].split('_');
 			i = i.map((e, x) => a[x] || e);
 		}
-		if (i.length>2) i=i.splice(i.length-2,i.length-1).filter(e=>e!=blankChar);
-		return i.join('_');
+		if (i.length>2) i=i.splice(i.length-2,i.length-1)
+		return i.filter(e=>e!=blankChar).join('_');
 	}
 
 	var tp = Object.assign(
