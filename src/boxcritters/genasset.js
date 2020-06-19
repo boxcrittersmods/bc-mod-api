@@ -109,10 +109,14 @@ async function fillURL(url) {
 }
 
 async function getSprites(spriteSheet, name) {
-	var host = getSiteUrl("play.boxcritters");
-	var url = host + spriteSheet;
-	var website = Website.Connect(url);
-	var sprites = await website.getJson();
+	if(typeof(spriteSheet)=="string"&&spriteSheet.includes(".json")){
+		var host = getSiteUrl("play.boxcritters");
+		var url = host + spriteSheet;
+		var website = Website.Connect(url);
+		var sprites = await website.getJson();
+	} else {
+		sprites = spriteSheet;
+	}
 
 	return sprites.images.reduceAsync(async (tp, sprite, i) => {
 		var value = await fillURL(sprite);
@@ -309,6 +313,7 @@ async function GetTextureData() {
 	]
 	var extentions = {
 		texture:".png",
+		audio:".mp3"
 	}
 	
 	/**
@@ -395,8 +400,9 @@ function getAlias(...i) {
 					if (typeof (aData[p]) !== "string")
 						continue;
 					var pAlias = getAlias(m,a,p);//propertyAlias[p] || "_"+p;
-					if (aData[p].includes(extentions.texture))
-						aTextureList[pAlias] = await fillURL(aData[p]);
+					for(var ext in extentions)
+						if (aData[p].includes(extentions[ext]))
+							aTextureList[pAlias] = await fillURL(aData[p]);
 				}
 
 				//Cheack for if theres one asset piece
