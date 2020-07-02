@@ -4,15 +4,15 @@ const { JSDOM } = require("jsdom");
 const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
-var bcWebsite = Website.Connect("https://play.boxcritters.com/");
-var bcInitScript = Website.Connect("https://play.boxcritters.com/index.js");
+var bcWebsite = Website.Connect("https://boxcritters.com/");
+var bcInitScript = Website.Connect("https://boxcritters.com/index.js");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {
 	/*var pre = "/lib/client";
 	var scripts = await bcWebsite.getScripts();
 	var script = scripts.find(s => s.src.startsWith(pre));*/
-	return "https://play.boxcritters.com/lib/client.min.js";
+	return "https://boxcritters.com/lib/client.min.js";
 }
 
 /*async function GetVersion() {
@@ -91,6 +91,7 @@ async function GetManifests() {
 			return manifests;
 		},{});
 		delete manifests.lobby;
+		manifests.media = "/data/world.json"
 		
 		bcCache.set("manifests", manifests);
 	}

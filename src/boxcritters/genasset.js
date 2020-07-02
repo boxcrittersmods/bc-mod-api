@@ -86,14 +86,14 @@ function explode(obj, prefix) {
 }
 
 function GetClientScript() {
-	return "https://play.boxcritters.com/lib/client.min.js";
+	return "https://boxcritters.com/lib/client.min.js";
 }
 
 function urlIsRoot(url) {
 	return url.startsWith("http://") || url.startsWith("https://");
 }
 
-function getSiteUrl(site = 'play.boxcritters') {
+function getSiteUrl(site = 'boxcritters') {
 	return sitesJson.find(s => s.name == site).url;
 }
 
@@ -109,8 +109,11 @@ async function fillURL(url) {
 }
 
 async function getSprites(spriteSheet, name) {
+	if(spriteSheet.src) {
+		spriteSheet = spriteSheet.src;
+	}
 	if(typeof(spriteSheet)=="string"&&spriteSheet.includes(".json")){
-		var host = getSiteUrl("play.boxcritters");
+		var host = getSiteUrl("boxcritters");
 		var url = host + spriteSheet;
 		var website = Website.Connect(url);
 		var sprites = await website.getJson();
@@ -130,7 +133,7 @@ async function getSprites(spriteSheet, name) {
 	}, {});
 }
 
-async function getAssetInfo(type, site = 'play.boxcritters') {
+async function getAssetInfo(type, site = 'boxcritters') {
 	var host = getSiteUrl(site);
 	var manifests = await BoxCritters.GetManifests();
 	var loc = manifests[type];

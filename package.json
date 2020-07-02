@@ -27,6 +27,7 @@
     "@octokit/rest": "^16.35.0",
     "absolutify": "github:sorensen/absolutify#target-improvement",
     "archiver": "^3.1.1",
+    "await-fs": "^1.0.0",
     "bc-admin-login": "github:boxcritters/bc-admin-login",
     "body-parser": "^1.19.0",
     "combined-stream": "^1.0.8",
