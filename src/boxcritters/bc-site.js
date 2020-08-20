@@ -4,8 +4,8 @@ const { JSDOM } = require("jsdom");
 const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
-var bcWebsite = Website.Connect("https://boxcritters.com/");
-var bcInitScript = Website.Connect("https://boxcritters.com/index.js");
+var bcWebsite = Website.Connect("https://boxcritters.com/play");
+var bcInitScript = Website.Connect("https://boxcritters.com/play/index.js");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {
@@ -77,17 +77,24 @@ String.prototype.replaceAll = function (from,to) {
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		var manstart = "world.loadManifest([";
-		var manend = "]);";
+		var manstart = "world.preload([";
+		var manend = "])";
 		var manifestRegex = getStringBetweenStrings(manstart,manend)
 		var script = await bcInitScript.getText();
 		
-		var manRaw = ("["+script.match(manifestRegex)[0].split(manend)[0]+"]")
+		var manRaw = ("["+script.match(manifestRegex)[0].split(manend)[0]+"]").log("1")
 		.replace(/\s+/gm," ")
-		.replace(/\w+(?=:)/gms,"'$&'")
+		.replace(/\w+(?=: )/gms,"'$&'")
 		.replace(/'/g,'"')
 		manifests = JSON.parse(manRaw).reduce((manifests,m)=>{
-			manifests[m.id] = m.src;
+			if(manifests[m.id]) {
+				if(!Array.isArray(manifests[m.id])) {
+					manifests[m.id] = [manifests[m.id]];
+				}
+				manifests[m.id].push(m.src);
+			} else {
+				manifests[m.id] = m.src;
+			}
 			return manifests;
 		},{});
 		delete manifests.lobby;

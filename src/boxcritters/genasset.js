@@ -148,7 +148,9 @@ async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
 		console.log("Manifest: " + m)
-		tp[m + "_manifest"] = await fillURL(manifests[m]);
+		tp[m + "_manifest"] = Array.isArray(manifests[m])
+		? manifests[m].map(async m=>await fillURL(m))
+		: await fillURL(manifests[m]);
 		return tp;
 	}, {});
 	return tp;
@@ -334,6 +336,87 @@ function getAlias(...i) {
 	return i.filter(e=>e!=blankChar).join('_');
 }
 
+async function parseManifest(tp, m)  {
+	var mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
+	var mTitle = titleize(m);
+	var mSingleTitle = titleize(mSingular);
+	var mData = await getAssetInfo(m);
+	var mAlias = getAlias(m);
+	console.log("== " + mTitle + " ==");
+	if (!Array.isArray(mData)) {
+		if (mData.spriteSheet) {
+			mData = [mData];
+		}
+		mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData]
+	}
+	var mTypes = await getObjectSchematic(mData);
+	console.log(mTypes);
+	//console.log(assetInfo)
+	var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
+
+	//SeperateSprites
+	var mSpritesAlias = getAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
+	var mAllSpriteSheets = mData.map(a=>a.spriteSheet);
+	var mSpriteSheets = [...new Set(mAllSpriteSheets)];
+	if(mSpriteSheets.length != mAllSpriteSheets.length) {
+		tp[mSpritesAlias]={};
+		for(var i in mSpriteSheets){
+			var spriteSheet = mSpriteSheets[i];
+			var spriteSheetAlias = getAlias(m,idMap.spriteSheet,spriteSheet.split("/")[3]);
+			tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet)
+		}
+	}
+	var mIncludeSprites = !tp[mSpritesAlias]
+
+	/**
+	 * a Asset Key Name
+	 * aData Asset Data
+	 * aAlias
+	 */
+	tp[mAlias] = await mData.reduceAsync(async (tp, aData) => {
+		var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
+		var aTextureList = {};
+		var aAlias = getAlias(m,a);
+		//console.log(mSingleTitle + ":", a);
+
+		//Sprite Sheet
+		if (mIncludeSprites && aData.spriteSheet) {
+			var aSpriteAlias = getAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
+			aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
+		}
+
+		//All textures tp the TP
+		for (var p in aData) {
+			if (typeof (aData[p]) !== "string")
+				continue;
+			var pAlias = getAlias(m,a,p);//propertyAlias[p] || "_"+p;
+			for(var ext in extentions)
+				if (aData[p].includes(extentions[ext]))
+					aTextureList[pAlias] = await fillURL(aData[p]);
+		}
+
+		//Cheack for if theres one asset piece
+		if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
+
+		//Herarchy setup
+		var aHierachyParts = [];
+		for (var i in propertyOrder) {
+			var parent = aHierachyParts[aHierachyParts.length - 1] || tp;
+			var keyName = propertyOrder[i];
+			if (aData[keyName]) {
+				var key = aData[keyName];
+				aHierachyParts[i] = parent[key] || {};
+				parent[key] = aHierachyParts[i];
+			}
+		}
+		var placeInHierarchy = aHierachyParts[aHierachyParts.length - 1]||tp;
+		placeInHierarchy[aAlias] = aTextureList;
+		return tp;
+	}, {});
+
+	return tp;
+}
+
 	var tp = Object.assign(
 		{
 			clientscript: await GetClientScript(),
@@ -350,84 +433,10 @@ function getAlias(...i) {
 		 * mTypes			List of AssetProperty Types
 		 */
 		await Object.keys(manifests).reduceAsync(async (tp, m) => {
-			var mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
-			var mTitle = titleize(m);
-			var mSingleTitle = titleize(mSingular);
-			var mData = await getAssetInfo(m);
-			var mAlias = getAlias(m);
-			console.log("== " + mTitle + " ==");
-			if (!Array.isArray(mData)) {
-				if (mData.spriteSheet) {
-					mData = [mData];
-				}
-				mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData]
-			}
-			var mTypes = await getObjectSchematic(mData);
-			console.log(mTypes);
-			//console.log(assetInfo)
-			var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
-
-			//SeperateSprites
-			var mSpritesAlias = getAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
-			var mAllSpriteSheets = mData.map(a=>a.spriteSheet);
-			var mSpriteSheets = [...new Set(mAllSpriteSheets)];
-			if(mSpriteSheets.length != mAllSpriteSheets.length) {
-				tp[mSpritesAlias]={};
-				for(var i in mSpriteSheets){
-					var spriteSheet = mSpriteSheets[i];
-					var spriteSheetAlias = getAlias(m,idMap.spriteSheet,spriteSheet.split("/")[3]);
-					tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet)
-				}
-			}
-			var mIncludeSprites = !tp[mSpritesAlias]
-
-			/**
-			 * a Asset Key Name
-			 * aData Asset Data
-			 * aAlias
-			 */
-			tp[mAlias] = await mData.reduceAsync(async (tp, aData) => {
-				var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
-				var aTextureList = {};
-				var aAlias = getAlias(m,a);
-				//console.log(mSingleTitle + ":", a);
-
-				//Sprite Sheet
-				if (mIncludeSprites && aData.spriteSheet) {
-					var aSpriteAlias = getAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
-					aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
-				}
-
-				//All textures tp the TP
-				for (var p in aData) {
-					if (typeof (aData[p]) !== "string")
-						continue;
-					var pAlias = getAlias(m,a,p);//propertyAlias[p] || "_"+p;
-					for(var ext in extentions)
-						if (aData[p].includes(extentions[ext]))
-							aTextureList[pAlias] = await fillURL(aData[p]);
-				}
-
-				//Cheack for if theres one asset piece
-				if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
-
-				//Herarchy setup
-				var aHierachyParts = [];
-				for (var i in propertyOrder) {
-					var parent = aHierachyParts[aHierachyParts.length - 1] || tp;
-					var keyName = propertyOrder[i];
-					if (aData[keyName]) {
-						var key = aData[keyName];
-						aHierachyParts[i] = parent[key] || {};
-						parent[key] = aHierachyParts[i];
-					}
-				}
-				var placeInHierarchy = aHierachyParts[aHierachyParts.length - 1]||tp;
-				placeInHierarchy[aAlias] = aTextureList;
-				return tp;
-			}, {});
-
+			if(Array.isArray(manifests[m])){
+			} else {
 			return tp;
+			}
 		}, {}),
 		{
 			shop: await GetShop(),
