@@ -6,6 +6,7 @@ const Cache = require("#src/util/cache");
 
 var bcWebsite = Website.Connect("https://boxcritters.com/play");
 var bcInitScript = Website.Connect("https://boxcritters.com/play/index.js");
+var bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
 var bcCache = new Cache();
 
 async function GetClientScriptURL() {
@@ -77,7 +78,7 @@ String.prototype.replaceAll = function (from,to) {
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		var manstart = "world.preload([";
+		/*var manstart = "world.preload([";
 		var manend = "])";
 		var manifestRegex = getStringBetweenStrings(manstart,manend)
 		var script = await bcInitScript.getText();
@@ -85,8 +86,8 @@ async function GetManifests() {
 		var manRaw = ("["+script.match(manifestRegex)[0].split(manend)[0]+"]").log("1")
 		.replace(/\s+/gm," ")
 		.replace(/\w+(?=: )/gms,"'$&'")
-		.replace(/'/g,'"')
-		manifests = JSON.parse(manRaw).reduce((manifests,m)=>{
+		.replace(/'/g,'"')*/
+		/*manifests = JSON.parse(manRaw).reduce((manifests,m)=>{
 			if(manifests[m.id]) {
 				if(!Array.isArray(manifests[m.id])) {
 					manifests[m.id] = [manifests[m.id]];
@@ -96,9 +97,18 @@ async function GetManifests() {
 				manifests[m.id] = m.src;
 			}
 			return manifests;
+		},{});*/
+		manifests = (await bcManifests.getJson()).manifest.reduce((manifests,m)=>{
+			if(manifests[m.id]) {
+				if(!Array.isArray(manifests[m.id])) {
+					manifests[m.id] = [manifests[m.id]];
+				}
+				manifests[m.id].push(m);
+			} else {
+				manifests[m.id] = m;
+			}
+			return manifests;
 		},{});
-		delete manifests.lobby;
-		manifests.media = "/data/world.json"
 		
 		bcCache.set("manifests", manifests);
 	}

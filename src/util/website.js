@@ -6,7 +6,7 @@ function Website(body) {
 	if (typeof body === "undefined") {
 		throw new Error("Cannot be called directly");
 	}
-	var w = this;
+	//var w = this;
 	this.body = body;
 	//body.then(body => (w.body = body));
 }
