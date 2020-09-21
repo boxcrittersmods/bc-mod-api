@@ -5,7 +5,7 @@
 	"favicon32": "http://play.boxcritters.com/favicon-32x32.png",
 	"ux": "http://play.boxcritters.com/media/ux/ux.png",
 	"edit_btn": "http://play.boxcritters.com/media/ui/edit_btn.png",
-	"coins_background": "http://play.boxcritters.com/media/ui/coins_background.png",
+	"coins_background": "https://media.boxcritters.com/images/coins.png",
 	"bridge": "http://play.boxcritters.com/media/cards/oomm/bridge.png",
 	"ghost_ship": "http://play.boxcritters.com/media/cards/oomm/ghost_ship.png"
 }
