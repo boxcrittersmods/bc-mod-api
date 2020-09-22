@@ -7,7 +7,7 @@ router.use(express.json())
 
 router.get('/',async function(req,res){
 	var images = req.body;
-	if(!Array.isArray(images)){
+	if(!Array.isArray(images)||images.length<1){
 		res.send("No Images where sent");
 		return;
 	}
