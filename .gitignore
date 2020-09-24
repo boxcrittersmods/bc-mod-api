@@ -62,5 +62,3 @@ typings/
 .next
 *.csv#
 tmp/
-
-index.js
