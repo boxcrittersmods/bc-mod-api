@@ -1,6 +1,3 @@
-const request = require("request-promise");
-const { JSDOM } = require("jsdom");
-
 const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
@@ -78,26 +75,6 @@ String.prototype.replaceAll = function (from,to) {
 async function GetManifests() {
 	var manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		/*var manstart = "world.preload([";
-		var manend = "])";
-		var manifestRegex = getStringBetweenStrings(manstart,manend)
-		var script = await bcInitScript.getText();
-		
-		var manRaw = ("["+script.match(manifestRegex)[0].split(manend)[0]+"]").log("1")
-		.replace(/\s+/gm," ")
-		.replace(/\w+(?=: )/gms,"'$&'")
-		.replace(/'/g,'"')*/
-		/*manifests = JSON.parse(manRaw).reduce((manifests,m)=>{
-			if(manifests[m.id]) {
-				if(!Array.isArray(manifests[m.id])) {
-					manifests[m.id] = [manifests[m.id]];
-				}
-				manifests[m.id].push(m.src);
-			} else {
-				manifests[m.id] = m.src;
-			}
-			return manifests;
-		},{});*/
 		manifests = (await bcManifests.getJson()).manifest.reduce((manifests,m)=>{
 			if(manifests[m.id]) {
 				if(!Array.isArray(manifests[m.id])) {
