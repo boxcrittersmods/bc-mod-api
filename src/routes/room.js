@@ -44,7 +44,8 @@ async function displayRoom(room,length) {
 	var layout = await layoutFile.getJson();
 	layout.playground.sort((a,b) => a.y-b.y);
 
-	var gifLength = length||Object.values(spriteSheet.animations).sort((a,b)=>b.frames.length-a.frames.length)[0].frames.length//Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
+	var gifLength = length||Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
+	gifLength = gifLength>30?30:gifLength;
 	console.log(gifLength);
 
 	gifEncoder.start();
