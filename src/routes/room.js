@@ -75,13 +75,14 @@ var router = express.Router();
 router.use(express.json())
 
 router.get('/:length/:room?',async function(req,res){
-	var roomId = (req.params.room||req.params.length).split(".")[0];
+	var fileParts = (req.params.room||req.params.length).split(".")
+	var roomId =fileParts[0];
 	var length = req.params.room?req.params.length:undefined
 	console.log(roomId)
 	var room = await getRoom(roomId); 
 	var imgBuffer = await displayRoom(room,length)
 
-	res.type('image/gif');
+	res.type('image/' + fileParts[fileParts.length-1]);
 	res.send(imgBuffer);
 })
 
