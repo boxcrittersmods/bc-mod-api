@@ -33,6 +33,7 @@ const submit = require("./routes/submit");
 const approve = require("./routes/approve");
 const apply = require("./routes/apply");
 const compose = require('./routes/compose')
+const room = require('./routes/room')
 
 
 //data
@@ -95,6 +96,7 @@ app.use("/modsubmit", submit);
 app.use("/modapprove", approve);
 app.use("/applymod", apply);
 app.use("/compose",compose)
+app.use("/room",room)
 
 /**
  * Paths
