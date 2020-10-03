@@ -63,11 +63,6 @@ async function displayRoom(room,length) {
 		gifEncoder.addFrame(context);
 	}
 	gifEncoder.finish();
-	//var attachment = new Discord.MessageAttachment(canvas.toBuffer(), room.roomId + ".png")
-	/*var attachment = new Discord.MessageAttachment(gifEncoder.out.getData(), room.roomId + ".gif")
-
-
-	return attachment;*/
 	return gifEncoder.out.getData();
 }
 
