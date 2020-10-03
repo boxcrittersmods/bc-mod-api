@@ -34,7 +34,7 @@ const approve = require("./routes/approve");
 const apply = require("./routes/apply");
 const compose = require('./routes/compose')
 const room = require('./routes/room')
-
+const player = require('./routes/player')
 
 //data
 const sitesData = require('#data/sites.json');
@@ -97,6 +97,7 @@ app.use("/modapprove", approve);
 app.use("/applymod", apply);
 app.use("/compose",compose)
 app.use("/room",room)
+app.use("/player",player)
 
 /**
  * Paths
