@@ -42,7 +42,7 @@ async function displayRoom(room,length) {
 
 	var layoutFile = Website.Connect(room.layout);
 	var layout = await layoutFile.getJson();
-	layout.playground.sort((a,b) => a.y-b.y);
+	layout.playground.sort((a,b) => b.y-a.y);
 
 	var gifLength = length||Object.values(spriteSheet.animations).sort((a,b)=>b.frames.length-a.frames.length)[0].frames.length//Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
 	console.log(gifLength);
