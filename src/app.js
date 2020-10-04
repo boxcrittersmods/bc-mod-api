@@ -35,6 +35,7 @@ const apply = require("./routes/apply");
 const compose = require('./routes/compose')
 const room = require('./routes/room')
 const player = require('./routes/player')
+const gear = require('./routes/gear')
 
 //data
 const sitesData = require('#data/sites.json');
@@ -98,6 +99,7 @@ app.use("/applymod", apply);
 app.use("/compose",compose)
 app.use("/room",room)
 app.use("/player",player)
+app.use("/gear",gear);
 
 /**
  * Paths
