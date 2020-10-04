@@ -79,7 +79,7 @@ router.get('/:length/:room?',async function(req,res){
 	var room = await getRoom(roomId); 
 	var imgBuffer = await displayRoom(room,length)
 
-	res.type('image/' + fileParts[fileParts.length-1]);
+	res.type(mime.lookup("."+fileParts[fileParts.length-1]));
 	res.send(imgBuffer);
 })
 

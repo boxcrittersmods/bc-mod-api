@@ -1,5 +1,6 @@
 const express = require("express");
 const Canvas = require('canvas');
+var mime = require('mime-types')
 const Website = require('#src/util/website');
 
 const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.json");
@@ -95,7 +96,7 @@ router.get('/:player',async function(req,res){
 	var player = await getPlayer(playerId); 
 	var imgBuffer = await displayPlayer(player)
 
-	res.type('image/' + fileParts[fileParts.length-1]);
+	res.type(mime.lookup("."+fileParts[fileParts.length-1]));
 	res.send(imgBuffer);
 })
 
