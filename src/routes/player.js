@@ -1,6 +1,5 @@
 const express = require("express");
 const Canvas = require('canvas');
-var mime = require('mime-types')
 const Website = require('#src/util/website');
 
 const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.json");
@@ -21,12 +20,6 @@ function drawImage(context, url, x, y, w, h) {
 		});
 
 	})
-}
-
-function drawFrame(context, spriteSheet, frame, placement) {
-	//["x", "y", "width", "height", "imageIndex", "regX", "regY"]
-	var frame = spriteSheet.frames[frame];
-	context.drawImage(spriteSheet.images[frame[4]], frame[0] - frame[5], frame[1] - frame[6], frame[2], frame[3], placement.x - placement.regX, placement.y - placement.regY, frame[2], frame[3]);
 }
 
 async function displayPlayer(player) {
@@ -96,7 +89,7 @@ router.get('/:player',async function(req,res){
 	var player = await getPlayer(playerId); 
 	var imgBuffer = await displayPlayer(player)
 
-	res.type(mime.lookup("."+fileParts[fileParts.length-1]));
+	res.type("."+fileParts[fileParts.length-1]);
 	res.send(imgBuffer);
 })
 

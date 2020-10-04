@@ -71,16 +71,16 @@ var router = express.Router();
 
 router.use(express.json())
 
-router.get('/:length/:room?',async function(req,res){
-	var fileParts = (req.params.room||req.params.length).split(".")
+router.get('/:frames/:room?',async function(req,res){
+	var fileParts = (req.params.room||req.params.frames).split(".")
 	var roomId =fileParts[0];
-	var frames = req.params.room?req.params.length:undefined
-	if(frames=="static"||frames>1) {frames=1};
-	console.log(roomId)
+	var frames;
+	if(req.params.room) frames = req.params.frames
+	if(frames=="static"||frames<1)frames=1;
 	var room = await getRoom(roomId); 
 	var imgBuffer = await displayRoom(room,frames)
 
-	res.type(mime.lookup("."+fileParts[fileParts.length-1]));
+	res.type('.' + fileParts[fileParts.length-1]);
 	res.send(imgBuffer);
 })
 
