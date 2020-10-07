@@ -1,4 +1,5 @@
 const express = require("express");
+const {displayGear} = require("#src/boxcritters/displayGear");
 
 
 

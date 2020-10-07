@@ -42,17 +42,19 @@ async function displayGear(player) {
 		return item.slot;
 	})
 
-	var layers = ["backs.ride", "tail", "backs.hand", "backs.eyes", "backs.ears", "backs.head", "backs.neck", "backs.fuzz", "backs.pack", "backs.belt", "backs.body", "backs.mask", "backs.face", "skin", "ears", "slots.face", "face", "slots.mask", "slots.body", "slots.belt", "slots.pack", "slots.fuzz", "slots.neck", "slots.head", "slots.ears", "slots.eyes", "nose", "slots.hand", "slots.ride"]
+
+	var layers = ["feet","backs.ride", "tail", "backs.hand", "backs.eyes", "backs.ears", "backs.head", "backs.neck", "backs.fuzz", "backs.pack", "backs.belt", "backs.body", "backs.mask", "backs.face", "skin", "ears", "slots.face", "face", "slots.mask", "slots.body", "slots.belt", "slots.pack", "slots.fuzz", "slots.neck", "slots.head", "slots.ears", "slots.eyes", "nose", "slots.hand", "slots.ride"]
 	for (var layer of layers) {
 		switch (layer) {
 			case "tail":
-			case "body":
+			case "skin":
 			case "ears":
 			case "face":
 			case "nose":
 			case "feet":
 				if (layer == "nose" && rules.hideNose) break;
 				if (layer == "ears" && rules.hideEars) break;
+				if(layer == "skin") layer = "body";
 				var url = `https://media.boxcritters.com/critters/${player.critterId||"hamster"}/${layer}.png`
 				await drawImage(context, url, 0, 0, canvas.width, canvas.height)
 
