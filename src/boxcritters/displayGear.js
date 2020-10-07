@@ -45,6 +45,7 @@ async function displayGear(player) {
 
 	var layers = ["feet","backs.ride", "tail", "backs.hand", "backs.eyes", "backs.ears", "backs.head", "backs.neck", "backs.fuzz", "backs.pack", "backs.belt", "backs.body", "backs.mask", "backs.face", "skin", "ears", "slots.face", "face", "slots.mask", "slots.body", "slots.belt", "slots.pack", "slots.fuzz", "slots.neck", "slots.head", "slots.ears", "slots.eyes", "nose", "slots.hand", "slots.ride"]
 	for (var layer of layers) {
+		layer = layer.replace("backs","back");
 		switch (layer) {
 			case "tail":
 			case "skin":
