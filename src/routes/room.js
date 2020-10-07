@@ -3,6 +3,7 @@ const Canvas = require('canvas');
 const CanvasGifEncoder = require('gif-encoder-2');
 const { lcm } = require("mathjs");
 const Website = require('#src/util/website');
+const { drawImage } = require("#src/boxcritters/displayGear");
 
 
 const roomList = Website.Connect("https://boxcritters.herokuapp.com/base/rooms.json");
@@ -10,19 +11,6 @@ const roomList = Website.Connect("https://boxcritters.herokuapp.com/base/rooms.j
 async function getRoom(roomId) {
 	var rooms = await roomList.getJson()
 	return rooms.find(r => r.roomId == roomId );
-}
-
-function drawImage(context, url, x, y, w, h) {
-	return new Promise(async (res, rej) => {
-		Canvas.loadImage(url).then(image => {
-			context.drawImage(image, x, y, w, h)
-			res();
-		}).catch(e => {
-			console.log("Error with: " + url)
-			res();
-		});
-
-	})
 }
 
 function drawFrame(context, spriteSheet, frame, placement) {
