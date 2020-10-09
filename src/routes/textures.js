@@ -40,6 +40,8 @@ router.get('/download',async (req,res)=>{
 	zip.on('end', function() {
 	  console.log('Archive wrote %d bytes', zip.pointer());
 	});
+
+	var date = new Date()
 	var name = "boxcritters-" + date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10000) + ".zip"
 	res.attachment(name);
 	zip.pipe(res);
