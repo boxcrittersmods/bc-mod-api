@@ -42,7 +42,8 @@ router.get('/download',async (req,res)=>{
 	});
 
 	var date = new Date()
-	var name = "boxcritters-" + date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10000) + ".zip"
+var dateNum = date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10000)
+	var name = "boxcritters-" + dateNum + ".zip"
 	res.attachment(name);
 	zip.pipe(res);
 	console.log(urls);
