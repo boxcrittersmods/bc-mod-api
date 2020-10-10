@@ -1,20 +1,55 @@
 
 const Canvas = require('canvas');
 const Website = require('#src/util/website');
+const Cache = require("#src/util/cache");
+
 
 const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.json");
 
-function drawImage(context, url, x, y, w, h) {
+const imageCache = new Cache();
+
+async function loadImage(url) {
+	/*return new Promise((res,rej)=>{
+		imageCache.isCached(url, (exist)=>{
+			if(exist) {
+				imageCache.getCache(url, function(error, image) {
+					resolve(await Canvas.loadImage(image));
+				 });
+			}
+		});
+	})*/
+	/*var image = imageCache.get(url);
+	if(image===undefined) {
+		image = await Canvas.loadImage(url);
+		imageCache.set(url,image);
+	}
+	console.log({[url]:image})
+	return image;*/
+	return await Canvas.loadImage(url);
+}
+
+function drawURL(context, url, x, y, w, h) {
 	return new Promise(async (res, rej) => {
-		Canvas.loadImage(url).then(image => {
+		loadImage(url).then(image => {
 			context.drawImage(image, x, y, w, h)
 			res();
 		}).catch(e => {
-			console.log("Error with: " + url)
+			console.log("Error with: " + url,e)
 			res();
 		});
 
 	})
+}
+
+function drawImage(context, image, x, y, w, h) {
+	context.drawImage(image, x, y, w, h)
+}
+
+
+function drawFrame(context, spriteSheet, frame, placement) {
+	//["x", "y", "width", "height", "imageIndex", "regX", "regY"]
+	var frame = spriteSheet.frames[frame];
+	context.drawImage(spriteSheet.images[frame[4]], frame[0] - frame[5], frame[1] - frame[6], frame[2], frame[3], placement.x - placement.regX, placement.y - placement.regY, frame[2], frame[3]);
 }
 
 async function displayGear(player) {
@@ -78,4 +113,4 @@ async function displayGear(player) {
 	return canvas.toBuffer()
 }
 
-module.exports = {drawImage,displayGear};
+module.exports = {loadImage,drawURL,drawImage,displayGear,drawFrame};
