@@ -64,6 +64,11 @@ app.use(function(req, res, next) {
 	);
 	next();
 });
+
+app.use(function (err, req, res, next) {
+	console.error(err.stack)
+	res.status(500).send(err.stack)
+  })
 /**
  * Routes
  */
@@ -100,7 +105,6 @@ app.use("/compose",compose)
 app.use("/room",room)
 app.use("/player",player)
 app.use("/gear",gear);
-
 /**
  * Paths
  */
