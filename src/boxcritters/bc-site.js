@@ -92,7 +92,7 @@ async function GetManifests() {
 	return manifests;
 }
 (async () => {
-	console.log(await GetManifests())	
+	console.debug(await GetManifests())	
 })()
 /*
 async function GetItemsFolder() {

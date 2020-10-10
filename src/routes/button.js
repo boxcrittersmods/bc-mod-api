@@ -39,7 +39,7 @@ function send_response(settings, res)
 			}
 		});
 	} catch (err) {
-		console.log(err);
+		console.debug(err);
 		res.set("Content-Type", "application/json");
 		res.type("application/json");
 		res.status(500).send(`{"err": "${sub_err}"`);
@@ -66,7 +66,7 @@ router.use("/:url_or_name", async (req, res) => {
 			request({
 				"url": "https://raw.githubusercontent.com/boxcritters/boxcrittersmods.ga/master/_mods/" + req.params.url_or_name + ".md"
 			}, function (sub_err, sub_res, sub_body) {
-				/* console.log(sub_body); */
+				/* console.debug(sub_body); */
 				if (sub_err)
 				{
 					res.set("Content-Type", "application/json");
@@ -94,7 +94,7 @@ router.use("/:url_or_name", async (req, res) => {
 			});
 		}
 	} catch (err) {
-		console.log(err);
+		console.debug(err);
 		res.set("Content-Type", "application/json");
 		res.type("application/json");
 		res.status(500).send(`{"err": "${err}"`);

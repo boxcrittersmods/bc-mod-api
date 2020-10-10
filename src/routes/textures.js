@@ -38,7 +38,7 @@ router.get('/download',async (req,res)=>{
 
 	//on stream closed we can end the request
 	zip.on('end', function() {
-	  console.log('Archive wrote %d bytes', zip.pointer());
+	  console.debug('Archive wrote %d bytes', zip.pointer());
 	});
 
 	var date = new Date()
@@ -46,13 +46,13 @@ var dateNum = date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10
 	var name = "boxcritters-" + dateNum + ".zip"
 	res.attachment(name);
 	zip.pipe(res);
-	console.log(urls);
+	console.debug(urls);
 	
 
 	for (var i=0; i < urls.length; i++) {
 		let url = urls[i];
 
-		console.log(url);
+		console.debug(url);
 		zip.append(request(url),{name:url})
 	}
 	zip.finalize();

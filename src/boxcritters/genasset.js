@@ -146,7 +146,7 @@ async function getAssetInfo(type, site = 'boxcritters') {
 async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
-		console.log("Manifest: " + m)
+		console.debug("Manifest: " + m)
 		tp[m + "_manifest"] = Array.isArray(manifests[m])
 		? await Promise.all(manifests[m].map(async m=>await fillURL(m.src)))
 		: await fillURL(manifests[m].src);
@@ -163,7 +163,7 @@ async function GetCritterBall() {
 async function getObjectSchematic(obj) {
 	obj = JSON.parse(JSON.stringify(obj));
 	if(obj==null||obj==undefined) return "null";
-	//console.log("DOCUMENTING OBJECT<" + (Array.isArray(obj) ? ("array" +"("+obj.length+")") : typeof (obj)) + ">:", obj);
+	//console.debug("DOCUMENTING OBJECT<" + (Array.isArray(obj) ? ("array" +"("+obj.length+")") : typeof (obj)) + ">:", obj);
 	if (Array.isArray(obj)) {
 		if (obj.length > 1 && typeof (obj[0]) === "object") {
 			obj = Object.assign(...obj);
@@ -174,7 +174,7 @@ async function getObjectSchematic(obj) {
 		}
 	}
 	if (typeof (obj) === "object"){
-		console.log(obj);
+		console.debug(obj);
 		var hmm =  Object.assign(...await Promise.all(
 			Object.keys(obj)
 			.map(async k => 
@@ -252,7 +252,7 @@ async function parseManifest(tp, m,data)  {
 	var mSingleTitle = titleize(mSingular);
 	var mData = data||await getAssetInfo(m);
 	var mAlias = getAlias(m);
-	console.log("== " + mTitle + " ==");
+	console.debug("== " + mTitle + " ==");
 	if (!Array.isArray(mData)) {
 		if (mData.spriteSheet) {
 			mData = [mData];
@@ -260,8 +260,8 @@ async function parseManifest(tp, m,data)  {
 		mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData]
 	}
 	var mTypes = await getObjectSchematic(mData);
-	console.log(mTypes);
-	//console.log(assetInfo)
+	console.debug(mTypes);
+	//console.debug(assetInfo)
 	var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
 
 	//SeperateSprites
@@ -287,7 +287,7 @@ async function parseManifest(tp, m,data)  {
 		var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
 		var aTextureList = {};
 		var aAlias = getAlias(m,a);
-		//console.log(mSingleTitle + ":", a);
+		//console.debug(mSingleTitle + ":", a);
 
 		//Sprite Sheet
 		if (mIncludeSprites && aData.spriteSheet) {

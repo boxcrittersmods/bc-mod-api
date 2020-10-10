@@ -6,7 +6,7 @@ var owner = "boxcritters";
 var repo = "bc-mod-api";
 
 if (DISABLE_GITHUB) {
-	console.log("Github Disabled for testing");
+	console.debug("Github Disabled for testing");
 }
 
 async function init() {
@@ -15,7 +15,7 @@ async function init() {
 
 	octokit.request("/").catch(error => {
 		if (error.request.request.retryCount) {
-			console.log(
+			console.debug(
 				`request failed after ${error.request.request.retryCount} retries`
 			);
 		}
@@ -76,10 +76,10 @@ function saveVersions(versions, sha) {
 }
 /*var onInit = () => { };
 init().then(() => {
-	console.log("gh")
+	console.debug("gh")
 	onInit();
 }).catch((e)=>{
-	console.log(e)
+	console.debug(e)
 });*/
 
 async function createMod(data, url)

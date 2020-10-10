@@ -29,8 +29,8 @@ async function displayRoom(room,length) {
 	layout.playground.sort((a,b) => a.y-b.y);
 
 	var gifLength = length||Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
-	var max = 300;
-	gifLength = gifLength>max?max:gifLength;
+	var max = 30;
+	if(!length) gifLength = gifLength>max?max:gifLength;
 	console.log(gifLength);
 
 	
@@ -42,7 +42,7 @@ async function displayRoom(room,length) {
 
 	gifEncoder.start();
 	for (let f = 0; f < gifLength; f++) {
-		console.log("Frame: ",f+1,"/",gifLength);
+		console.debug("Frame: ",f+1,"/",gifLength);
 		layout.playground.sort((a,b) => a.y-b.y);
 		drawImage(context, room.background, 0, 0, canvas.width, canvas.height);
 		for (let i in layout.playground) {
@@ -55,7 +55,7 @@ async function displayRoom(room,length) {
 		gifEncoder.addFrame(context);
 	}
 	gifEncoder.finish();
-	return gifEncoder.out.getData();
+	return gifEncoder;
 }
 
 
@@ -73,7 +73,8 @@ router.get('/:frames/:room?',async function(req,res){
 	var imgBuffer = await displayRoom(room,frames)
 
 	res.type('.' + fileParts[fileParts.length-1]);
-	res.send(imgBuffer);
+	var data = imgBuffer.out.getData();
+	res.send(data);
 })
 
 module.exports = router;

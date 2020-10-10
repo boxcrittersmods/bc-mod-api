@@ -15,7 +15,7 @@ if (process.env.GH_APP_PK != undefined) {
 		// Firstly, get the id of the installation based on the repository
 		var url = `https://api.github.com/orgs/${owner}/installation`;
 		if (repo) url = `https://api.github.com/repos/${owner}/${repo}/installation`;
-		console.log({ url });
+		console.debug({ url });
 		var install = await fetch(url, {
 			headers: {
 				authorization: `Bearer ${jwt}`,
@@ -23,7 +23,7 @@ if (process.env.GH_APP_PK != undefined) {
 			}
 		});
 		var installationId = (await install.json()).id;
-		console.log({ installationId })
+		console.debug({ installationId })
 		// And acquire access token for that id
 		var accessToken = await app.getInstallationAccessToken({ installationId });
 

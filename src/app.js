@@ -1,7 +1,6 @@
 const express = require("express");
 const serveIndex = require('serve-index');
 const adminLogin = require('bc-admin-login');
-const io = require("socket.io");
 
 //middleware
 const cors = require("cors");
@@ -41,7 +40,10 @@ const gear = require('./routes/gear')
 const sitesData = require('#data/sites.json');
 
 var app = express();
-var server;
+app.use(async (req,res,next)=>{
+	console.log("__**"+[req.method,req.path].join(" ")+"**__")
+	next();
+})
 
 //Setup Admin login for boxcrittersmods.ga
 app.use(adminLogin);
@@ -88,13 +90,6 @@ app.use('/textures',textures)
  * app.use('/description',desc);
  * END Broken
  */
-app.use(
-	"/scripts",
-	express.static("public"),
-	serveIndex("public", {
-		icons: true
-	})
-);
 app.use("/cors", corsProxy);
 app.use("/feedback", feedback);
 app.use("/button", button);
@@ -121,6 +116,13 @@ app.get('/',(req,res)=>{
 });
 END Broken
 */
+app.use(
+	"/",
+	express.static("public"),
+	serveIndex("public", {
+		icons: true
+	})
+);
 
 app.all('*',(req,res)=>{
 	res.status(404).send({

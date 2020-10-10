@@ -42,18 +42,18 @@ router.get('/', async (req, res) => {
 
 	//on stream closed we can end the request
 	zip.on('end', function() {
-	  console.log('Archive wrote %d bytes', zip.pointer());
+	  console.debug('Archive wrote %d bytes', zip.pointer());
 	});
 	
 	res.attachment('boxcritters.zip');
 	zip.pipe(res);
-	console.log(urls);
+	console.debug(urls);
 	
 
 	for (var i=0; i < urls.length; i++) {
 		let url = urls[i];
 
-		console.log(url);
+		console.debug(url);
 		zip.append(request(url),{name:url})
 	}
 	zip.finalize();

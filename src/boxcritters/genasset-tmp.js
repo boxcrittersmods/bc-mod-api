@@ -153,7 +153,7 @@ async function getAssetInfo(type, site = 'boxcritters') {
 async function GetManifestLoc() {
 	var manifests = await BoxCritters.GetManifests();
 	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
-		console.log("Manifest: " + m)
+		console.debug("Manifest: " + m)
 		tp[m + "_manifest"] = await fillURL(manifests[m]);
 		return tp;
 	}, {});
@@ -254,7 +254,7 @@ async function sortManifestList(manifestList,getData) {
 		var mSingleTitle = titleize(mSingular);
 		var mData = await getData(manifestList,m);
 		var mAlias = getAlias(m);
-		console.log("== " + mTitle + " ==");
+		console.debug("== " + mTitle + " ==");
 
 		var mSpriteSheetKeys;
 
@@ -262,7 +262,7 @@ async function sortManifestList(manifestList,getData) {
 			let spriteTemp
 			if(Array.isArray(mData)) {
 				spriteSheet = Object.assign(...mData)
-				console.log(spriteSheet)
+				console.debug(spriteSheet)
 			} else {
 
 			}
@@ -281,7 +281,7 @@ async function sortManifestList(manifestList,getData) {
 		//mSpriteSheetKeys = Object.keys(Object.assign(...mData)).filter(key=>isSpriteSheet(mData,key));
 
 		var mTypes = await getObjectSchematic(mData);
-		console.log(mTypes);
+		console.debug(mTypes);
 		//console.log(assetInfo)
 		var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
 
@@ -308,7 +308,7 @@ async function sortManifestList(manifestList,getData) {
 			var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
 			var aTextureList = {};
 			var aAlias = getAlias(m,a);
-			console.log(mSingleTitle + ":", a);
+			console.debug(mSingleTitle + ":", a);
 
 			//Sprite Sheet
 			if (mIncludeSprites && aData[spriteSheetKey]) {
