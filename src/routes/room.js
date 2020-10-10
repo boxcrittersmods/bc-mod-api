@@ -29,7 +29,8 @@ async function displayRoom(room,length) {
 	layout.playground.sort((a,b) => a.y-b.y);
 
 	var gifLength = /*length||*/Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
-	//gifLength = gifLength>30?30:gifLength;
+	vra max = 300;
+	gifLength = gifLength>max?max:gifLength;
 	console.log(gifLength);
 
 	
