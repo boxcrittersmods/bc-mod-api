@@ -28,21 +28,21 @@ async function displayRoom(room,length) {
 	var layout = await layoutFile.getJson();
 	layout.playground.sort((a,b) => a.y-b.y);
 
-	var gifLength = /*length||*/Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
-	vra max = 300;
+	var gifLength = length||Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
+	var max = 300;
 	gifLength = gifLength>max?max:gifLength;
 	console.log(gifLength);
 
 	
-	var gifEncoder = new CanvasGifEncoder(room.width, room.height,'octree',true,gifLength);
+	var gifEncoder = new CanvasGifEncoder(room.width, room.height,'neuquant',true,gifLength);
 
-	gifEncoder.on('progress', percent => {
+	/*gifEncoder.on('progress', percent => {
 		console.log("generating gif " + percent + "%")
-	  })
+	  })*/
 
 	gifEncoder.start();
 	for (let f = 0; f < gifLength; f++) {
-		//console.log("Frame: ",f+1,"/",gifLength);
+		console.log("Frame: ",f+1,"/",gifLength);
 		layout.playground.sort((a,b) => a.y-b.y);
 		drawImage(context, room.background, 0, 0, canvas.width, canvas.height);
 		for (let i in layout.playground) {
