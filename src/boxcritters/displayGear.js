@@ -59,7 +59,7 @@ async function displayGear(player) {
 	var context = canvas.getContext('2d');
 	if (player.critterId == "snail") {
 		canvas.width = canvas.height = 128;
-		drawImage(context, "https://cdn.discordapp.com/emojis/701095041426391091.png?v=1", 0, 0, canvas.width, canvas.height)
+		drawURL(context, "https://cdn.discordapp.com/emojis/701095041426391091.png?v=1", 0, 0, canvas.width, canvas.height)
 	}
 
 	var items = await itemList.getJson();
