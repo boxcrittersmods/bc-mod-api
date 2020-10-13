@@ -93,7 +93,7 @@ async function displayGear(player) {
 				if (layer == "ears" && rules.hideEars) break;
 				if(layer == "skin") layer = "body";
 				var url = `https://media.boxcritters.com/critters/${player.critterId||"hamster"}/${layer}.png`
-				await drawImage(context, url, 0, 0, canvas.width, canvas.height)
+				await drawURL(context, url, 0, 0, canvas.width, canvas.height)
 
 				break;
 			default: //Items
@@ -104,7 +104,7 @@ async function displayGear(player) {
 				if (gearId == -1) continue;
 				var gear = player.gear[gearId];
 				var url = `https://media.boxcritters.com/items/${gear}/${position}.png`;
-				await drawImage(context, url, 0, 0, canvas.width, canvas.height)
+				await drawURL(context, url, 0, 0, canvas.width, canvas.height)
 
 				break;
 		}
