@@ -68,6 +68,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
+	if(!err) next()
 	console.error(err.stack)
 	res.status(500).send(err.stack)
   })

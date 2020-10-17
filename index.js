@@ -17,7 +17,9 @@ require('dotenv').config();
 				return "```json\n"+JSON.stringify(m)+"\n```"
 			} return m;
 		})
-		webhook.send(msg.join(" "))
+		msg = msg.join(" ")
+		if(msg.length>2000) return
+		webhook.send(msg)
 	}
 	
 	console.info = (...msg) =>{
@@ -27,7 +29,9 @@ require('dotenv').config();
 				return "```json\n"+JSON.stringify(m)+"\n```"
 			} return m;
 		})
-		webhook.send("**Info:** "+msg.join(" "))
+		msg = msg.join(" ")
+		if(msg.length>2000) return
+		webhook.send("**Info:** "+msg)
 	}
 	console.error = (...msg) =>{
 		oldError(...msg);
@@ -36,7 +40,9 @@ require('dotenv').config();
 				return "```json\n"+JSON.stringify(m)+"\n```"
 			} return m;
 		})
-		webhook.send("**Error:** "+msg.join(" "))
+		msg = msg.join(" ")
+		if(msg.length>2000) return
+		webhook.send("**Error:** "+msg)
 	}
 	console.warn = (...msg) =>{
 		oldWarn(...msg);
@@ -45,7 +51,9 @@ require('dotenv').config();
 				return "```json\n"+JSON.stringify(m)+"\n```"
 			} return m;
 		})
-		webhook.send("**Warning:** "+msg.join(" "))
+		msg = msg.join(" ")
+		if(msg.length>2000) return
+		webhook.send("**Warning:** "+msg)
 	}
 }
 

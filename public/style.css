@@ -126,9 +126,3 @@ header .branding >* {
 .err-page p {
 	font-size: 14px;
 }
-
-*,
-*::before,
-*::after {
-  transition: all 0.3s ease;
-}
