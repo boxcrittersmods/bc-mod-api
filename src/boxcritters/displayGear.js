@@ -48,8 +48,10 @@ function drawImage(context, image, x, y, w, h) {
 
 function drawFrame(context, spriteSheet, frame, placement) {
 	//["x", "y", "width", "height", "imageIndex", "regX", "regY"]
+	var f = frame;
 	var frame = spriteSheet.frames[frame];
-	context.drawImage(spriteSheet.images[frame[4]], frame[0] - frame[5], frame[1] - frame[6], frame[2], frame[3], placement.x - placement.regX, placement.y - placement.regY, frame[2], frame[3]);
+	/*console.log({f,frame,placement})*/
+	context.drawImage(spriteSheet.images[frame[4]], frame[0] - frame[5], frame[1] - frame[6], frame[2], frame[3], placement.x+ - placement.regX, placement.y - placement.regY, frame[2], frame[3]);
 }
 
 async function displayGear(player) {

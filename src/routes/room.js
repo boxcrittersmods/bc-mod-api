@@ -38,9 +38,6 @@ async function displayRoom(room, length) {
 		layout.playground.sort((a, b) => a.y - b.y);
 	}
 
-
-
-
 	var gifLength = length || Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount))
 	var max = 30;
 	if (!length) gifLength = gifLength > max ? max : gifLength;
@@ -61,20 +58,21 @@ async function displayRoom(room, length) {
 		if (layout && spriteSheet.images) {
 			for (let i in layout.playground) {
 				var placement = layout.playground[i];
-				if (!placement) {
+				if (typeof placement == "undefined") {
 					console.log(`Playground ${i} has no placement`)
 					continue;
 				}
 				var animation = spriteSheet.animations[placement.id];
-				if (!animation) {
+				if (typeof animation == "undefined") {
 					console.log(`Playground ${i},placement ${placement.id} has no animation`)
 					continue;
 				}
 				var frame = animation.frames[f % animation.frames.length]
-				if (!frame) {
+				if (typeof frame == "undefined") {
 					console.log(`Playground ${i},placement ${placement.id}, frame ${f} does not exist`)
 					continue;
 				}
+
 				drawFrame(context, spriteSheet, frame, placement);
 			}
 		}
