@@ -1,3 +1,4 @@
+"use strict"
 const BoxCritters = require("./bc-site");
 const moment = require("moment");
 const EventHandler = require("#src/util/events");
@@ -14,8 +15,8 @@ Events
 newClient
 newItems
 */
-var versions = [];
-var versionEvents = new EventHandler();
+let versions = [];
+let versionEvents = new EventHandler();
 
 function GetDate() {
 	return moment().format("DD-MM-YYYY");
@@ -44,18 +45,18 @@ function GetVersion(name) {
 }
 
 async function CheckForNewVersion() {
-	var n = await BoxCritters.GetVersion();
-	/*var i = await BoxCritters.GetItemsFolder();*/
-    var l = GetLatest();
+	let n = await BoxCritters.GetVersion();
+	/*let i = await BoxCritters.GetItemsFolder();*/
+    let l = GetLatest();
 
     if(l != undefined){
         if(l.name == n /*&& l.items == i*/) return;
     }
-	var v = CreateVersion(n);
+	let v = CreateVersion(n);
     versions.push(v);
     if (l != undefined) {
-        var newClient = l.name != n;
-        /*var newItems = l.items != i;*/
+        let newClient = l.name != n;
+        /*let newItems = l.items != i;*/
         if (newClient) versionEvents.dispatchEvent("newClient", n,{n});
         /*else if (newItems) versionEvents.dispatchEvent("newItems", i, {n,i});*/
     }

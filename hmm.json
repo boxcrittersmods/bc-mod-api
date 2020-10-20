@@ -1,0 +1,36 @@
+{
+	"roomId": "halloweenmazeend",
+	"name": "Halloween Maze End",
+	"width": 855,
+	"height": 480,
+	"startX": 430,
+	"startY": 330,
+	"startR": 0,
+	"background": "https://media.boxcritters.com/rooms/halloweenmazeend/14361fcfd76e39fd7aea279cee0d8725/background.png",
+	"treasure": "https://media.boxcritters.com/rooms/halloweenmazeend/14361fcfd76e39fd7aea279cee0d8725/treasure.png",
+	"navMesh": "https://media.boxcritters.com/rooms/halloweenmazeend/14361fcfd76e39fd7aea279cee0d8725/navmesh.png",
+	"music": "https://media.boxcritters.com/rooms/halloweenmazeend/14361fcfd76e39fd7aea279cee0d8725/music.mp3",
+	"layout": "https://media.boxcritters.com/rooms/halloweenmazeend/14361fcfd76e39fd7aea279cee0d8725/layout.json",
+	"triggers": [
+		{
+			"hex": "ff0000",
+			"world": {
+				"joinRoom": "halloweenmaze"
+			}
+		},
+		{
+			"hex": "cc0000",
+			"world": {
+				"joinRoom": "cellar"
+			}
+		},
+		{
+			"hex": "00ffff",
+			"server": {
+				"grantItem": "spider"
+			}
+		}
+	],
+	"spriteSheet": "https://media.boxcritters.com/rooms/halloweenmazeend/14361fcfd76e39fd7aea279cee0d8725/sprites.json",
+	"extra": null
+}

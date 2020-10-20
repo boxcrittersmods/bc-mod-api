@@ -1,7 +1,7 @@
 const express = require("express");
 const BC = require("#src/boxcritters/bc-site.js");
 
-var router = express.Router();
+let router = express.Router();
 
 
 /**

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const adminLogin = require('bc-admin-login');
-var serveIndex = require('serve-index');
+let serveIndex = require('serve-index');
 
 const assetfolder = require('./assetfolder');
 const feedback = require('./feedback');
@@ -11,9 +11,9 @@ const desc = require('./description');
 const textureData = require('./texture-data.json');
 const sitesData = require('./sites.json');
 
-var app = express();
-var ttl = 0;
-var api = {};
+let app = express();
+let ttl = 0;
+let api = {};
 version.update();
 /*
 data:
@@ -25,8 +25,8 @@ data:
 
 */
 assetfolder.update().then((data)=>{
-    var vers = version.getVersions();
-    var versionInfo = {
+    let vers = version.getVersions();
+    let versionInfo = {
         client:data.clientVersion,
         items:data.itemsVersion
     };

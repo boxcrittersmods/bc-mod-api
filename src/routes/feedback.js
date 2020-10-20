@@ -1,8 +1,9 @@
+"use strict"
 const express = require("express");
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 const gh = require("#src/util/github");
 
-var router = express.Router();
+let router = express.Router();
 
 /**
  * Middleware

@@ -1,10 +1,11 @@
+"use strict"
 const express = require("express");
-var archiver = require('archiver');
+let archiver = require('archiver');
 
 const textureData = require('../boxcritters/genasset');
 const request = require("request");
 
-var router = express.Router();
+let router = express.Router();
 
 /**
  * Routers
@@ -13,11 +14,11 @@ var router = express.Router();
  
 // /getassets
 router.get('/download',async (req,res)=>{
-	var zip = archiver('zip', {
+	let zip = archiver('zip', {
 		zlib: { level: 9 } // Sets the compression level.
 	});
-	var urlInfo = await textureData.GetTextureList();
-	var urls = Object.values(urlInfo);
+	let urlInfo = await textureData.GetTextureList();
+	let urls = Object.values(urlInfo);
 
 	// good practice to catch warnings (ie stat failures and other non-blocking errors)
 	zip.on('warning', function (err) {
@@ -41,15 +42,15 @@ router.get('/download',async (req,res)=>{
 	  console.debug('Archive wrote %d bytes', zip.pointer());
 	});
 
-	var date = new Date()
-var dateNum = date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10000)
-	var name = "boxcritters-" + dateNum + ".zip"
+	let date = new Date()
+let dateNum = date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10000)
+	let name = "boxcritters-" + dateNum + ".zip"
 	res.attachment(name);
 	zip.pipe(res);
 	console.debug(urls);
 	
 
-	for (var i=0; i < urls.length; i++) {
+	for (let i=0; i < urls.length; i++) {
 		let url = urls[i];
 
 		console.debug(url);
@@ -63,7 +64,7 @@ var dateNum = date.getDate()+(date.getMonth()*100)+((date.getFullYear()-2000)*10
 // /textures
 router.get('/BoxCritters.bctp.json',async (req,res)=>{
 	res.type("application/json");
-	var textures = await textureData.GetTextureList();
+	let textures = await textureData.GetTextureList();
 	textures = Object.assign({
 		"name": "BoxCritters",
 		"author": "RocketSnail",
@@ -77,20 +78,20 @@ router.get('/BoxCritters.bctp.json',async (req,res)=>{
 
 router.get('/:type/:name/view',async (req,res)=>{
 	//res.type("plain/text");
-	var textures = await textureData.GetTextureList(req.params.type);
+	let textures = await textureData.GetTextureList(req.params.type);
     res.redirect(textures[req.params.name]);
 
 });
 router.get('/:type/:name',async (req,res)=>{
 	//res.type("plain/text");
-	var textures = await textureData.GetTextureList(req.params.type);
+	let textures = await textureData.GetTextureList(req.params.type);
     res.send(textures[req.params.name]);
 
 });
 router.get('/:type',async (req,res)=>{
 	//res.type("plain/text");
 	res.type("application/json");
-    var textures = await textureData.GetTextureData();
+    let textures = await textureData.GetTextureData();
     res.json(textures[req.params.type]);
 
 });
@@ -98,7 +99,7 @@ router.get('/:type',async (req,res)=>{
  // /texture-data
 router.get('/',async (req,res)=>{
 	res.type("application/json");
-    var textures = await textureData.GetTextureData();
+    let textures = await textureData.GetTextureData();
     res.json(textures);
 
 })

@@ -1,3 +1,4 @@
+"use strict"
 const express = require("express");
 const Website = require('#src/util/website');
 const {displayGear} = require("#src/boxcritters/displayGear");
@@ -8,15 +9,15 @@ async function getPlayer(id) {
 
 
 
-var router = express.Router();
+let router = express.Router();
 
 router.use(express.json())
 
 router.get('/:player',async function(req,res){
-	var fileParts = req.params.player.split(".")
-	var playerId = fileParts[0];
-	var player = await getPlayer(playerId); 
-	var imgBuffer = await displayGear(player)
+	let fileParts = req.params.player.split(".")
+	let playerId = fileParts[0];
+	let player = await getPlayer(playerId); 
+	let imgBuffer = await displayGear(player)
 
 	res.type("."+fileParts[fileParts.length-1]);
 	res.send(imgBuffer);

@@ -1,5 +1,6 @@
+"use strict"
 const NodeCache = require("node-cache");
-var {Cache:MemoryCache} = require('memory-cache');
+let {Cache:MemoryCache} = require('memory-cache');
 
 function Cache() {
     if(!new.target) return;

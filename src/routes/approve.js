@@ -1,8 +1,9 @@
+"use strict"
 const express = require("express");
 const request = require("request");
 const gniddom = require("../util/github");
 
-var router = express.Router();
+let router = express.Router();
 
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -11,7 +12,7 @@ router.use("/", (req, res, next) => {
 	next();
 });
 
-var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
+let token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
 
 /**
  * Paths
@@ -20,7 +21,7 @@ var token = "myInsecureTokenPleaseChangeMe-0123_blah.abc";
 /* /modapprove/(token)/(base64_url) */
 router.use(`/${process.env.SUBMIT_TOKEN}/:base64_url`, async function (req, res) {
 	console.debug(req.params.base64_url);
-	var url = new Buffer.from(req.params.base64_url, "base64").toString("ascii");
+	let url = new Buffer.from(req.params.base64_url, "base64").toString("ascii");
 	request({
 		"url": url
 	}, async function (sub_err, sub_res, sub_body) {

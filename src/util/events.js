@@ -1,3 +1,4 @@
+"use strict"
 function EventHandler() {
     if(!new.target) return;
     this.e = {};

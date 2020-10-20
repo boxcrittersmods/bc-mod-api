@@ -1,15 +1,16 @@
+"use strict"
 require('module-alias/register')
 require('dotenv').config();
 
 
 {
 	const { Webhook } = require('discord-webhook-node');
-	var whUrl = process.env.DISCORD_WEBHOOK
-	var webhook = new Webhook(whUrl)
-	var oldLog = console.log;
-	var oldinfo = console.info;
-	var oldError= console.error;
-	var oldWarn = console.warn;
+	let whUrl = process.env.DISCORD_WEBHOOK
+	let webhook = new Webhook(whUrl)
+	let oldLog = console.log;
+	let oldinfo = console.info;
+	let oldError= console.error;
+	let oldWarn = console.warn;
 	console.log = (...msg) =>{
 		oldLog(...msg);
 		msg = msg.map(m=>{
@@ -57,12 +58,12 @@ require('dotenv').config();
 	}
 }
 
-require("bcmc-community-tracker");
+//require("bcmc-community-tracker");
 
 const webserver = require("tn-webserver");
 const app = require('#src/app');
 
-var server = webserver(app);
+let server = webserver(app);
 
 
 

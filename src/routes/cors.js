@@ -1,15 +1,16 @@
+"use strict"
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
 const absolutify = require("absolutify");
 const imageDataURI = require("image-data-uri");
 
-var router = express.Router();
+let router = express.Router();
 
 function getHostName(url) {
-	var nohttp = url.replace("http://", "").replace("https://", "");
-	var http = url.replace(nohttp, "");
-	var hostname = http + nohttp.split(/[/?#]/)[0];
+	let nohttp = url.replace("http://", "").replace("https://", "");
+	let http = url.replace(nohttp, "");
+	let hostname = http + nohttp.split(/[/?#]/)[0];
 	return hostname;
 }
 
@@ -24,7 +25,7 @@ router.use("/", (req, res, next) => {
 
 /* /cors/data/(url) */
 router.use("/data", async (req, res) => {
-	var url = req.path.substr(1);
+	let url = req.path.substr(1);
 	console.log("URL:", url);
 	if (!url) {
 		res.set("Content-Type", "application/json");
@@ -47,7 +48,7 @@ router.use("/data", async (req, res) => {
 
 /* /cors/file/(url) */
 router.use("/file", async (req, res) => {
-	var url = req.path.substr(1);
+	let url = req.path.substr(1);
 	console.log("URL:", url);
 	if (!url) {
 		res.set("Content-Type", "application/json");
@@ -60,7 +61,7 @@ router.use("/file", async (req, res) => {
 
 // /cors/(url)
 router.use("/", async (req, res) => {
-	var url = req.path.substr(1);
+	let url = req.path.substr(1);
 	console.log("URL:", url);
 	if (!url) {
 		res.set("Content-Type", "application/json");
@@ -69,17 +70,17 @@ router.use("/", async (req, res) => {
 		return;
 	}
 	try {
-		var document = "";
-		var i = 0;
+		let document = "";
+		let i = 0;
 
-		var settings = {
+		let settings = {
 			url: url,
 			encoding: null
 		};
 
 		request(settings, function (sub_err, sub_res, sub_body) {
-			var i = 0;
-			var document = sub_body;
+			let i = 0;
+			let document = sub_body;
 			while (i < sub_res.rawHeaders.length)
 			{
 				res.set(sub_res.rawHeaders[i], sub_res.rawHeaders[i + 1]);

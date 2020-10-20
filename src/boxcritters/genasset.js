@@ -1,3 +1,4 @@
+"use strict"
 const BoxCritters = require("./bc-site");
 const bcVersions = require("./versions");
 const Website = require('#src/util/website');
@@ -10,7 +11,7 @@ const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
 const shopJson = require('#data/shop.json');
 
-var SITE_URL = getSiteUrl();
+let SITE_URL = getSiteUrl();
 
 if (!String.prototype.endsWith) {
 	String.prototype.endsWith = function (search, this_len) {
@@ -23,8 +24,8 @@ if (!String.prototype.endsWith) {
 
 Object.defineProperty(Array.prototype, 'reduceAsync', {
 	value: async function (action, def) {
-		var output = def;
-		for (var i in this) {
+		let output = def;
+		for (let i in this) {
 			output = await action(output, this[i], i);
 		}
 		return output;
@@ -32,7 +33,7 @@ Object.defineProperty(Array.prototype, 'reduceAsync', {
 });
 
 function dynamicSort(property) {
-	var sortOrder = 1;
+	let sortOrder = 1;
 	if (property[0] === "-") {
 		sortOrder = -1;
 		property = property.substr(1);
@@ -41,13 +42,13 @@ function dynamicSort(property) {
         /* next line works with strings and numbers, 
          * and you may want to customize it to your needs
          */
-		var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+		let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
 		return result * sortOrder;
 	}
 }
 
 function idToLabel(id) {
-	var frags = id.split('_');
+	let frags = id.split('_');
 	for (i = 0; i < frags.length; i++) {
 		frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
 	}
@@ -70,14 +71,14 @@ function titleize(str) {
 
 function explode(obj, prefix) {
 	return Object.keys(obj).reduce((pieces, key) => {
-		var value = obj[key];
+		let value = obj[key];
 		if (typeof (prefix) == "string") key = prefix + "_" + key;
 		if (Array.isArray(value)) return Object.assign(pieces, value.reduce((arrObj, item, i) => {
-			var suffix = value.length > 1 ? i : "";
+			let suffix = value.length > 1 ? i : "";
 			arrObj[key + suffix] = item;
 			return arrObj;
 		}, {}))
-		var p = undefined;
+		let p = undefined;
 		if (prefix) p = key;
 		if (typeof value == "object") return Object.assign(pieces, explode(value, p));
 		pieces[key] = value;
@@ -99,8 +100,8 @@ function getSiteUrl(site = 'boxcritters') {
 
 async function fillURL(url) {
 	if (!url) return "";
-	//var paths = await BoxCritters.GetPaths();
-	var base = SITE_URL;
+	//let paths = await BoxCritters.GetPaths();
+	let base = SITE_URL;
 	if (urlIsRoot(url)) {
 		return url;
 	} else {
@@ -113,17 +114,17 @@ async function getSprites(spriteSheet, name) {
 		spriteSheet = spriteSheet.src;
 	}
 	if(typeof(spriteSheet)=="string"&&spriteSheet.includes(".json")){
-		var host = getSiteUrl("boxcritters");
-		var url = await fillURL(spriteSheet);
-		var website = Website.Connect(url);
-		var sprites = await website.getJson();
+		let host = getSiteUrl("boxcritters");
+		let url = await fillURL(spriteSheet);
+		let website = Website.Connect(url);
+		let sprites = await website.getJson();
 	} else {
 		sprites = spriteSheet;
 	}
 
 	return sprites.images.reduceAsync(async (tp, sprite, i) => {
-		var value = await fillURL(sprite);
-		var key = name;
+		let value = await fillURL(sprite);
+		let key = name;
 		if (sprites.images.length <= 1) {
 			return value;
 		}
@@ -134,18 +135,18 @@ async function getSprites(spriteSheet, name) {
 }
 
 async function getAssetInfo(type, site = 'boxcritters') {
-	var host = getSiteUrl(site);
-	var manifests = await BoxCritters.GetManifests();
-	var url = await fillURL(manifests[type].src);
-	var website = Website.Connect(url);
-	var assetInfo = await website.getJson();
+	let host = getSiteUrl(site);
+	let manifests = await BoxCritters.GetManifests();
+	let url = await fillURL(manifests[type].src);
+	let website = Website.Connect(url);
+	let assetInfo = await website.getJson();
 
 	return assetInfo;
 }
 
 async function GetManifestLoc() {
-	var manifests = await BoxCritters.GetManifests();
-	var tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
+	let manifests = await BoxCritters.GetManifests();
+	let tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
 		console.debug("Manifest: " + m)
 		tp[m + "_manifest"] = Array.isArray(manifests[m])
 		? await Promise.all(manifests[m].map(async m=>await fillURL(m.src)))
@@ -156,7 +157,7 @@ async function GetManifestLoc() {
 }
 
 async function GetCritterBall() {
-	var tp = critterballJson;
+	let tp = critterballJson;
 	return tp;
 }
 
@@ -175,7 +176,7 @@ async function getObjectSchematic(obj) {
 	}
 	if (typeof (obj) === "object"){
 		console.debug(obj);
-		var hmm =  Object.assign(...await Promise.all(
+		let hmm =  Object.assign(...await Promise.all(
 			Object.keys(obj)
 			.map(async k => 
 				({ [k]: await getObjectSchematic(obj[k]) })
@@ -186,9 +187,9 @@ async function getObjectSchematic(obj) {
 		if (obj.includes('.png'))
 			return 'texture';
 		if (obj.includes('.json')) {
-			/*var url = await fillURL(obj);
-			var website = Website.Connect(url);
-			var assetInfo = await website.getJson();
+			/*let url = await fillURL(obj);
+			let website = Website.Connect(url);
+			let assetInfo = await website.getJson();
 			return await getObjectSchematic(assetInfo);*/
 			return "spriteSheet";
 		}
@@ -196,14 +197,14 @@ async function getObjectSchematic(obj) {
 	return typeof (obj);
 }
 async function GetTextureData() {
-	//var symbols = await GetSymbols();
+	//let symbols = await GetSymbols();
 
-	var manifests = await BoxCritters.GetManifests();
+	let manifests = await BoxCritters.GetManifests();
 
 
-	var PLURALIZER = "s";
+	let PLURALIZER = "s";
 	// Retreval Names
-	var idMap = {
+	let idMap = {
 		id:"Id",
 		mascot: "critter",
 		spriteSheet:"spriteSheet",
@@ -226,7 +227,7 @@ async function GetTextureData() {
 		'theme',
 		'slot'
 	]
-	var extentions = {
+	let extentions = {
 		texture:".png",
 		audio:".mp3"
 	}
@@ -236,7 +237,7 @@ async function GetTextureData() {
 	 * @param  {...any} i m,a,p
 	 */
 function getAlias(...i) {
-	var blankChar = "#";
+	let blankChar = "#";
 	for (let k in keyAliases) {
 		if (k.split(',').find((e, x) => e && e != i[x])) continue;
 		let a = keyAliases[k].split(',');
@@ -247,11 +248,11 @@ function getAlias(...i) {
 }
 
 async function parseManifest(tp, m,data)  {
-	var mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
-	var mTitle = titleize(m);
-	var mSingleTitle = titleize(mSingular);
-	var mData = data||await getAssetInfo(m);
-	var mAlias = getAlias(m);
+	let mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
+	let mTitle = titleize(m);
+	let mSingleTitle = titleize(mSingular);
+	let mData = data||await getAssetInfo(m);
+	let mAlias = getAlias(m);
 	console.debug("== " + mTitle + " ==");
 	if (!Array.isArray(mData)) {
 		if (mData.spriteSheet) {
@@ -259,48 +260,48 @@ async function parseManifest(tp, m,data)  {
 		}
 		mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData]
 	}
-	var mTypes = await getObjectSchematic(mData);
+	let mTypes = await getObjectSchematic(mData);
 	console.debug(mTypes);
 	//console.debug(assetInfo)
-	var mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
+	let mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
 
 	//SeperateSprites
-	var mSpritesAlias = getAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
-	var mAllSpriteSheets = mData.map(a=>a.sprites||a.spriteSheet);
-	var mSpriteSheets = [...new Set(mAllSpriteSheets)];
+	let mSpritesAlias = getAlias(m,idMap.spriteSheet)//manifestAlias[m + "_sprites"]||m + "_sprites";
+	let mAllSpriteSheets = mData.map(a=>a.sprites||a.spriteSheet);
+	let mSpriteSheets = [...new Set(mAllSpriteSheets)];
 	if(mSpriteSheets.length != mAllSpriteSheets.length&&!mSpriteSheets.includes(undefined)) {
 		tp[mSpritesAlias]={};
-		for(var i in mSpriteSheets){
-			var spriteSheet = mSpriteSheets[i];
-			var spriteSheetAlias = getAlias(m,idMap.spriteSheet,spriteSheet.split("/")[3]);
+		for(let i in mSpriteSheets){
+			let spriteSheet = mSpriteSheets[i];
+			let spriteSheetAlias = getAlias(m,idMap.spriteSheet,spriteSheet.split("/")[3]);
 			tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet)
 		}
 	}
-	var mIncludeSprites = !tp[mSpritesAlias]
+	let mIncludeSprites = !tp[mSpritesAlias]
 
 	/**
 	 * a Asset Key Name
 	 * aData Asset Data
 	 * aAlias
 	 */
-	var tpManifestParsing = await mData.reduceAsync(async (tp, aData) => {
-		var a = aData[(idMap[mSingular] || mSingular) + idMap.id];
-		var aTextureList = {};
-		var aAlias = getAlias(m,a);
+	let tpManifestParsing = await mData.reduceAsync(async (tp, aData) => {
+		let a = aData[(idMap[mSingular] || mSingular) + idMap.id];
+		let aTextureList = {};
+		let aAlias = getAlias(m,a);
 		//console.debug(mSingleTitle + ":", a);
 
 		//Sprite Sheet
 		if (mIncludeSprites && aData.spriteSheet) {
-			var aSpriteAlias = getAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
+			let aSpriteAlias = getAlias(m,a,idMap.spriteSheet)//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
 			aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
 		}
 
 		//All textures tp the TP
-		for (var p in aData) {
+		for (let p in aData) {
 			if (typeof (aData[p]) !== "string")
 				continue;
-			var pAlias = getAlias(m,a,p);//propertyAlias[p] || "_"+p;
-			for(var ext in extentions)
+			let pAlias = getAlias(m,a,p);//propertyAlias[p] || "_"+p;
+			for(let ext in extentions)
 				if (aData[p].includes(extentions[ext]))
 					aTextureList[pAlias] = await fillURL(aData[p]);
 		}
@@ -309,17 +310,17 @@ async function parseManifest(tp, m,data)  {
 		if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
 
 		//Herarchy setup
-		var aHierachyParts = [];
-		for (var i in propertyOrder) {
-			var parent = aHierachyParts[aHierachyParts.length - 1] || tp;
-			var keyName = propertyOrder[i];
+		let aHierachyParts = [];
+		for (let i in propertyOrder) {
+			let parent = aHierachyParts[aHierachyParts.length - 1] || tp;
+			let keyName = propertyOrder[i];
 			if (aData[keyName]) {
-				var key = aData[keyName];
+				let key = aData[keyName];
 				aHierachyParts[i] = parent[key] || {};
 				parent[key] = aHierachyParts[i];
 			}
 		}
-		var placeInHierarchy = aHierachyParts[aHierachyParts.length - 1]||tp;
+		let placeInHierarchy = aHierachyParts[aHierachyParts.length - 1]||tp;
 		placeInHierarchy[aAlias] = aTextureList;
 		return tp;
 	}, {});
@@ -332,7 +333,7 @@ async function parseManifest(tp, m,data)  {
 	return tp;
 }
 
-	var tp = Object.assign(
+	let tp = Object.assign(
 		{
 			clientscript: await GetClientScript(),
 			misc: textureMisc,
@@ -352,9 +353,9 @@ async function parseManifest(tp, m,data)  {
 				//TODO
 				manifests[m].forEach(async mInfo=>{
 					
-					var url = await fillURL(mInfo.src);
-					var website = Website.Connect(url);
-					var mData = await website.getJson();
+					let url = await fillURL(mInfo.src);
+					let website = Website.Connect(url);
+					let mData = await website.getJson();
 					tp = await parseManifest(tp,m,mData);
 
 				});
@@ -372,9 +373,9 @@ async function parseManifest(tp, m,data)  {
 }
 
 async function GetTextureList(type) {
-	var things = await GetTextureData();
+	let things = await GetTextureData();
 	if (type) things = things[type];
-	var tp = explode(things);
+	let tp = explode(things);
 	//tp.packVersion = "UNKNOWN";
 	return tp;
 }

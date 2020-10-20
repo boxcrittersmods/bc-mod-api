@@ -2,9 +2,9 @@ const express = require("express");
 const request = require('request');
 const { JSDOM } = require("jsdom");
 
-var router = express.Router();
+let router = express.Router();
 
-var bcurl = "https://boxcritters.com/";
+let bcurl = "https://boxcritters.com/";
 
 function getSiteText(url) {
     return new Promise((resolve,reject)=>{
@@ -22,7 +22,7 @@ function getSiteText(url) {
 
 function getSiteDocument(sitetext) {
     const { window } = new JSDOM(sitetext);
-    var document = window.document;
+    let document = window.document;
     return document;
 }
 
@@ -35,8 +35,8 @@ function getDescriptionText(document) {
 function getNewDescription() {
     return new Promise((resolve,reject)=>{
         getSiteText(bcurl).then(body=>{
-            var document = getSiteDocument(body);
-            var desc = getDescriptionText(document);
+            let document = getSiteDocument(body);
+            let desc = getDescriptionText(document);
             resolve(desc);
         }).catch(reject);
     });

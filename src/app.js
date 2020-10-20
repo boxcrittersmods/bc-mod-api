@@ -1,3 +1,4 @@
+"use strict"
 const express = require("express");
 const serveIndex = require('serve-index');
 const adminLogin = require('bc-admin-login');
@@ -35,11 +36,12 @@ const compose = require('./routes/compose')
 const room = require('./routes/room')
 const player = require('./routes/player')
 const gear = require('./routes/gear')
+const database = require('./routes/database')
 
 //data
 const sitesData = require('#data/sites.json');
 
-var app = express();
+let app = express();
 app.use(async (req,res,next)=>{
 	console.log("__**"+[req.method,req.path].join(" ")+"**__")
 	next();
@@ -101,6 +103,7 @@ app.use("/compose",compose)
 app.use("/room",room)
 app.use("/player",player)
 app.use("/gear",gear);
+app.use("/database",database);
 /**
  * Paths
  */

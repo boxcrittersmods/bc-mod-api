@@ -1,10 +1,10 @@
 const request = require('request');
 const { JSDOM } = require("jsdom");
 
-var bcurl = "https://boxcritters.com/play/index.html";
+let bcurl = "https://boxcritters.com/play/index.html";
 
-var scripts = ["client"/*,"items"*/];
-var scriptinfo = {
+let scripts = ["client"/*,"items"*/];
+let scriptinfo = {
     client:{
         pre:"../lib/client",
         post:".min.js"
@@ -31,22 +31,22 @@ function getSiteText(url) {
 
 function getSiteDocument(sitetext) {
     const { window } = new JSDOM(sitetext);
-    var document = window.document;
+    let document = window.document;
     return document;
 }
 
 function getVerName(document,scriptinfo){
-    var scripts = Array.from(document.scripts);
-    var script = scripts.find(s=>{
+    let scripts = Array.from(document.scripts);
+    let script = scripts.find(s=>{
         return s.src.startsWith(scriptinfo.pre);
     })
-    var url = script.src;
-    var ver = url.replace(scriptinfo.pre,"").replace(scriptinfo.post,"");
+    let url = script.src;
+    let ver = url.replace(scriptinfo.pre,"").replace(scriptinfo.post,"");
     return ver;
 }
 
 function getVersionInfo(ver) {
-    var info = {};
+    let info = {};
 
     info.clientVersion = ver.client;
     info.clientVersionNum = ver.client.split("-")[0]|undefined;
@@ -67,8 +67,8 @@ function getVersionInfo(ver) {
 function updateVersionNames() {
     return new Promise((resolve,reject)=>{
         getSiteText(bcurl).then(body=>{
-            var document = getSiteDocument(body);
-            var ver = {
+            let document = getSiteDocument(body);
+            let ver = {
                 client: getVerName(document,scriptinfo.client)//,
                 //items: getVerName(document,scriptinfo.items)
             };

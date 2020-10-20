@@ -1,9 +1,10 @@
+"use strict"
 const express = require("express");
 const genasset = require("../boxcritters/genasset");
 const request = require("request");
 const combinedstream = require("combined-stream");
 
-var router = express.Router();
+let router = express.Router();
 
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -13,10 +14,10 @@ router.use("/", (req, res, next) => {
 
 /* /applymods/(base64_urls[]) */
 router.use("/:base64_urls", async function (req, res) {
-	var urls = JSON.parse(Buffer.from(req.params.base64_urls, "base64").toString("ascii"));
+	let urls = JSON.parse(Buffer.from(req.params.base64_urls, "base64").toString("ascii"));
 	try
 	{
-		var client = combinedstream.create();
+		let client = combinedstream.create();
 		request({
 			"url": genasset.GetClientScript()
 		}, function (sub_err, sub_res, sub_body) {

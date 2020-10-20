@@ -1,27 +1,27 @@
 const express = require("express");
-var archiver = require('archiver');
+let archiver = require('archiver');
 
 const textureData = require('../boxcritters/genasset');
 const imageDataURI = require("image-data-uri");
 const request = require("request");
 
-var router = express.Router();
+let router = express.Router();
 
 /**
  * Routers
  */
 
 router.get('/', async (req, res) => {
-	var zip = archiver('zip', {
+	let zip = archiver('zip', {
 		zlib: { level: 9 } // Sets the compression level.
 	});
-	var urlInfo = await textureData.GetTextureList();
+	let urlInfo = await textureData.GetTextureList();
 	delete urlInfo.name;
 	delete urlInfo.author;
 	delete urlInfo.date;
 	delete urlInfo.description;
 	delete urlInfo.packVersion;
-	var urls = Object.values(urlInfo);
+	let urls = Object.values(urlInfo);
 
 	// good practice to catch warnings (ie stat failures and other non-blocking errors)
 	zip.on('warning', function (err) {
@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
 	console.debug(urls);
 	
 
-	for (var i=0; i < urls.length; i++) {
+	for (let i=0; i < urls.length; i++) {
 		let url = urls[i];
 
 		console.debug(url);

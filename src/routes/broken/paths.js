@@ -1,7 +1,7 @@
 const express = require("express");
 const BC = require("#src/boxcritters/bc-site.js");
 
-var router = express.Router();
+let router = express.Router();
 
 /**
  * Routers
@@ -9,7 +9,7 @@ var router = express.Router();
 
 router.get('/',async (req,res)=>{
 	res.type("application/json");
-	var paths = await BC.GetPaths();
+	let paths = await BC.GetPaths();
 
 	res.json(paths);
 

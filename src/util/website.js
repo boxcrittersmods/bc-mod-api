@@ -1,4 +1,4 @@
-
+"use strict"
 const fetch = require('node-fetch')
 const { JSDOM } = require("jsdom");
 
@@ -7,48 +7,48 @@ function Website(body) {
 	if (typeof body === "undefined") {
 		throw new Error("Cannot be called directly");
 	}
-	//var w = this;
+	//let w = this;
 	this.body = body;
 	//body.then(body => (w.body = body));
 }
 
 Website.Connect = function(url,body,method="GET") {
-	var body = body?
+	body = body?
 	async()=>fetch(url,{
 		method,
 		body:JSON.stringify(body),
         headers: { 'Content-Type': 'application/json' }
 	}):
 	async()=>fetch(url);
-	var website = new Website(body);
+	let website = new Website(body);
 	return website;
 };
 
 Website.prototype.getJson = async function () {
-	var body = await this.body();
-	var json = body.json()
+	let body = await this.body();
+	let json = body.json()
 	return json;
 }
 
 Website.prototype.getText = async function () {
-	var body = await this.body();
+	let body = await this.body();
 	return body.text();
 }
 
 Website.prototype.getBuffer = async function() {
-	var body = await this.body();
+	let body = await this.body();
 	return body.buffer();	
 }
 
 Website.prototype.getDocument = async function() {
-	var { window } = new JSDOM(await this.getText());
-	var document = window.document;
+	let { window } = new JSDOM(await this.getText());
+	let document = window.document;
 	return document;
 };
 
 Website.prototype.getScripts = async function() {
-	var document = await this.getDocument();
-	var scripts = Array.from(document.scripts);
+	let document = await this.getDocument();
+	let scripts = Array.from(document.scripts);
 	return scripts;
 };
 

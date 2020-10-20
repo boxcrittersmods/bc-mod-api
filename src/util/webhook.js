@@ -1,3 +1,4 @@
+"use strict"
 const Webhook = require("webhook-discord");
 
 class WebhookManager {
@@ -14,11 +15,11 @@ class WebhookManager {
     }
 
     Invoke(msg,fields) {
-       /* var sendMSG = this.msg
+       /* let sendMSG = this.msg
             .setText(msg);*/
         
-        /*for (var title in fields) {
-            var text = fields[title];
+        /*for (let title in fields) {
+            let text = fields[title];
             sendMSG = sendMSG.addField(title, text);
         }
         sendMSG = sendMSG.setTime();*/

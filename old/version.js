@@ -2,11 +2,11 @@ const express = require("express");
 const github = require('./github');
 const moment = require('moment');
 
-var versions = [];
-var sha = "";
-var setupDone = false;
-var tosave = false;
-var error = {
+let versions = [];
+let sha = "";
+let setupDone = false;
+let tosave = false;
+let error = {
     "error":"Version does not exist"
 }
 
@@ -38,8 +38,8 @@ function removeDuplicates(arr) {
 }
 
 function addVersion(version) {
-    var lastVersions = versions;
-    var ver = {
+    let lastVersions = versions;
+    let ver = {
         clientVersion:version.client,
         //itemsVersion:version.items,
         //description: "",
@@ -81,7 +81,7 @@ function versionExists(ver,type="client") {
 
 function getDescription(ver,type="client") {
     
-    var id = -1;
+    let id = -1;
     switch (type) {          
         case "items":
             id = versions.map(v=>v.itemsVersion.toLowerCase()).indexOf(ver.toLowerCase());
@@ -92,7 +92,7 @@ function getDescription(ver,type="client") {
             break;
     }
     if(id>-1){
-    var desc = versions[id].description;
+    let desc = versions[id].description;
     return desc;
     }
 }
@@ -110,7 +110,7 @@ function getVersions(type="client") {
 
 function getVersionInfo(ver,type="client") {
     
-    var id = -1;
+    let id = -1;
     switch (type) {          
         case "items":
             id = versions.find(v=>v.itemsVersion.toLowerCase()).indexOf(ver.toLowerCase());
@@ -126,7 +126,7 @@ function getVersionInfo(ver,type="client") {
 }
 
 
-var router = express.Router();
+let router = express.Router();
 
 router.get('/',(req,res)=>{
     res.redirect('/versions');
@@ -138,9 +138,9 @@ router.get('/items',(req,res)=>{
 
 
 router.get('/items/:ver',(req,res)=>{
-    var ver = req.params.ver;
+    let ver = req.params.ver;
     if(versionExists(ver,"items")) {
-        var info = getVersionInfo(ver,"items");
+        let info = getVersionInfo(ver,"items");
         info.description = getDescription(ver,"items");
         res.json(info);
     } else {
@@ -150,9 +150,9 @@ router.get('/items/:ver',(req,res)=>{
 
 
 router.get('/:ver',(req,res)=>{
-    var ver = req.params.ver;
+    let ver = req.params.ver;
     if(versionExists(ver)) {
-        var info = getVersionInfo(ver,"client");
+        let info = getVersionInfo(ver,"client");
         info.description = getDescription(ver);
         res.json(info);
     } else {

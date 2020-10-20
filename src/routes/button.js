@@ -1,7 +1,8 @@
+"use strict"
 const express = require("express");
 const request = require("request");
 
-var router = express.Router();
+let router = express.Router();
 
 router.use("/", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -21,7 +22,7 @@ function send_response(settings, res)
 			}
 			res.set("Content-Type", "image/svg+xml");
 			res.type("image/svg+xml");
-			var version = sub_body.match(/\/\/\s*@version\s+(.*)\s*\n/i);
+			let version = sub_body.match(/\/\/\s*@version\s+(.*)\s*\n/i);
 			if (version)
 			{
 				request({
@@ -54,7 +55,7 @@ function send_response(settings, res)
 /* /button/(userscript_url || mod_name) */
 router.use("/:url_or_name", async (req, res) => {
 	try {
-		var settings = Object();
+		let settings = Object();
 		if (req.params.url_or_name == "http:" || req.params.url_or_name == "https:")
 		{
 			send_response({
@@ -62,7 +63,7 @@ router.use("/:url_or_name", async (req, res) => {
 			}, res);
 		} else
 		{
-			var url;
+			let url;
 			request({
 				"url": "https://raw.githubusercontent.com/boxcritters/boxcrittersmods.ga/master/_mods/" + req.params.url_or_name + ".md"
 			}, function (sub_err, sub_res, sub_body) {
@@ -74,10 +75,10 @@ router.use("/:url_or_name", async (req, res) => {
 					res.status(503).send(`{"err": "${sub_err}"`);
 					return;
 				}
-				var userscript = sub_body.match(/userscript:\s*(.*)/i);
+				let userscript = sub_body.match(/userscript:\s*(.*)/i);
 				if (userscript && userscript[1] == "true")
 				{
-					var install = sub_body.match(/\s*buttons:\s*\n\s*-\s*name:\s*Install\n\s*href:\s*(.*)/i);
+					let install = sub_body.match(/\s*buttons:\s*\n\s*-\s*name:\s*Install\n\s*href:\s*(.*)/i);
 					if (install)
 					{
 						send_response({
