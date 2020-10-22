@@ -71,7 +71,7 @@ async function displayGear(player) {
 		hideEars: false
 	};
 
-	let gearSlots = player.gear.map(g => {
+	let gearSlots = (player.gear || []).map(g => {
 		let item = items.find(i => i.itemId == g) || {};
 		for (const rule in rules) {
 			rules[rule] = rules[rule] | item[rule];
