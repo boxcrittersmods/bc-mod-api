@@ -84,6 +84,7 @@ async function displayGear(player) {
 	layers.unshift("feet");
 	for (let layer of layers) {
 		layer = layer.replace("backs", "back");
+		let url;
 		switch (layer) {
 			case "tail":
 			case "skin":
@@ -94,7 +95,7 @@ async function displayGear(player) {
 				if (layer == "nose" && rules.hideNose) break;
 				if (layer == "ears" && rules.hideEars) break;
 				if (layer == "skin") layer = "body";
-				let url = `https://media.boxcritters.com/critters/${player.critterId || "hamster"}/${layer}.png`;
+				url = `https://media.boxcritters.com/critters/${player.critterId || "hamster"}/${layer}.png`;
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
 				break;
