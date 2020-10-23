@@ -113,11 +113,12 @@ async function getSprites(spriteSheet, name) {
 	if(spriteSheet.src) {
 		spriteSheet = spriteSheet.src;
 	}
+	let sprites
 	if(typeof(spriteSheet)=="string"&&spriteSheet.includes(".json")){
 		let host = getSiteUrl("boxcritters");
 		let url = await fillURL(spriteSheet);
 		let website = Website.Connect(url);
-		let sprites = await website.getJson();
+		sprites = await website.getJson();
 	} else {
 		sprites = spriteSheet;
 	}
