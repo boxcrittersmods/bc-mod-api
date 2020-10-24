@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const express = require("express");
 const request = require("request");
 const gniddom = require("../util/github");
@@ -25,8 +25,7 @@ router.use(`/${process.env.SUBMIT_TOKEN}/:base64_url`, async function (req, res)
 	request({
 		"url": url
 	}, async function (sub_err, sub_res, sub_body) {
-		if (sub_err)
-		{
+		if (sub_err) {
 			res.status(503).send(`{"err": "${sub_err}"`);
 			return;
 		}

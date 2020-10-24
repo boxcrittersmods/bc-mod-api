@@ -1,62 +1,62 @@
 {
-  "name": "bc-mod-api",
-  "version": "1.0.0",
-  "description": "* versions\r * feedback\r * cors\r * description",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/boxcritters/bc-mod-api.git"
-  },
-  "_moduleAliases": {
-    "#data": "data",
-    "#src": "src"
-  },
-  "author": "tumble1999",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/boxcritters/bc-mod-api/issues"
-  },
-  "homepage": "https://github.com/boxcritters/bc-mod-api#readme",
-  "dependencies": {
-    "@octokit/app": "^4.1.0",
-    "@octokit/plugin-retry": "^2.2.0",
-    "@octokit/rest": "^16.35.0",
-    "absolutify": "github:sorensen/absolutify#target-improvement",
-    "archiver": "^3.1.1",
-    "await-fs": "^1.0.0",
-    "bc-admin-login": "github:boxcritters/bc-admin-login",
-    "bcmc-community-tracker": "github:boxcrittersmods/community-tracker",
-    "body-parser": "^1.19.0",
-    "canvas": "^2.6.1",
-    "combined-stream": "^1.0.8",
-    "cors": "^2.8.5",
-    "discord-webhook-node": "^1.1.8",
-    "dotenv": "^8.2.0",
-    "express": "^4.16.4",
-    "gif-encoder-2": "^1.0.5",
-    "image-cache": "^1.0.1",
-    "image-data-uri": "^2.0.0",
-    "jimp": "^0.16.1",
-    "jsdom": "^15.0.0",
-    "jszip": "^3.2.2",
-    "mathjs": "^7.3.0",
-    "memory-cache": "^0.2.0",
-    "module-alias": "^2.2.2",
-    "moment": "^2.24.0",
-    "morgan": "^1.10.0",
-    "node-cache": "^5.0.2",
-    "node-fetch": "^2.6.0",
-    "npm-fetch": "0.0.9",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.5",
-    "serve-index": "^1.9.1",
-    "socket.io": "^2.3.0",
-    "tn-webserver": "^1.0.0",
-    "webhook-discord": "^3.2.0",
-    "websocket-stream": "^5.5.2"
-  }
+	"name": "bc-mod-api",
+	"version": "1.0.0",
+	"description": "* versions\r * feedback\r * cors\r * description",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/boxcritters/bc-mod-api.git"
+	},
+	"_moduleAliases": {
+		"#data": "data",
+		"#src": "src"
+	},
+	"author": "tumble1999",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/boxcritters/bc-mod-api/issues"
+	},
+	"homepage": "https://github.com/boxcritters/bc-mod-api#readme",
+	"dependencies": {
+		"@octokit/app": "^4.1.0",
+		"@octokit/plugin-retry": "^2.2.0",
+		"@octokit/rest": "^16.35.0",
+		"absolutify": "github:sorensen/absolutify#target-improvement",
+		"archiver": "^3.1.1",
+		"await-fs": "^1.0.0",
+		"bc-admin-login": "github:boxcritters/bc-admin-login",
+		"bcmc-community-tracker": "github:boxcrittersmods/community-tracker",
+		"body-parser": "^1.19.0",
+		"canvas": "^2.6.1",
+		"combined-stream": "^1.0.8",
+		"cors": "^2.8.5",
+		"discord-webhook-node": "^1.1.8",
+		"dotenv": "^8.2.0",
+		"express": "^4.16.4",
+		"gif-encoder-2": "^1.0.5",
+		"image-cache": "^1.0.1",
+		"image-data-uri": "^2.0.0",
+		"jimp": "^0.16.1",
+		"jsdom": "^15.0.0",
+		"jszip": "^3.2.2",
+		"mathjs": "^7.3.0",
+		"memory-cache": "^0.2.0",
+		"module-alias": "^2.2.2",
+		"moment": "^2.24.0",
+		"morgan": "^1.10.0",
+		"node-cache": "^5.0.2",
+		"node-fetch": "^2.6.0",
+		"npm-fetch": "0.0.9",
+		"request": "^2.88.0",
+		"request-promise": "^4.2.5",
+		"serve-index": "^1.9.1",
+		"socket.io": "^2.3.0",
+		"tn-webserver": "^1.0.0",
+		"webhook-discord": "^3.2.0",
+		"websocket-stream": "^5.5.2"
+	}
 }

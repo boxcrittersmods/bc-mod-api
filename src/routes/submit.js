@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
@@ -24,8 +24,7 @@ router.use("/:base64_url", function (req, res) {
 	request({
 		"url": new Buffer.from(req.params.base64_url, "base64").toString("ascii")
 	}, function (sub_err, sub_res, sub_body) {
-		if (sub_err)
-		{
+		if (sub_err) {
 			res.set("Content-Type", "application/json");
 			res.type("application/json");
 			res.status(503).send(`{"err": "${sub_err}"`);
@@ -38,8 +37,7 @@ router.use("/:base64_url", function (req, res) {
 		let icon = sub_body.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
 		let approve = `https://api.boxcrittersmods.ga/modapprove/${process.env.SUBMIT_TOKEN}/${req.params.base64_url}`;
 
-		if (version && name && description && author)
-		{
+		if (version && name && description && author) {
 			request.post({
 				"url": process.env.SUBMIT_WEBHOOK,
 				"headers": {

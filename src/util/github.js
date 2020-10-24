@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 let GniddomApp = require('./gh-app');
 let DISABLE_GITHUB = process.env.GH_APP_PK == undefined;
 
@@ -59,8 +59,8 @@ async function loadVersions() {
 function saveVersions(versions, sha) {
 	if (DISABLE_GITHUB) return;
 	/*if(lastSaved==versions) {
-        return;
-    }*/
+		return;
+	}*/
 	let versionText = JSON.stringify(versions, "", 2);
 	let path = "data/versions.json";
 	let message = "Updated Versions";
@@ -83,8 +83,7 @@ init().then(() => {
 	console.debug(e)
 });*/
 
-async function createMod(data, url)
-{
+async function createMod(data, url) {
 	if (DISABLE_GITHUB) return;
 	let tmp_octokit = await GniddomApp.getClient(await GniddomApp.getAccessToken(owner, "boxcrittersmods.ga"));
 	let version = data.match(/\/\/\s*@version\s+(.*)\s*\n/i)[1];
@@ -92,9 +91,8 @@ async function createMod(data, url)
 	let description = data.match(/\/\/\s*@description\s+(.*)\s*\n/i)[1];
 	let author = data.match(/\/\/\s*@author\s+(.*)\s*\n/i)[1];
 	let icon = data.match(/\/\/\s*@icon\s+(.*)\s*\n/i);
-	let content = `---\ntitle: ${name}\nauthor:\n  - ${author}\ndescription: ${description}\ndate: 14-04-2019\nfeatured: false\nuserscript: true\button:\n  - name: Install\n  href: ${url}\nrecommend: false\n`
-	if (icon)
-	{
+	let content = `---\ntitle: ${name}\nauthor:\n  - ${author}\ndescription: ${description}\ndate: 14-04-2019\nfeatured: false\nuserscript: true\button:\n  - name: Install\n  href: ${url}\nrecommend: false\n`;
+	if (icon) {
 		content += `icon: ${icon[1]}\n`;
 	}
 	content += `---\n`;
@@ -112,7 +110,7 @@ async function createMod(data, url)
 }
 
 module.exports = { init, sendFeedback, saveVersions, loadVersions, createMod };
-let none = function() {
+let none = function () {
 	return {};
 };
 /*if (DISABLE_GITHUB)

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const express = require("express");
 const genasset = require("../boxcritters/genasset");
 const request = require("request");
@@ -15,30 +15,26 @@ router.use("/", (req, res, next) => {
 /* /applymods/(base64_urls[]) */
 router.use("/:base64_urls", async function (req, res) {
 	let urls = JSON.parse(Buffer.from(req.params.base64_urls, "base64").toString("ascii"));
-	try
-	{
+	try {
 		let client = combinedstream.create();
 		request({
 			"url": genasset.GetClientScript()
 		}, function (sub_err, sub_res, sub_body) {
-			if (sub_err)
-			{
+			if (sub_err) {
 				res.set("Content-Type", "application/json");
 				res.type("application/json");
 				res.status(503).send(`{"err": "${sub_err}"`);
 				return;
 			}
 			client.append(sub_body);
-			if (urls)
-			{
+			if (urls) {
 				urls.forEach(function (url) {
 					client.append(request(url));
 				});
 			}
 			client.pipe(res);
 		});
-	} catch (err)
-	{
+	} catch (err) {
 		console.log(err);
 		res.set("Content-Type", "application/json");
 		res.type("application/json");

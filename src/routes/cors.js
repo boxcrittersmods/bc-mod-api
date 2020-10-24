@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
@@ -56,7 +56,7 @@ router.use("/file", async (req, res) => {
 		res.status(400).send(`{"err": "No URL provided."`);
 		return;
 	}
-	request(url).pipe(res)
+	request(url).pipe(res);
 });
 
 // /cors/(url)
@@ -81,13 +81,11 @@ router.use("/", async (req, res) => {
 		request(settings, function (sub_err, sub_res, sub_body) {
 			let i = 0;
 			let document = sub_body;
-			while (i < sub_res.rawHeaders.length)
-			{
+			while (i < sub_res.rawHeaders.length) {
 				res.set(sub_res.rawHeaders[i], sub_res.rawHeaders[i + 1]);
 				i += 2;
 			}
-			if (sub_res.caseless.dict["content-type"] == "text/html")
-			{
+			if (sub_res.caseless.dict["content-type"] == "text/html") {
 				document = absolutify(sub_body, `/cors/${getHostName(url)}`);
 			}
 			res.send(document);

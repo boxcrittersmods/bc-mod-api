@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
@@ -29,26 +29,26 @@ async function GetClientScriptURL() {
 	return version;
 }*/
 
-function getStringBetweenStrings(a,b) {
+function getStringBetweenStrings(a, b) {
 	function escapeRegExp(string) {
 		return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-	  }
-	a=escapeRegExp(a);
-	b=escapeRegExp(b);
+	}
+	a = escapeRegExp(a);
+	b = escapeRegExp(b);
 	let r = `/(?<=${a})(.*)(?=${b})/ms`;
 	return eval(r);
 
 }
 
 String.prototype.log = function (pre) {
-	console.log(pre,this);
+	console.log(pre, this);
 	return this;
-}
+};
 
 
-String.prototype.replaceAll = function (from,to) {
-	return this.split(from).join(to)
-}
+String.prototype.replaceAll = function (from, to) {
+	return this.split(from).join(to);
+};
 
 /*async function GetPaths() {
 	let paths = bcCache.get("paths");
@@ -76,9 +76,9 @@ String.prototype.replaceAll = function (from,to) {
 async function GetManifests() {
 	let manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		manifests = (await bcManifests.getJson()).manifest.reduce((manifests,m)=>{
-			if(manifests[m.id]) {
-				if(!Array.isArray(manifests[m.id])) {
+		manifests = (await bcManifests.getJson()).manifest.reduce((manifests, m) => {
+			if (manifests[m.id]) {
+				if (!Array.isArray(manifests[m.id])) {
 					manifests[m.id] = [manifests[m.id]];
 				}
 				manifests[m.id].push(m);
@@ -86,15 +86,15 @@ async function GetManifests() {
 				manifests[m.id] = m;
 			}
 			return manifests;
-		},{});
-		
+		}, {});
+
 		bcCache.set("manifests", manifests);
 	}
 	return manifests;
 }
 (async () => {
-	console.debug(await GetManifests())	
-})()
+	await GetManifests();
+})();
 /*
 async function GetItemsFolder() {
 	let itemsfolder = bcCache.get("itemsfolder");

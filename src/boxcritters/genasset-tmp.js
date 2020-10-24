@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const BoxCritters = require("./bc-site");
 const bcVersions = require("./versions");
 const Website = require('#src/util/website');
@@ -6,7 +6,7 @@ const fs = require('await-fs');
 const path = require('path');
 
 
-  
+
 //data
 const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
@@ -36,7 +36,7 @@ Object.defineProperty(Array.prototype, 'reduceAsync', {
 });
 
 async function requireJson(path) {
-	let data = await fs.readFile(require.resolve(path))
+	let data = await fs.readFile(require.resolve(path));
 	return JSON.parse(data);
 }
 
@@ -48,12 +48,12 @@ function dynamicSort(property) {
 		property = property.substr(1);
 	}
 	return function (a, b) {
-        /* next line works with strings and numbers, 
-         * and you may want to customize it to your needs
-         */
+		/* next line works with strings and numbers, 
+		 * and you may want to customize it to your needs
+		 */
 		let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
 		return result * sortOrder;
-	}
+	};
 }
 
 function idToLabel(id) {
@@ -86,12 +86,12 @@ function explode(obj, prefix) {
 			let suffix = value.length > 1 ? i : "";
 			arrObj[key + suffix] = item;
 			return arrObj;
-		}, {}))
+		}, {}));
 		let p = undefined;
 		if (prefix) p = key;
 		if (typeof value == "object") return Object.assign(pieces, explode(value, p));
 		pieces[key] = value;
-		return pieces
+		return pieces;
 	}, {});
 }
 
@@ -119,7 +119,7 @@ async function fillURL(url) {
 }
 
 async function getSprites(spriteSheet, name) {
-	if(typeof(spriteSheet)=="string"&&spriteSheet.includes(".json")){
+	if (typeof (spriteSheet) == "string" && spriteSheet.includes(".json")) {
 		let host = getSiteUrl("boxcritters");
 		let url = host + spriteSheet;
 		let website = Website.Connect(url);
@@ -154,7 +154,7 @@ async function getAssetInfo(type, site = 'boxcritters') {
 async function GetManifestLoc() {
 	let manifests = await BoxCritters.GetManifests();
 	let tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
-		console.debug("Manifest: " + m)
+		console.debug("Manifest: " + m);
 		tp[m + "_manifest"] = await fillURL(manifests[m]);
 		return tp;
 	}, {});
@@ -198,170 +198,170 @@ async function GetTextureData() {
 	let PLURALIZER = "s";
 	// Retreval Names
 	let idMap = {
-		id:"Id",
+		id: "Id",
 		mascot: "critter",
-		spriteSheet:"spriteSheet",
-	}
+		spriteSheet: "spriteSheet",
+	};
 	//Saving Names
 	let keyAliases = {
 		"items,spriteSheet": "#,items",
 		"items": "icons",
-		"critters,,spriteSheet":",,#",
+		"critters,,spriteSheet": ",,#",
 		",,background": ",,bg",
 		",,foreground": ",,fg",
 		",,navMesh": ",,nm",
-		",,spriteSheet":",,sprites",
-		",,icon":",,#",
-		",,f":",,front",
-		",,b":",,back",
-	}
+		",,spriteSheet": ",,sprites",
+		",,icon": ",,#",
+		",,f": ",,front",
+		",,b": ",,back",
+	};
 	let propertyOrder = [
 		'series',
 		'theme',
 		'slot'
-	]
+	];
 	let extentions = {
-		texture:".png",
-		audio:".mp3",
-		html:".html"
-	}
-	
+		texture: ".png",
+		audio: ".mp3",
+		html: ".html"
+	};
+
 	/**
 	 * @author Sarpnt
 	 * @param  {...any} i m,a,p
 	 */
-function getAlias(...i) {
-	let blankChar = "#";
-	for (let k in keyAliases) {
-		if (k.split(',').find((e, x) => e && e != i[x])) continue;
-		let a = keyAliases[k].split(',');
-		i = i.map((e, x) => a[x] || e);
+	function getAlias(...i) {
+		let blankChar = "#";
+		for (let k in keyAliases) {
+			if (k.split(',').find((e, x) => e && e != i[x])) continue;
+			let a = keyAliases[k].split(',');
+			i = i.map((e, x) => a[x] || e);
+		}
+		if (i.length > 2) i = i.splice(i.length - 2, i.length - 1);
+		return i.filter(e => e != blankChar).join('_');
 	}
-	if (i.length>2) i=i.splice(i.length-2,i.length-1)
-	return i.filter(e=>e!=blankChar).join('_');
-}
 
-function isSpriteSheet(obj,p) {
-	return p == "spriteSheet"||
+	function isSpriteSheet(obj, p) {
+		return p == "spriteSheet" ||
 
-	typeof(obj[p])!="object"&&
-	["images","framerate","frames","animations"].reduce((isSpriteSheet,prop)=>isSpriteSheet&&obj[p].hasOwnProperty(prop),true)
-}
+			typeof (obj[p]) != "object" &&
+			["images", "framerate", "frames", "animations"].reduce((isSpriteSheet, prop) => isSpriteSheet && obj[p].hasOwnProperty(prop), true);
+	}
 
-async function sortManifestList(manifestList,getData) {
-	return await Object.keys(manifestList).reduceAsync(async (tp, m) => {
-		let mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
-		let mTitle = titleize(m);
-		let mSingleTitle = titleize(mSingular);
-		let mData = await getData(manifestList,m);
-		let mAlias = getAlias(m);
-		console.debug("== " + mTitle + " ==");
+	async function sortManifestList(manifestList, getData) {
+		return await Object.keys(manifestList).reduceAsync(async (tp, m) => {
+			let mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
+			let mTitle = titleize(m);
+			let mSingleTitle = titleize(mSingular);
+			let mData = await getData(manifestList, m);
+			let mAlias = getAlias(m);
+			console.debug("== " + mTitle + " ==");
 
-		let mSpriteSheetKeys;
+			let mSpriteSheetKeys;
 
-		{
-			let spriteTemp
-			if(Array.isArray(mData)) {
-				spriteSheet = Object.assign(...mData)
-				console.debug(spriteSheet)
-			} else {
+			{
+				let spriteTemp;
+				if (Array.isArray(mData)) {
+					spriteSheet = Object.assign(...mData);
+					console.debug(spriteSheet);
+				} else {
 
-			}
-		}
-		mSpriteSheetKeys = Object.keys(spriteTemp).filter(key=>isSpriteSheet(spriteTemp,key));
-		if (!Array.isArray(mData)) {
-			//if(mSpriteSheetKeys.length>1/*mData.spriteSheet*/) {
-			//	mData = [mData];
-			//}
-			if(typeof(Object.values(mData)[0])=="object") {
-				mData = Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k]))
-			} else {
-				mData = Object.keys(mData).map(k => ({ [mSingular + idMap.id]: k, "texture":mData[k]}))
-			}
-		}
-		//mSpriteSheetKeys = Object.keys(Object.assign(...mData)).filter(key=>isSpriteSheet(mData,key));
-
-		let mTypes = await getObjectSchematic(mData);
-		console.debug(mTypes);
-		//console.log(assetInfo)
-		let mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
-
-		//SeperateSprites
-		let mSpritesAlias = getAlias(m,idMap.spriteSheet);
-		let mAllSpriteSheets = mSpriteSheetKeys.map(k=>mData.map(a=>a[k])).filter(Boolean);
-		let mSpriteSheets = [...new Set(mAllSpriteSheets)];
-		if(mSpriteSheets.length != mAllSpriteSheets.length) {
-			tp[mSpritesAlias]={};
-			for(let i in mSpriteSheets){
-				let spriteSheet = mSpriteSheets[i];
-				let spriteSheetAlias = getAlias(m,idMap.spriteSheet,spriteSheet.split("/")[3]);
-				tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet)
-			}
-		}
-		let mIncludeSprites = !tp[mSpritesAlias]
-
-		/**
-		 * a Asset Key Name
-		 * aData Asset Data
-		 * aAlias
-		 */
-		tp[mAlias] = await mData.reduceAsync(async (tp, aData) => {
-			let a = aData[(idMap[mSingular] || mSingular) + idMap.id];
-			let aTextureList = {};
-			let aAlias = getAlias(m,a);
-			console.debug(mSingleTitle + ":", a);
-
-			//Sprite Sheet
-			if (mIncludeSprites && aData[spriteSheetKey]) {
-				for(let spriteSheetKey in mSpriteSheetKeys) {
-					let aSpriteAlias = getAlias(m,spriteSheetKey);
-					aTextureList[aSpriteAlias] = await getSprites(aData[spriteSheetKey], a);
 				}
 			}
-
-			//All textures tp the TP
-			for (let p in aData) {
-				if (typeof (aData[p]) !== "string")
-					continue;
-				let pAlias = getAlias(m,a,p);
-				for(let ext in extentions)
-					if (aData[p].includes(extentions[ext]))
-						aTextureList[pAlias] = await fillURL(aData[p]);
-			}
-
-			//Cheack for if theres one asset piece
-			if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
-
-			//Herarchy setup
-			let aHierachyParts = [];
-			for (let i in propertyOrder) {
-				let parent = aHierachyParts[aHierachyParts.length - 1] || tp;
-				let keyName = propertyOrder[i];
-				if (aData[keyName]) {
-					let key = aData[keyName];
-					aHierachyParts[i] = parent[key] || {};
-					parent[key] = aHierachyParts[i];
+			mSpriteSheetKeys = Object.keys(spriteTemp).filter(key => isSpriteSheet(spriteTemp, key));
+			if (!Array.isArray(mData)) {
+				//if(mSpriteSheetKeys.length>1/*mData.spriteSheet*/) {
+				//	mData = [mData];
+				//}
+				if (typeof (Object.values(mData)[0]) == "object") {
+					mData = Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k]));
+				} else {
+					mData = Object.keys(mData).map(k => ({ [mSingular + idMap.id]: k, "texture": mData[k] }));
 				}
 			}
-			let placeInHierarchy = aHierachyParts[aHierachyParts.length - 1]||tp;
-			placeInHierarchy[aAlias] = aTextureList;
+			//mSpriteSheetKeys = Object.keys(Object.assign(...mData)).filter(key=>isSpriteSheet(mData,key));
+
+			let mTypes = await getObjectSchematic(mData);
+			console.debug(mTypes);
+			//console.log(assetInfo)
+			let mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
+
+			//SeperateSprites
+			let mSpritesAlias = getAlias(m, idMap.spriteSheet);
+			let mAllSpriteSheets = mSpriteSheetKeys.map(k => mData.map(a => a[k])).filter(Boolean);
+			let mSpriteSheets = [...new Set(mAllSpriteSheets)];
+			if (mSpriteSheets.length != mAllSpriteSheets.length) {
+				tp[mSpritesAlias] = {};
+				for (let i in mSpriteSheets) {
+					let spriteSheet = mSpriteSheets[i];
+					let spriteSheetAlias = getAlias(m, idMap.spriteSheet, spriteSheet.split("/")[3]);
+					tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet);
+				}
+			}
+			let mIncludeSprites = !tp[mSpritesAlias];
+
+			/**
+			 * a Asset Key Name
+			 * aData Asset Data
+			 * aAlias
+			 */
+			tp[mAlias] = await mData.reduceAsync(async (tp, aData) => {
+				let a = aData[(idMap[mSingular] || mSingular) + idMap.id];
+				let aTextureList = {};
+				let aAlias = getAlias(m, a);
+				console.debug(mSingleTitle + ":", a);
+
+				//Sprite Sheet
+				if (mIncludeSprites && aData[spriteSheetKey]) {
+					for (let spriteSheetKey in mSpriteSheetKeys) {
+						let aSpriteAlias = getAlias(m, spriteSheetKey);
+						aTextureList[aSpriteAlias] = await getSprites(aData[spriteSheetKey], a);
+					}
+				}
+
+				//All textures tp the TP
+				for (let p in aData) {
+					if (typeof (aData[p]) !== "string")
+						continue;
+					let pAlias = getAlias(m, a, p);
+					for (let ext in extentions)
+						if (aData[p].includes(extentions[ext]))
+							aTextureList[pAlias] = await fillURL(aData[p]);
+				}
+
+				//Cheack for if theres one asset piece
+				if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
+
+				//Herarchy setup
+				let aHierachyParts = [];
+				for (let i in propertyOrder) {
+					let parent = aHierachyParts[aHierachyParts.length - 1] || tp;
+					let keyName = propertyOrder[i];
+					if (aData[keyName]) {
+						let key = aData[keyName];
+						aHierachyParts[i] = parent[key] || {};
+						parent[key] = aHierachyParts[i];
+					}
+				}
+				let placeInHierarchy = aHierachyParts[aHierachyParts.length - 1] || tp;
+				placeInHierarchy[aAlias] = aTextureList;
+				return tp;
+			}, {});
+
 			return tp;
 		}, {});
-
-		return tp;
-	}, {})
-}
+	}
 
 	let tp = Object.assign(
 		{
 			clientscript: await GetClientScript(),
 			manifests: await GetManifestLoc(),
 		},
-		await sortManifestList(manifests,async (list,m)=>{
+		await sortManifestList(manifests, async (list, m) => {
 			return await getAssetInfo(m);
 		}),
-		await sortManifestList(unregisteredTextures,async (list,m)=>{
-			return await requireJson("#data/" + list[m])
+		await sortManifestList(unregisteredTextures, async (list, m) => {
+			return await requireJson("#data/" + list[m]);
 		})
 	);
 	return tp;
@@ -381,4 +381,4 @@ module.exports = {
 	GetManifestLoc,
 	GetTextureData,
 	GetTextureList
-}
+};

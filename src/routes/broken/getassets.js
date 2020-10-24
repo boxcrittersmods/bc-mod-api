@@ -27,38 +27,38 @@ router.get('/', async (req, res) => {
 	zip.on('warning', function (err) {
 		if (err.code === 'ENOENT') {
 			// log warning
-			res.status(500).send({warning: err.message});
+			res.status(500).send({ warning: err.message });
 		} else {
 			// throw error
-			res.status(500).send({error: err.message});
+			res.status(500).send({ error: err.message });
 			throw err;
 		}
 	});
 
 	// good practice to catch this error explicitly
 	zip.on('error', function (err) {
-		res.status(500).send({error: err.message});
+		res.status(500).send({ error: err.message });
 	});
 
 	//on stream closed we can end the request
-	zip.on('end', function() {
-	  console.debug('Archive wrote %d bytes', zip.pointer());
+	zip.on('end', function () {
+		console.debug('Archive wrote %d bytes', zip.pointer());
 	});
-	
+
 	res.attachment('boxcritters.zip');
 	zip.pipe(res);
 	console.debug(urls);
-	
 
-	for (let i=0; i < urls.length; i++) {
+
+	for (let i = 0; i < urls.length; i++) {
 		let url = urls[i];
 
 		console.debug(url);
-		zip.append(request(url),{name:url})
+		zip.append(request(url), { name: url });
 	}
 	zip.finalize();
 
-})
+});
 
 
 module.exports = router;

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const { Octokit } = require("@octokit/rest");
 const { App } = require("@octokit/app");
 const fetch = require("node-fetch");
@@ -24,7 +24,7 @@ if (process.env.GH_APP_PK != undefined) {
 			}
 		});
 		let installationId = (await install.json()).id;
-		console.debug({ installationId })
+		console.debug({ installationId });
 		// And acquire access token for that id
 		let accessToken = await app.getInstallationAccessToken({ installationId });
 
