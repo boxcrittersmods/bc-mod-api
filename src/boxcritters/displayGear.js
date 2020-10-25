@@ -95,7 +95,10 @@ async function displayGear(player) {
 				if (layer == "nose" && rules.hideNose) break;
 				if (layer == "ears" && rules.hideEars) break;
 				if (layer == "skin") layer = "body";
-				url = `https://media.boxcritters.com/critters/${player.critterId || "hamster"}/${layer}.png`;
+				url = `https://media.boxcritters.com/critters/${player.critterId
+					//|| "hamster"
+					|| "penguin"
+					}/${layer}.png`;
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
 				break;
