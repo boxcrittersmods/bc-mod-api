@@ -105,7 +105,7 @@ app.use("/room", room);
 app.use("/player", player);
 app.use("/gear", gear);
 app.use("/database", database);
-app.use("/itemcodes", database);
+app.use("/itemcodes", itemcodes);
 /**
  * Paths
  */
