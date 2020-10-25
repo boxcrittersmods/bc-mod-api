@@ -150,6 +150,7 @@ async function GetManifestLoc() {
 	console.log("manifest today are as folows", manifests);
 	let tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
 		console.debug("Manifest: " + m);
+		if (!manifests[m]) throw `Manifest ${m} does not exist`;
 		tp[m + "_manifest"] = Array.isArray(manifests[m])
 			? await Promise.all(manifests[m].map(async m => await fillURL(m.src)))
 			: await fillURL(manifests[m].src);
