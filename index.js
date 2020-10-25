@@ -15,7 +15,7 @@ require('dotenv').config();
 		oldLog(...msg);
 		msg = msg.map(m => {
 			if (typeof (m) == "object") {
-				return "```json\n" + JSON.stringify(m) + "\n```";
+				return "```json\n" + JSON.stringify(m, undefined, 2) + "\n```";
 			} return m;
 		});
 		msg = msg.join(" ");
@@ -27,7 +27,7 @@ require('dotenv').config();
 		oldinfo(...msg);
 		msg = msg.map(m => {
 			if (typeof (m) == "object") {
-				return "```json\n" + JSON.stringify(m) + "\n```";
+				return "```json\n" + JSON.stringify(m, undefined, 2) + "\n```";
 			} return m;
 		});
 		msg = msg.join(" ");
@@ -38,7 +38,7 @@ require('dotenv').config();
 		oldError(...msg);
 		msg = msg.map(m => {
 			if (typeof (m) == "object") {
-				return "```json\n" + JSON.stringify(m) + "\n```";
+				return "```json\n" + JSON.stringify(m, undefined, 2) + "\n```";
 			} return m;
 		});
 		msg = msg.join(" ");
@@ -49,7 +49,7 @@ require('dotenv').config();
 		oldWarn(...msg);
 		msg = msg.map(m => {
 			if (typeof (m) == "object") {
-				return "```json\n" + JSON.stringify(m) + "\n```";
+				return "```json\n" + JSON.stringify(m, undefined, 2) + "\n```";
 			} return m;
 		});
 		msg = msg.join(" ");
