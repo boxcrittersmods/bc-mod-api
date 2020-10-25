@@ -23,21 +23,30 @@ codes[20] = "/explore";
 
 var tableToJson = (table, t) => {
 	let keys;
+	let rowSpan = [];
 	return [].reduce.call(table.rows, (items, row, r) => {
 		if (!r) keys = [].map.call(row.cells, n => camelize(n.innerHTML.split("\n").join("")
 			.replace("Available from", "Date released")
 			.replace("Available until", "Date expired")));
 		else {
+			//updateRowSpan
+			rowSpan = rowSpan.map(c => (c.rowSpan = c.rowSpan - 1 + "", c)).filter(c => +c.rowSpan);
+			row.prepend(...rowSpan);
+			if (rowSpan.length) console.log({ rowSpan: rowSpan.map(c => c.innerText) });
+			rowSpan = [];
+
 			items[r - 1] = [].reduce.call(row.cells, (item, cell, c) => {
-				let v = cell.innerHTML.split("\n").join("").replace(/<[^>]*>/g, "");
-				v = v == "Still available" ? false : v;
-				v = v == "Date unknown" ? undefined : v;
-				item[keys[c]] = v;
+				cell.innerText = cell.innerHTML.split("\n").join("").replace(/<[^>]*>/g, "");
+				cell.innerText = cell.innerText == "Still available" ? false : cell.innerText;
+				item[keys[c]] = cell.innerText;
+				if (+cell.rowSpan && +cell.rowSpan > 1) {
+					rowSpan.push(cell);
+				}
 				return item;
 			}, {});
 			delete items[r - 1].icon;
 			if (!items[r - 1].code) items[r - 1].code = codes[t];
-		}
+		};
 		return items;
 	}, []);
 };
@@ -50,7 +59,11 @@ router.get('/', async function (req, res) {
 	let tables = Array.from(page.querySelectorAll("table"));
 	let items = [].map.call(tables/*.slice(0, -4)*/, tableToJson).flat()
 		.sort((a, b) => {
-			return new Date(b.dateReleased) - new Date(a.dateReleased);
+			let fixDate = date => date === "Date unknown" ? 0 : !date ? Date.now() : date;
+			let aExp = fixDate(a.dateExpired),
+				bExp = fixDate(b.dateExpired);
+			return new Date(b.dateReleased) - new Date(a.dateReleased) ||
+				new Date(bExp) - new Date(aExp);
 		});
 	res.send(items);
 });
