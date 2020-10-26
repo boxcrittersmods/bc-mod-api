@@ -17,7 +17,7 @@ router.get('/:player', async function (req, res) {
 	let fileParts = req.params.player.split(".");
 	let playerId = fileParts[0];
 	let player = await getPlayer(playerId);
-	if (player.nickname == "flines") player.critterID = "lizard";
+	if (player.nickname == "flines") player.critterId = "lizard";
 	let imgBuffer = await displayGear(player);
 
 	res.type("." + fileParts[fileParts.length - 1]);
