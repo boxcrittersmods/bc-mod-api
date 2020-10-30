@@ -5,12 +5,10 @@ const CanvasGifEncoder = require('gif-encoder-2');
 const { lcm } = require("mathjs");
 const Website = require('#src/util/website');
 const { drawImage, drawFrame, loadImage } = require("#src/boxcritters/displayGear");
-
-
-const roomList = Website.Connect("https://boxcritters.herokuapp.com/base/rooms.json");
+const { GetManifests } = require("../boxcritters/bc-site");
 
 async function getRoom(roomId) {
-	let rooms = await roomList.getJson();
+	let rooms = await Website.Connect((await GetManifests()).rooms.src).getJson();
 	return rooms.find(r => r.roomId == roomId);
 }
 
@@ -20,19 +18,17 @@ async function displayRoom(room, length) {
 	let canvas = Canvas.createCanvas(room.width, room.height);
 	let context = canvas.getContext('2d');
 	console.log("1");
-
-	let spriteSheetFile = Website.Connect(room.spriteSheet);
-	let spriteSheet = await spriteSheetFile.getJson();
-	if (room.background) room.background = await loadImage(room.background);
-	if (room.foreground) room.foreground = await loadImage(room.foreground);
+	let spriteSheet = typeof room.spriteSheet == "string" ? await Website.Connect(room.spriteSheet).getJson() : room.spriteSheet;
+	if (room.media.background) room.background = await loadImage(room.media.background);
+	if (room.media.foreground) room.foreground = await loadImage(room.media.foreground);
 	if (spriteSheet.images) spriteSheet.images = await Promise.all(spriteSheet.images.map(async url => await loadImage(url)));
 
 	let layout;
-	if (room.playground) layout = { playground: room.playground };
-	if (!layout) {
+	layout = room.layout;
+	/*if (!layout) {
 		let layoutFile = Website.Connect(room.layout);
 		layout = await layoutFile.getJson();
-	}
+	}*/
 	if (layout) {
 		if (Array.isArray(layout.playground) && Array.isArray(layout.playground[0])) {
 			layout.playground = [].concat.apply([], layout.playground);
@@ -47,10 +43,6 @@ async function displayRoom(room, length) {
 
 
 	let gifEncoder = new CanvasGifEncoder(room.width, room.height, 'neuquant', true, gifLength);
-
-	/*gifEncoder.on('progress', percent => {
-		console.log("generating gif " + percent + "%")
-	  })*/
 
 	gifEncoder.start();
 	for (let f = 0; f < gifLength; f++) {
