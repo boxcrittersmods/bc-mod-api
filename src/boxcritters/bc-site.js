@@ -12,7 +12,7 @@ async function GetClientScriptURL() {
 }
 
 async function getInitScriptURL() {
-	let pre = "index-";
+	let pre = "play-";
 	let scripts = await bcWebsite.getScripts();
 	let script = scripts.find(s => s.src.startsWith(pre));
 	return "https://boxcritters.com/play/" + script.src;
