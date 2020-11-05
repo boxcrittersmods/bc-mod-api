@@ -50,8 +50,11 @@ async function GetManifests() {
 		let manstart = "world.preload([",
 			manend = "]);",
 			manifestRegex = getStringBetweenStrings(manstart, manend),
-			initScript = Website.Connect(await getInitScriptURL()),
+			initScriptURL = await getInitScriptURL(),
+			initScript = Website.Connect(initScriptURL),
 			initScriptText = await initScript.getText();
+		console.log("Init script url ", initScriptURL);
+		console.log(initScriptText);
 
 		var manRaw = ("[" + initScriptText.match(manifestRegex)[0].split(manend)[0] + "]");
 
