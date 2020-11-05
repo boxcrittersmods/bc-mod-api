@@ -15,9 +15,9 @@ async function getInitScriptURL() {
 	console.log("Play Page", await bcWebsite.getText());
 	let pre = "play-";
 	let scripts = await bcWebsite.getScripts();
-	console.log("Script URLs", scripts.map(s => s.url));
+	console.log("Script URLs", scripts.map(s => s.src));
 	let script = scripts.find(s => s.src.startsWith(pre));
-	console.log("Chosen Script", script);
+	console.log("Chosen Script", script.src);
 	return "https://boxcritters.com/play/" + script.src;
 }
 
