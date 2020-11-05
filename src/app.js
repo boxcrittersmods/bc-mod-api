@@ -131,6 +131,9 @@ app.use(
 		icons: true
 	})
 );
+app.use('/favicon.ico', (req, res) => {
+	res.redirect("https://res.boxcrittersmods.ga/favicon.ico");
+});
 
 app.all('*', (req, res) => {
 	res.status(404).send({
