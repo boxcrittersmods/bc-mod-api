@@ -3,7 +3,7 @@ const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 
 
-let bcWebsite = Website.Connect("https://boxcritters.com/play");
+let bcWebsite = Website.Connect("https://boxcritters.com/play/index.html");
 let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
 let bcCache = new Cache();
 
@@ -12,9 +12,12 @@ async function GetClientScriptURL() {
 }
 
 async function getInitScriptURL() {
+	console.log("Play Page", await bcWebsite.getText());
 	let pre = "play-";
 	let scripts = await bcWebsite.getScripts();
+	console.log("Script URLs", scripts.map(s => s.url));
 	let script = scripts.find(s => s.src.startsWith(pre));
+	console.log("Chosen Script", script);
 	return "https://boxcritters.com/play/" + script.src;
 }
 
@@ -54,7 +57,7 @@ async function GetManifests() {
 			initScript = Website.Connect(initScriptURL),
 			initScriptText = await initScript.getText();
 		console.log("Init script url ", initScriptURL);
-		console.log(initScriptText);
+		console.log("init script content", initScriptText);
 
 		var manRaw = ("[" + initScriptText.match(manifestRegex)[0].split(manend)[0] + "]");
 

@@ -21,6 +21,7 @@ Website.Connect = function (url, body, method = "GET") {
 		}) :
 		async () => fetch(url);
 	let website = new Website(body);
+	website.url = url;
 	return website;
 };
 
@@ -41,7 +42,8 @@ Website.prototype.getBuffer = async function () {
 };
 
 Website.prototype.getDocument = async function () {
-	let { window } = new JSDOM(await this.getText());
+	let { window } = void 0 != this.url ? new JSDOM(await this.getText()) : JSDOM.fromURL(this.url);
+	//let { window } = new JSDOM(await this.getText());
 	let document = window.document;
 	return document;
 };
