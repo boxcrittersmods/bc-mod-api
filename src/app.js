@@ -38,6 +38,7 @@ const player = require('./routes/player');
 const gear = require('./routes/gear');
 const database = require('./routes/database');
 const itemcodes = require('./routes/itemcodes');
+const clearCache = require('./routes/clearCache');
 
 //data
 const sitesData = require('#data/sites.json');
@@ -106,6 +107,7 @@ app.use("/player", player);
 app.use("/gear", gear);
 app.use("/database", database);
 app.use("/itemcodes", itemcodes);
+app.use("/clear-cache", clearCache);
 /**
  * Paths
  */

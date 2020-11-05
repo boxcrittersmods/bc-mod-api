@@ -17,4 +17,8 @@ Cache.prototype.get = function (key) {
 	return this.cache.get(key);
 };
 
+Cache.prototype.clear = function () {
+	this.cache.clear();
+};
+
 module.exports = Cache;

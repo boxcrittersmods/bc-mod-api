@@ -39,6 +39,10 @@ function getStringBetweenStrings(a, b) {
 
 }
 
+function ClearCache() {
+	bcCache.clear();
+}
+
 
 async function GetManifests() {
 	let manifests = bcCache.get("manifests");
@@ -76,4 +80,5 @@ async function GetManifests() {
 
 module.exports = {
 	GetManifests,
+	ClearCache
 };

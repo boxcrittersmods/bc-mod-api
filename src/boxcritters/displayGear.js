@@ -1,12 +1,10 @@
 "use strict";
 const Canvas = require('canvas');
 const Website = require('#src/util/website');
-const Cache = require("#src/util/cache");
 
 
 const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.json");
 
-const imageCache = new Cache();
 
 async function loadImage(url) {
 	/*return new Promise((res,rej)=>{
