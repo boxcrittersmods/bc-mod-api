@@ -7,25 +7,9 @@ const adminLogin = require('bc-admin-login');
 const cors = require("cors");
 
 //routers
-
-/*
- * START Broken
- */
 const versions = require('./routes/versions');
-/*
- * const desc = require('./routes/description');
- * const items = require('./routes/items');
- */
 const manifests = require('./routes/manifests');
-/*
- * const paths = require('./routes/paths');
- */
 const textures = require('./routes/textures');
-/*
- * const getassets = require('./routes/getassets');
- * END Broken
- */
-
 const feedback = require("./routes/feedback");
 const corsProxy = require("./routes/cors");
 const button = require("./routes/button");
@@ -79,22 +63,9 @@ app.use(function (err, req, res, next) {
 /**
  * Routes
  */
-/*
- * START Broken
- */
 app.use('/manifests', manifests);
-/*
- * app.use('/paths',paths);
- */
 app.use('/versions', versions);
-/*
- * app.use('/items',items);
- */
 app.use('/textures', textures);
-/*
- * app.use('/description',desc);
- * END Broken
- */
 app.use("/cors", corsProxy);
 app.use("/feedback", feedback);
 app.use("/button", button);
@@ -111,19 +82,6 @@ app.use("/clear-cache", clearCache);
 /**
  * Paths
  */
-/*
-START Broken
-app.get('/sites',(req,res)=>{
-	res.type("application/json");
-	res.json(sitesData);
-});
-
-app.get('/',(req,res)=>{
-	res.type("application/json");
-	res.redirect('/versions/latest')
-});
-END Broken
-*/
 app.use(
 	"/",
 	express.static("public"),

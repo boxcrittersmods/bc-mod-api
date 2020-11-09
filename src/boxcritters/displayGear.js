@@ -7,22 +7,6 @@ const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.j
 
 
 async function loadImage(url) {
-	/*return new Promise((res,rej)=>{
-		imageCache.isCached(url, (exist)=>{
-			if(exist) {
-				imageCache.getCache(url, function(error, image) {
-					resolve(await Canvas.loadImage(image));
-				 });
-			}
-		});
-	})*/
-	/*let image = imageCache.get(url);
-	if(image===undefined) {
-		image = await Canvas.loadImage(url);
-		imageCache.set(url,image);
-	}
-	console.log({[url]:image})
-	return image;*/
 	return await Canvas.loadImage(url);
 }
 
