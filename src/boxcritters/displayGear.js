@@ -3,7 +3,7 @@ const Canvas = require('canvas');
 const Website = require('#src/util/website');
 
 
-const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.json");
+const itemList = Website.Connect("https://boxcritters.com/base/items/data.json");
 
 
 async function loadImage(url) {
@@ -41,12 +41,17 @@ async function displayGear(player) {
 
 	let canvas = Canvas.createCanvas(340, 400);
 	let context = canvas.getContext('2d');
-	if (player.critterId == "snail") {
+	
+	let critterId = player.critterId || "hamster";
+	if (critterId == "snail") {
 		canvas.width = canvas.height = 128;
 		drawURL(context, "https://cdn.discordapp.com/emojis/701095041426391091.png?v=1", 0, 0, canvas.width, canvas.height);
 	}
+	
+	let critterInfo = Website.Connect(`https://boxcritters.com/base/critters/${critterId}.json`);
 
 	let items = await itemList.getJson();
+	let critter = await critterInfo.getJson();
 
 	let rules = {
 		hideNose: false,
@@ -76,11 +81,10 @@ async function displayGear(player) {
 			case "feet":
 				if (layer == "nose" && rules.hideNose) break;
 				if (layer == "ears" && rules.hideEars) break;
+				if (layer == "ears" && !critter.hasEars) break;
+				if (layer == "tail" && !critter.hasTail) break;
 				if (layer == "skin") layer = "body";
-				url = `https://media.boxcritters.com/critters/${player.critterId
-					|| "hamster"
-					//|| "penguin"
-					}/${layer}.png`;
+				url = critter.media[layer];
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
 				break;
@@ -91,7 +95,10 @@ async function displayGear(player) {
 					gearId = gearSlots.indexOf(slot);
 				if (gearId == -1) continue;
 				let gear = player.gear[gearId];
-				url = `https://media.boxcritters.com/items/${gear}/${position}.png`;
+				let item = items.find(i => i.itemId == gear) || {}
+				if (position == "front" && !item.hasFront) break;
+				if (position == "back" && !item.hasBack) break;
+				url = `https://boxcritters.com/media/items/${gear}/${position}.png`;
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
 				break;
