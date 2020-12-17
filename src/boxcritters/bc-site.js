@@ -11,14 +11,15 @@ async function GetClientScriptURL() {
 	return "https://boxcritters.com/lib/client.min.js";
 }
 
-async function getInitScriptURL() {
+async function getInitScript() {
 	console.log("Play Page", await bcWebsite.getText());
 	let pre = "play-";
 	let scripts = await bcWebsite.getScripts();
 	console.log("Script URLs", scripts.map(s => s.src));
-	let script = scripts.find(s => s.src.startsWith(pre));
-	console.log("Chosen Script", script.src);
-	return "https://boxcritters.com/play/" + script.src;
+	let script = scripts.find(s => s.src.startsWith(pre) || s.text.includes("world.preload"));
+	console.log("Chosen Script", script.outerHTML);
+	//return "https://boxcritters.com/play/" + script.src;
+	return script;
 }
 
 String.prototype.log = function (pre) {
@@ -53,10 +54,15 @@ async function GetManifests() {
 		let manstart = "world.preload([",
 			manend = "]);",
 			manifestRegex = getStringBetweenStrings(manstart, manend),
-			initScriptURL = await getInitScriptURL(),
-			initScript = Website.Connect(initScriptURL),
-			initScriptText = await initScript.getText();
-		console.log("Init script url ", initScriptURL);
+			initScript = await getInitScript(),
+			initScriptText = "";
+		if (initScript.src == "") {
+			initScriptText = initScript.text;
+		} else {
+			console.log("Init script url ", initScript.src);
+			let initScriptFile = Website.Connect(initScript.src);
+			initScriptText = await initScriptFile.getText();
+		}
 		console.log("init script content", initScriptText);
 
 		var manRaw = ("[" + initScriptText.match(manifestRegex)[0].split(manend)[0] + "]");
