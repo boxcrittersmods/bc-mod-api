@@ -4,7 +4,7 @@ const Cache = require("#src/util/cache");
 
 
 let bcWebsite = Website.Connect("https://boxcritters.com/play/index.html");
-let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
+//let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
 let bcCache = new Cache();
 
 async function GetClientScriptURL() {
