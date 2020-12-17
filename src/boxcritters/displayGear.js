@@ -3,7 +3,7 @@ const Canvas = require('canvas');
 const Website = require('#src/util/website');
 
 
-const itemList = Website.Connect("https://boxcritters.herokuapp.com/base/items.json");
+const itemList = Website.Connect("https://api.boxcrittersmods.ga/manifests/items");
 
 
 async function loadImage(url) {
