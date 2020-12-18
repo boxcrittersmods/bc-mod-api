@@ -99,14 +99,16 @@ function getSiteUrl(site = 'boxcritters') {
 }
 
 async function fillURL(url) {
-	if (!url) return "";
-	//let paths = await BoxCritters.GetPaths();
-	let base = SITE_URL;
-	if (urlIsRoot(url)) {
-		return url;
-	} else {
-		return base + url;
+	if (!url || url == "") return "";
+	if (!urlIsRoot(url)) {
+		console.log("BEFORE:" + url);
+		let base = "boxcritters.com/play";
+		if (url.startsWith("/")) base = "boxcritters.com";
+		url = path.join(base, url);
+		url = "https://" + url;
+		console.log("AFTER:" + url);
 	}
+	return url;
 }
 
 async function getSprites(spriteSheet, name) {
@@ -135,19 +137,42 @@ async function getSprites(spriteSheet, name) {
 	}, {});
 }
 
-async function getAssetInfo(type, site = 'boxcritters') {
+async function getAssetInfo(type, site = 'boxcritters', name) {
 	let host = getSiteUrl(site);
 	let manifests = await BoxCritters.GetManifests();
-	let url = await fillURL(manifests[type].src);
+	let manifest = manifests[type];
+	if (Array.isArray(manifest)) {
+		if (typeof name == "undefined") return manifest;
+		manifest = manifest.find(m => m.name == name);
+	}
+	let url = await fillURL(manifest.src);
+	console.log(url);
 	let website = Website.Connect(url);
 	let assetInfo = await website.getJson();
+
+	//add missing values that used to be there for backewards compatability
+	switch (type) {
+		case "items":
+			for (let item of assetInfo) {
+				item.sprites = "https://boxcritters.com/media/items/" + item.itemId + "/sprites.png";
+				item.icon = "https://boxcritters.com/media/items/" + item.itemId + "/icon_sm.png";
+				item.textures = "https://api.boxcrittersmods.ga/textures/items/" + item.itemId;
+				item.textures_sprites = "https://api.boxcrittersmods.ga/textures/items/" + item.itemId + "_sprites";
+			}
+			break;
+		case "rooms":
+			for (let room of assetInfo) {
+				room.textures = "https://api.boxcrittersmods.ga/textures/rooms/" + room.roomId;
+			}
+			break;
+	}
 
 	return assetInfo;
 }
 
 async function GetManifestLoc() {
 	let manifests = await BoxCritters.GetManifests();
-	console.log("manifest today are as folows", manifests);
+	console.log("manifests today are as folows", manifests);
 	let tp = Object.keys(manifests).reduceAsync(async (tp, m) => {
 		console.debug("Manifest: " + m);
 		if (!manifests[m]) throw `Manifest ${m} does not exist`;
@@ -179,11 +204,12 @@ async function getObjectSchematic(obj) {
 	}
 	if (typeof (obj) === "object") {
 		console.debug(obj);
-		let hmm = Object.assign(...await Promise.all(
+		let hmm = Object.assign({}, ...await Promise.all(
 			Object.keys(obj)
 				.map(async k =>
 					({ [k]: await getObjectSchematic(obj[k]) })
-				)));
+				))
+		);
 		return hmm;
 	}
 	if (typeof (obj) === "string") {

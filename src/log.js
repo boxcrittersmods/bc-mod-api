@@ -9,7 +9,7 @@ function prepMsg(msg) {
 
 	msg = msg.map(m => {
 		if (typeof m == "object") {
-			return "```json\n" + JSON.stringify(m, undefined, 2).slice(2000 - 20) + "\n```";
+			return "```json\n" + JSON.stringify(m, undefined, 2)/*.slice(2000 - 20) */ + "\n```";
 		} return m;
 	});
 	msg = msg.join(" ");

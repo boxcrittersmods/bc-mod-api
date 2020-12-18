@@ -1,9 +1,17 @@
 "use strict";
 const Canvas = require('canvas');
 const Website = require('#src/util/website');
+const BC = require('./bc-site');
 
 
 const itemList = Website.Connect("https://api.boxcrittersmods.ga/manifests/items");
+
+let mediaRoot = "https://boxcritters.com/media/";
+let legacyMediaRoot = "https://media.boxcritters.com/";
+
+//ITEM IN PRFILE:://boxcritters.com/media/items/toque_blue/front.png
+//Item min world: https://boxcritters.com/media/items/toque_blue/sprites.png
+//ItemICON:https://boxcritters.com/media/items/toque_blue/icon_sm.png
 
 
 async function loadImage(url) {
@@ -60,10 +68,9 @@ async function displayGear(player) {
 		}
 		return item.slot;
 	});
+	//[this.backs.ride,this.tail,this.backs.hand,this.backs.eyes,this.backs.ears,this.backs.head,this.backs.neck,this.backs.fuzz,this.backs.pack,this.backs.belt,this.backs.body,this.backs.mask,this.backs.face,this.skin,this.ears,this.slots.face,this.face,this.slots.mask,this.slots.body,this.slots.belt,this.slots.pack,this.slots.fuzz,this.slots.neck,this.slots.head,this.slots.ears,this.slots.eyes,this.nose,this.slots.hand,this.slots.ride]
 
-
-	let layers = ["backs.ride", "tail", "backs.hand", "backs.eyes", "backs.ears", "backs.head", "backs.neck", "backs.fuzz", "backs.pack", "backs.belt", "backs.body", "backs.mask", "backs.face", "skin", "ears", "slots.face", "face", "slots.mask", "slots.body", "slots.belt", "slots.pack", "slots.fuzz", "slots.neck", "slots.head", "slots.ears", "slots.eyes", "nose", "slots.hand", "slots.ride"];
-	layers.unshift("feet");
+	let layers = await BC.GetLayers(); //["backs.ride", "tail", "backs.hand", "backs.eyes", "backs.ears", "backs.head", "backs.neck", "backs.fuzz", "backs.pack", "backs.belt", "backs.body", "backs.mask", "backs.face", "skin", "ears", "slots.face", "face", "slots.mask", "slots.body", "slots.belt", "slots.pack", "slots.fuzz", "slots.neck", "slots.head", "slots.ears", "slots.eyes", "nose", "slots.hand", "slots.ride"];
 	for (let layer of layers) {
 		layer = layer.replace("backs", "back");
 		let url;
@@ -77,7 +84,7 @@ async function displayGear(player) {
 				if (layer == "nose" && rules.hideNose) break;
 				if (layer == "ears" && rules.hideEars) break;
 				if (layer == "skin") layer = "body";
-				url = `https://media.boxcritters.com/critters/${player.critterId
+				url = legacyMediaRoot + `critters/${player.critterId
 					|| "hamster"
 					//|| "penguin"
 					}/${layer}.png`;
@@ -91,7 +98,7 @@ async function displayGear(player) {
 					gearId = gearSlots.indexOf(slot);
 				if (gearId == -1) continue;
 				let gear = player.gear[gearId];
-				url = `https://media.boxcritters.com/items/${gear}/${position}.png`;
+				url = mediaRoot + `items/${gear}/${position}.png`;
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
 				break;
