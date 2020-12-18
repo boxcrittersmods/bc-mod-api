@@ -41,7 +41,7 @@ function drawFrame(context, spriteSheet, frame, placement) {
 	let f = frame;
 	frame = spriteSheet.frames[frame];
 	/*console.log({f,frame,placement})*/
-	context.drawImage(spriteSheet.images[frame[4]], frame[0] - frame[5], frame[1] - frame[6], frame[2], frame[3], placement.x - placement.regX, placement.y - placement.regY, frame[2], frame[3]);
+	context.drawImage(spriteSheet.images[frame[4]], frame[0]/* - frame[5]*/, frame[1]/*- frame[6]*/, frame[2], frame[3], placement.x - placement.regX - frame[5], placement.y - placement.regY - frame[6], frame[2], frame[3]);
 }
 
 async function displayGear(player) {
