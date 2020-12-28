@@ -3,37 +3,51 @@ const Website = require("#src/util/website");
 const Cache = require("#src/util/cache");
 const path = require("path");
 
+const SSL = "https://",
+	BC_URL = "boxcritters.com",
+	BC_PLAY = path.join(BC_URL, "play"),
+	BC_LIB = path.join(BC_URL, "lib");
 
-let bcWebsite = Website.Connect("https://boxcritters.com/play");
+let bcWebsite = Website.Connect(SSL + BC_PLAY);
 //let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
 let bcCache = new Cache();
 
 let getPathParts = path => /^.*[\\\/](.*)\.(.*)/.exec(path);
 
 async function GetClientScriptURL() {
-	return "https://boxcritters.com/lib/client.min.js";
+	return path.join(SSL + BC_LIB, "client.min.js");
+}
+
+function cleanURL(url) {
+	if (!url.startsWith("http")) {
+		if (url.startsWith("/")) {
+			url = SSL + path.join(BC_URL, url);
+		} else {
+			url = SSL + path.join(BC_PLAY, url);
+		}
+	}
+	return url;
 }
 
 async function getScripts() {
 	//console.log("Play Page", await bcWebsite.getText());
-	let scripts = await bcWebsite.getScripts();
-	//console.log("Script URLs", scripts.map(s => s.src));
-
-	return scripts;
+	return await Promise.all((await bcWebsite.getScripts()).map(async s => {
+		s.text = await Website.Connect(cleanURL(s.src)).getText();
+		return s;
+	}));
 }
 async function getInitScript() {
 	let pre = "play-";
 	let scripts = await getScripts();
-	let script = scripts.find(s => s.src.startsWith(pre) || s.text.includes("world.preload"));
+	let script = scripts.find(s => s.text.includes("world.preload"));
 	//console.log("Chosen Script", script.outerHTML);
 	//return "https://boxcritters.com/play/" + script.src;
 	return script;
 }
 
 async function getWorldScript() {
-	let pre = "../lib/world-";
 	let scripts = await getScripts();
-	let script = scripts.find(s => s.src.startsWith(pre) || s.text.includes("BOX CRITTERS CLIENT"));
+	let script = scripts.find(s => s.text.includes("BOX CRITTERS CLIENT"));
 	//console.log("Chosen Script", script.outerHTML);
 	//return "https://boxcritters.com/play/" + script.src;
 	return script;
@@ -69,15 +83,7 @@ async function GetLayers() {
 	if (layers == undefined) {
 		let layersRegex = /this\.forward=\[(this(?:.[a-zA-Z]+)+)(?:,\1)*\]/,
 			worldScript = await getWorldScript(),
-			worldScriptText = "";
-		if (worldScript.src == "") {
 			worldScriptText = worldScript.text;
-		} else {
-			worldScript.src = path.join(bcWebsite.url, worldScript.src);
-			//console.log("World script url ", worldScript.src);
-			let worldScriptFile = Website.Connect(worldScript.src);
-			worldScriptText = await worldScriptFile.getText();
-		}
 
 		layers = layersRegex.exec(worldScriptText)[1].replace(/this\./g, "").split(",");
 		layers.unshift("feet");
@@ -97,15 +103,7 @@ async function GetManifests() {
 			manend = "]);",
 			manifestRegex = getStringBetweenStrings(manstart, manend),
 			initScript = await getInitScript(),
-			initScriptText = "";
-		if (initScript.src == "") {
 			initScriptText = initScript.text;
-		} else {
-			//console.log("Init script url ", initScript.src);
-			let initScriptFile = Website.Connect(initScript.src);
-			initScriptText = await initScriptFile.getText();
-		}
-		//console.log("init script content", initScriptText);
 
 		var manRaw = ("[" + initScriptText.match(manifestRegex)[0].split(manend)[0] + "]");
 
