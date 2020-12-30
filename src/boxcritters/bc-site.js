@@ -18,7 +18,7 @@ async function GetClientScriptURL() {
 	return path.join(SSL + BC_LIB, "client.min.js");
 }
 
-function cleanURL(url) {
+function CleanURL(url) {
 	if (!url.startsWith("http")) {
 		if (url.startsWith("/")) {
 			url = SSL + path.join(BC_URL, url);
@@ -30,18 +30,15 @@ function cleanURL(url) {
 }
 
 async function getScripts() {
-	//console.log("Play Page", await bcWebsite.getText());
 	return await Promise.all((await bcWebsite.getScripts()).map(async s => {
-		s.text = await Website.Connect(cleanURL(s.src)).getText();
+		s.text = await Website.Connect(CleanURL(s.src)).getText();
 		return s;
 	}));
 }
 async function getInitScript() {
-	let pre = "play-";
 	let scripts = await getScripts();
 	let script = scripts.find(s => s.text.includes("world.preload"));
 	//console.log("Chosen Script", script.outerHTML);
-	//return "https://boxcritters.com/play/" + script.src;
 	return script;
 }
 
@@ -141,6 +138,7 @@ async function GetManifests() {
 })();
 
 module.exports = {
+	CleanURL,
 	GetManifests,
 	GetLayers,
 	ClearCache

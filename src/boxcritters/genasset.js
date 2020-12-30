@@ -32,7 +32,7 @@ Object.defineProperty(Array.prototype, 'reduceAsync', {
 	}
 });
 
-function dynamicSort(property) {
+/*function dynamicSort(property) {
 	let sortOrder = 1;
 	if (property[0] === "-") {
 		sortOrder = -1;
@@ -42,24 +42,24 @@ function dynamicSort(property) {
 		/* next line works with strings and numbers, 
 		 * and you may want to customize it to your needs
 		 */
-		let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-		return result * sortOrder;
+let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+return result * sortOrder;
 	};
-}
+}* /;
 
-function idToLabel(id) {
+/*function idToLabel(id) {
 	let frags = id.split('_');
 	for (i = 0; i < frags.length; i++) {
 		frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
 	}
 	return frags.join(' ');
-}
+}*/
 
-function camelize(str) {
+/*function camelize(str) {
 	return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
 		return index == 0 ? word.toLowerCase() : word.toUpperCase();
 	}).replace(/\s+/g, '');
-}
+}*/
 function titleize(str) {
 	return str.replace(
 		/\w\S*/g,
@@ -118,7 +118,7 @@ async function getSprites(spriteSheet, name) {
 	let sprites;
 	if (typeof (spriteSheet) == "string" && spriteSheet.includes(".json")) {
 		let host = getSiteUrl("boxcritters");
-		let url = await fillURL(spriteSheet);
+		let url = BoxCritters.CleanURL(spriteSheet);
 		let website = Website.Connect(url);
 		sprites = await website.getJson();
 	} else {
@@ -126,7 +126,7 @@ async function getSprites(spriteSheet, name) {
 	}
 
 	return sprites.images.reduceAsync(async (tp, sprite, i) => {
-		let value = await fillURL(sprite);
+		let value = BoxCritters.CleanURL(sprite);
 		let key = name;
 		if (sprites.images.length <= 1) {
 			return value;
@@ -145,7 +145,7 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 		if (typeof name == "undefined") return manifest;
 		manifest = manifest.find(m => m.name == name);
 	}
-	let url = await fillURL(manifest.src);
+	let url = BoxCritters.CleanURL(manifest.src);
 	console.log(url);
 	let website = Website.Connect(url);
 	let assetInfo = await website.getJson();
@@ -177,8 +177,8 @@ async function GetManifestLoc() {
 		console.debug("Manifest: " + m);
 		if (!manifests[m]) throw `Manifest ${m} does not exist`;
 		tp[m + "_manifest"] = Array.isArray(manifests[m])
-			? await Promise.all(manifests[m].map(async m => await fillURL(m.src)))
-			: await fillURL(manifests[m].src);
+			? manifests[m].map(m => BoxCritters.CleanURL(m.src))
+			: BoxCritters.CleanURL(manifests[m].src);
 		return tp;
 	}, {});
 	return tp;
@@ -303,7 +303,7 @@ async function GetTextureData() {
 			for (let i in mSpriteSheets) {
 				let spriteSheet = mSpriteSheets[i];
 				let spriteSheetAlias = getAlias(m, idMap.spriteSheet, spriteSheet.split("/")[3]);
-				tp[mSpritesAlias][spriteSheetAlias] = await fillURL(spriteSheet);
+				tp[mSpritesAlias][spriteSheetAlias] = BoxCritters.CleanURL(spriteSheet);
 			}
 		}
 		let mIncludeSprites = !tp[mSpritesAlias];
@@ -332,7 +332,7 @@ async function GetTextureData() {
 				let pAlias = getAlias(m, a, p);//propertyAlias[p] || "_"+p;
 				for (let ext in extentions)
 					if (aData[p].includes(extentions[ext]))
-						aTextureList[pAlias] = await fillURL(aData[p]);
+						aTextureList[pAlias] = BoxCritters.CleanURL(aData[p]);
 			}
 
 			//Cheack for if theres one asset piece
@@ -382,7 +382,7 @@ async function GetTextureData() {
 				//TODO
 				manifests[m].forEach(async mInfo => {
 
-					let url = await fillURL(mInfo.src);
+					let url = BoxCritters.CleanURL(mInfo.src);
 					let website = Website.Connect(url);
 					let mData = await website.getJson();
 					tp = await parseManifest(tp, m, mData);
