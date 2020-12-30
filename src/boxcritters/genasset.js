@@ -365,7 +365,7 @@ async function GetTextureData() {
 	let tp = Object.assign(
 		{
 			clientscript: await GetClientScript(),
-			misc: textureMisc,
+			//misc: textureMisc,
 			manifests: await GetManifestLoc(),
 		},
 		/**
@@ -392,11 +392,11 @@ async function GetTextureData() {
 			} else {
 				return parseManifest(tp, m);
 			}
-		}, {}),
-		{
+		}, {})/*,
+		/{
 			//shop: await GetShop(),
 			critterball: await GetCritterBall()
-		}
+		}*/
 	);
 	return tp;
 }

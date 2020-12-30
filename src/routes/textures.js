@@ -46,17 +46,23 @@ router.get('/download', async (req, res) => {
 	let dateNum = date.getDate() + ((date.getMonth() + 1) * 100) + ((date.getFullYear() - 2000) * 10000);
 	let name = "boxcritters-" + dateNum + ".zip";
 	res.attachment(name);
-	zip.pipe(res);
-	console.debug(urls);
+	console.log("hmm");
 
 
 	for (let i = 0; i < urls.length; i++) {
 		let url = urls[i];
 
 		console.debug(url);
-		zip.append(request(url), { name: url });
+		try {
+			let data = request(url);
+			zip.append(data, { name: url });
+		} catch (error) {
+			console.log("There was an error when constructing a zip file.");
+		}
 	}
-	zip.finalize();
+	//console.debug(urls);
+	await zip.finalize();
+	zip.pipe(res);
 
 });
 
