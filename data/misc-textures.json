@@ -1,11 +1,16 @@
 {
 	"index": "http://boxcritters.com/",
+	"play": "http://boxcritters.com/play/",
 	"favicon": "http://boxcritters.com/favicon.ico",
 	"favicon16": "http://boxcritters.com/favicon-16x16.png",
 	"favicon32": "http://boxcritters.com/favicon-32x32.png",
-	"ux": "http://boxcritters.com/media/ux/ux.png",
-	"edit_btn": "http://boxcritters.com/media/ui/edit_btn.png",
-	"coins_background": "https://media.boxcritters.com/images/coins.png",
-	"bridge": "http://boxcritters.com/media/cards/oomm/bridge.png",
-	"ghost_ship": "http://boxcritters.com/media/cards/oomm/ghost_ship.png"
+	"style": "https://boxcritters.com/play/style.css",
+	"world": "https://boxcritters.com/lib/world-153.min.js",
+	"shop": "https://boxcritters.com/play/shop-14.js",
+	"play_js": "https://boxcritters.com/play/play-10.js",
+	"coins": "https://boxcritters.com/images/ux/coins.png",
+	"btn_chat": "https://boxcritters.com/images/menu/Btn_Menu_Chat_A.png",
+	"btn_cards": "https://boxcritters.com/images/menu/Btn_Menu_Cards_A.png",
+	"btn_items": "https://boxcritters.com/images/menu/Btn_Menu_Items_A.png",
+	"btn_misc": "https://boxcritters.com/images/menu/Btn_Menu_Misc_A.png"
 }

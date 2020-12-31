@@ -1,17 +1,16 @@
 "use strict";
 const BoxCritters = require("./bc-site");
-const bcVersions = require("./versions");
+//const bcVersions = require("./versions");
 const Website = require('#src/util/website');
 const path = require('path');
 
 //data
-const textureDataJson = require('#data/texture-data.json');
+//const textureDataJson = require('#data/texture-data.json');
 const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
-const shopJson = require('#data/shop.json');
 
-let SITE_URL = getSiteUrl();
+//let SITE_URL = getSiteUrl();
 
 if (!String.prototype.endsWith) {
 	String.prototype.endsWith = function (search, this_len) {
@@ -85,11 +84,6 @@ function explode(obj, prefix) {
 		return pieces;
 	}, {});
 }
-
-function GetClientScript() {
-	return "https://boxcritters.com/lib/client.min.js";
-}
-
 function urlIsRoot(url) {
 	return url.startsWith("http://") || url.startsWith("https://");
 }
@@ -364,8 +358,7 @@ async function GetTextureData() {
 
 	let tp = Object.assign(
 		{
-			clientscript: await GetClientScript(),
-			//misc: textureMisc,
+			misc: textureMisc,
 			manifests: await GetManifestLoc(),
 		},
 		/**
@@ -411,7 +404,6 @@ async function GetTextureList(type) {
 
 module.exports = {
 	getAssetInfo,
-	GetClientScript,
 	GetManifestLoc,
 	//GetCritters,
 	//GetItems,

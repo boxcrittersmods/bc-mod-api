@@ -13,7 +13,7 @@ let router = express.Router();
 
 
 // /getassets
-router.get('/download', async (req, res) => {
+/*router.get('/download', async (req, res) => {
 	let zip = archiver('zip', {
 		zlib: { level: 9 } // Sets the compression level.
 	});
@@ -49,22 +49,23 @@ router.get('/download', async (req, res) => {
 	console.log("hmm");
 
 
+	zip.pipe(res);
+
 	for (let i = 0; i < urls.length; i++) {
 		let url = urls[i];
 
 		console.debug(url);
 		try {
+			if (url == "https://boxcritters.com/media/v3/shops/sprites.png") debugger;
 			let data = request(url);
 			zip.append(data, { name: url });
 		} catch (error) {
 			console.log("There was an error when constructing a zip file.");
 		}
 	}
-	//console.debug(urls);
 	await zip.finalize();
-	zip.pipe(res);
-
-});
+	//console.debug(urls);
+});*/
 
 
 // /textures
