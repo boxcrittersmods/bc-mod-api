@@ -55,7 +55,7 @@ var tableToJson = (table, t) => {
 router.get('/', async function (req, res) {
 	//res.type("application/json");
 	let document = await itemCodeWiki.getDocument();
-	let page = document.getElementsByClassName("WikiaPage")[0];
+	let page = document.getElementsByClassName("WikiaPage")[0]git ;
 	let tables = Array.from(page.querySelectorAll("table"));
 	let items = [].map.call(tables/*.slice(0, -4)*/, tableToJson).flat()
 		.sort((a, b) => {
