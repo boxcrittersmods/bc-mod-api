@@ -31,34 +31,6 @@ Object.defineProperty(Array.prototype, 'reduceAsync', {
 	}
 });
 
-/*function dynamicSort(property) {
-	let sortOrder = 1;
-	if (property[0] === "-") {
-		sortOrder = -1;
-		property = property.substr(1);
-	}
-	return function (a, b) {
-		/* next line works with strings and numbers, 
-		// * and you may want to customize it to your needs
-		 */
-/*let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-return result * sortOrder;
-	};
-}* /;*/
-
-/*function idToLabel(id) {
-	let frags = id.split('_');
-	for (i = 0; i < frags.length; i++) {
-		frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
-	}
-	return frags.join(' ');
-}*/
-
-/*function camelize(str) {
-	return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-		return index == 0 ? word.toLowerCase() : word.toUpperCase();
-	}).replace(/\s+/g, '');
-}*/
 function titleize(str) {
 	return str.replace(
 		/\w\S*/g,
@@ -156,7 +128,7 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 			break;
 		case "rooms":
 			for (let room of assetInfo) {
-				room.textures = "https://api.boxcrittersmods.ga/textures/rooms/" + room.roomId;
+				room.textures = "https://api.boxcrittersmods.ga/textures/rooms/rooms_" + room.roomId;
 			}
 			break;
 	}
