@@ -182,10 +182,6 @@ async function getObjectSchematic(obj) {
 		if (obj.includes('.png'))
 			return 'texture';
 		if (obj.includes('.json')) {
-			/*let url = await fillURL(obj);
-			let website = Website.Connect(url);
-			let assetInfo = await website.getJson();
-			return await getObjectSchematic(assetInfo);*/
 			return "spriteSheet";
 		}
 	}
