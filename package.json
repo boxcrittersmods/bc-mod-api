@@ -7,7 +7,7 @@
 		"start": "node index.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"repository": "git+https://github.com/boxcritters/bc-mod-api.git",
+	"repository": "git+https://github.com/boxcrittersmods/bc-mod-api.git",
 	"_moduleAliases": {
 		"#data": "data",
 		"#src": "src"
@@ -15,9 +15,9 @@
 	"author": "tumble1999",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/boxcritters/bc-mod-api/issues"
+		"url": "https://github.com/boxcrittersmods/bc-mod-api/issues"
 	},
-	"homepage": "https://github.com/boxcritters/bc-mod-api#readme",
+	"homepage": "https://github.com/boxcrittersmods/bc-mod-api#readme",
 	"dependencies": {
 		"@octokit/auth-app": "^3.0.0",
 		"@octokit/plugin-retry": "^2.2.0",
