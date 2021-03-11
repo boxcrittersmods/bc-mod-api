@@ -24,7 +24,7 @@
 		"@octokit/rest": "^16.35.0",
 		"absolutify": "github:sorensen/absolutify#target-improvement",
 		"archiver": "^3.1.1",
-		"bc-admin-login": "github:boxcrittersmods/bc-admin-login",
+		"bc-admin-login": "git+https://git@github.com/boxcrittersmods/bc-admin-login.git",
 		"body-parser": "^1.19.0",
 		"canvas": "^2.6.1",
 		"combined-stream": "^1.0.8",
