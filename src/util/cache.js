@@ -1,10 +1,8 @@
 "use strict";
-const NodeCache = require("node-cache");
 let { Cache: MemoryCache } = require('memory-cache');
 
 function Cache() {
 	if (!new.target) return;
-	//this.cache = new NodeCache({ stdTTL: 10, checkperiod: 5 });
 	this.cache = new MemoryCache();
 }
 

@@ -9,6 +9,7 @@ const path = require('path');
 const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
+const wikiPagesJson = require('#data/critterball.json');
 
 //let SITE_URL = getSiteUrl();
 
@@ -77,6 +78,11 @@ async function fillURL(url) {
 	return url;
 }
 
+async function getWikiUrl(thing) {
+	let itemName = wikiPagesJson[thing.id] || thing.name;
+	if (itemName) return "https://box-critters.fandom.com/wiki/" + itemName.split(" ").join("_");
+}
+
 async function getSprites(spriteSheet, name) {
 	if (spriteSheet.src) {
 		spriteSheet = spriteSheet.src;
@@ -120,6 +126,7 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 	switch (type) {
 		case "items":
 			for (let item of assetInfo) {
+                item.id = item.itemId;
 				item.sprites = "https://boxcritters.com/media/items/" + item.itemId + "/sprites.png";
 				item.icon = "https://boxcritters.com/media/items/" + item.itemId + "/icon_sm.png";
 				item.textures = "https://api.boxcrittersmods.ga/textures/items/" + item.itemId;
@@ -128,10 +135,20 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 			break;
 		case "rooms":
 			for (let room of assetInfo) {
+                room.id = room.roomId;
 				room.textures = "https://api.boxcrittersmods.ga/textures/rooms/rooms_" + room.roomId;
 			}
 			break;
+        case "critters":
+            for(let critter of assetInfo) {
+                    critter.id = critter.critterId
+            }
+            break;
 	}
+	
+	for (let thing of assetInfo) {
+        thing.wiki = await getWikiUrl(thing);
+    }
 
 	return assetInfo;
 }
