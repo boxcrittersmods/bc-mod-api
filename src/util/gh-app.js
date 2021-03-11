@@ -1,6 +1,6 @@
 "use strict";
 const { Octokit } = require("@octokit/rest");
-const { App } = require("@octokit/auth-app");
+const { App } = require("@octokit/app");
 const fetch = require("node-fetch");
 
 if (process.env.GH_APP_PK != undefined) {
