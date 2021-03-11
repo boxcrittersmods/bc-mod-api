@@ -46,5 +46,9 @@
 		"serve-index": "^1.9.1",
 		"tn-webserver": "^1.0.0",
 		"webhook-discord": "^3.2.0"
-	}
+	},
+	  "engines": {
+        "node": ">=12.21.0",
+        "yarn":">=1.22.10"
+    }
 }
