@@ -19,7 +19,7 @@
 	},
 	"homepage": "https://github.com/boxcrittersmods/bc-mod-api#readme",
 	"dependencies": {
-		"@octokit/app": "^10.2.2",
+		"@octokit/app": "^3.0.0",
 		"@octokit/plugin-retry": "^2.2.0",
 		"@octokit/rest": "^16.35.0",
 		"absolutify": "^0.1.0",

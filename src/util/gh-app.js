@@ -2,6 +2,7 @@
 const { Octokit } = require("@octokit/rest");
 const { App } = require("@octokit/app");
 const fetch = require("node-fetch");
+const { createAppAuth } = require("@octokit/auth-app");
 
 if (process.env.GH_APP_PK != undefined) {
 	// Initialize GitHub App with id:private_key pair and generate JWT which is used for
@@ -10,6 +11,8 @@ if (process.env.GH_APP_PK != undefined) {
 		id: process.env.GH_APP_ID,
 		privateKey: process.env.GH_APP_PK
 	});
+	
+	
 	let jwt = app.getSignedJsonWebToken();
 
 	async function getAccessToken(owner, repo) {
