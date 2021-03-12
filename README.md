@@ -17,7 +17,8 @@ npm install
 NODE_ENV=development/production
 PORT=3000
 DISCORD_WEBHOOK=https://discordapp.com/api/webhooks/1234/abc123abc123abc123abc123
-GH_TOKEN=abc123abc123abc123abc123abc123
+GH_APP_ID=1234
+GH_APP_PK=ab1.123abc
 WS_ORIGIN=boxcritters.github.io
 WS_OAUTH_CLIENT_ID=abc123abc123abc123abc123
 WS_OAUTH_CLIENT_SECRET=abc123abc123abc123abc123abc123abc123abc123

@@ -1,7 +1,6 @@
 "use strict";
 let GniddomApp = require('./gh-app');
 let DISABLE_GITHUB = process.env.GH_APP_PK == undefined;
-DISABLE_GITHUB = true;
 
 let octokit;
 let owner = "boxcritters";
