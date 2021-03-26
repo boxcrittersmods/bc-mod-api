@@ -59,7 +59,7 @@ router.use("/:url_or_name", async (req, res) => {
 		} else {
 			let url;
 			request({
-				"url": "https://raw.githubusercontent.com/boxcritters/boxcrittersmods.ga/master/_mods/" + req.params.url_or_name + ".md"
+				"url": "https://raw.githubusercontent.com/boxcritters/bcmc.ga/master/_mods/" + req.params.url_or_name + ".md"
 			}, function (sub_err, sub_res, sub_body) {
 				/* console.debug(sub_body); */
 				if (sub_err) {

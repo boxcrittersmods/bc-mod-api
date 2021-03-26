@@ -33,7 +33,7 @@ app.use(async (req, res, next) => {
 	next();
 });
 
-//Setup Admin login for boxcrittersmods.ga
+//Setup Admin login for bcmc.ga
 app.use(adminLogin);
 
 /**
@@ -90,7 +90,7 @@ app.use(
 	})
 );
 app.use('/favicon.ico', (req, res) => {
-	res.redirect("https://res.boxcrittersmods.ga/favicon.ico");
+	res.redirect("https://res.bcmc.ga/favicon.ico");
 });
 
 app.all('*', (req, res) => {

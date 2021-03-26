@@ -108,8 +108,8 @@ async function GetManifests() {
 
 		//manifests = (await bcManifests.getJson()).manifest;
 		manifests = manifests.reduce((manifests, m) => {
-			m.mod_api = "https://api.boxcrittersmods.ga/manifests/" + m.id;
-			m.textures = "https://api.boxcrittersmods.ga/textures/" + m.id;
+			m.mod_api = "https://api.bcmc.ga/manifests/" + m.id;
+			m.textures = "https://api.bcmc.ga/textures/" + m.id;
 			if (manifests[m.id]) {
 				if (!Array.isArray(manifests[m.id])) {
 					manifests[m.id] = [manifests[m.id]];

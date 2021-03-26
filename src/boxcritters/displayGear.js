@@ -4,7 +4,7 @@ const Website = require('#src/util/website');
 const BC = require('./bc-site');
 
 
-const itemList = Website.Connect("https://api.boxcrittersmods.ga/manifests/items");
+const itemList = Website.Connect("https://api.bcmc.ga/manifests/items");
 
 let mediaRoot = "https://boxcritters.com/media/";
 let legacyMediaRoot = "https://media.boxcritters.com/";

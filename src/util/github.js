@@ -85,7 +85,7 @@ init().then(() => {
 
 async function createMod(data, url) {
 	if (DISABLE_GITHUB) return;
-	let tmp_octokit = await GniddomApp.getClient(await GniddomApp.getAccessToken(owner, "boxcrittersmods.ga"));
+	let tmp_octokit = await GniddomApp.getClient(await GniddomApp.getAccessToken(owner, "bcmc.ga"));
 	let version = data.match(/\/\/\s*@version\s+(.*)\s*\n/i)[1];
 	let name = data.match(/\/\/\s*@name\s+(.*)\s*\n/i)[1];
 	let description = data.match(/\/\/\s*@description\s+(.*)\s*\n/i)[1];
@@ -99,7 +99,7 @@ async function createMod(data, url) {
 	content = new Buffer.from(content).toString("base64");
 	let path = `_mods/${name.toLowerCase().replace(" ", "-")}.md`;
 	let message = `New mod: ${name}.`;
-	let repo = "boxcrittersmods.ga";
+	let repo = "bcmc.ga";
 	tmp_octokit.repos.createFile({
 		owner,
 		repo,

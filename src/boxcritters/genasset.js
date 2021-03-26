@@ -126,29 +126,29 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 	switch (type) {
 		case "items":
 			for (let item of assetInfo) {
-                item.id = item.itemId;
+				item.id = item.itemId;
 				item.sprites = "https://boxcritters.com/media/items/" + item.itemId + "/sprites.png";
 				item.icon = "https://boxcritters.com/media/items/" + item.itemId + "/icon_sm.png";
-				item.textures = "https://api.boxcrittersmods.ga/textures/items/" + item.itemId;
-				item.textures_sprites = "https://api.boxcrittersmods.ga/textures/items/" + item.itemId + "_sprites";
+				item.textures = "https://api.bcmc.ga/textures/items/" + item.itemId;
+				item.textures_sprites = "https://api.bcmc.ga/textures/items/" + item.itemId + "_sprites";
 			}
 			break;
 		case "rooms":
 			for (let room of assetInfo) {
-                room.id = room.roomId;
-				room.textures = "https://api.boxcrittersmods.ga/textures/rooms/rooms_" + room.roomId;
+				room.id = room.roomId;
+				room.textures = "https://api.bcmc.ga/textures/rooms/rooms_" + room.roomId;
 			}
 			break;
-        case "critters":
-            for(let critter of assetInfo) {
-                    critter.id = critter.critterId
-            }
-            break;
+		case "critters":
+			for (let critter of assetInfo) {
+				critter.id = critter.critterId;
+			}
+			break;
 	}
-	
+
 	for (let thing of assetInfo) {
-        thing.wiki = await getWikiUrl(thing);
-    }
+		thing.wiki = await getWikiUrl(thing);
+	}
 
 	return assetInfo;
 }
