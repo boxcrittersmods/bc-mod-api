@@ -110,19 +110,19 @@ async function GetManifests() {
 			manifests = (await bcManifests.getJson()).manifest;
 		}
 		manifests = manifests.reduce((manifests, m) => {
-			m.mod_api = "https://api.bcmc.ga/manifests/" + m.id;
+			m.manifests = "https://api.bcmc.ga/manifests/" + m.id;
 			m.textures = "https://api.bcmc.ga/textures/" + m.id;
 			if (manifests[m.id]) {
 				if (!Array.isArray(manifests[m.id])) {
 					manifests[m.id] = [manifests[m.id]];
 					for (let mi of manifests[m.id]) {
-						mi.name = getPathParts(mi.src)[1];
-						mi.mod_api += "/" + mi.name;
+						if (void 0 == mi.name) mi.name = getPathParts(mi.src)[1];
+						mi.manifests += "/" + mi.name;
 						mi.textures += "/" + mi.name;
 					}
 				}
-				m.name = getPathParts(m.src)[1];
-				m.mod_api += "/" + m.name;
+				if (void 0 == m.name) m.name = getPathParts(m.src)[1];
+				m.manifests += "/" + m.name;
 				m.textures += "/" + m.name;
 				manifests[m.id].push(m);
 			} else {
