@@ -48,7 +48,7 @@ async function displayRoom(room, length) {
 	for (let f = 0; f < gifLength; f++) {
 		console.debug("Frame: ", f + 1, "/", gifLength);
 		layout.playground.sort((a, b) => a.y - b.y);
-		drawImage(context, room.background, 0, 0, canvas.width, canvas.height);
+		if (room.background) drawImage(context, room.background, 0, 0, canvas.width, canvas.height);
 		if (layout && spriteSheet.images) {
 			for (let i in layout.playground) {
 				let placement = layout.playground[i];
