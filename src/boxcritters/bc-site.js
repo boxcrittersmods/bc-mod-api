@@ -31,6 +31,7 @@ function CleanURL(url) {
 
 async function getScripts() {
 	return await Promise.all((await bcWebsite.getScripts()).map(async s => {
+		console.log();
 		s.text = await Website.Connect(CleanURL(s.src)).getText();
 		return s;
 	}));

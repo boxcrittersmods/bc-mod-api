@@ -4,6 +4,8 @@ let dbUser = process.env.DB_USER || require("./config/token").dbUser;
 let dbPassword = process.env.DB_PASSWORD || require("./config/token").dbPassword;
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@bcmcwebsiteitems.vkf2l.mongodb.net/items?w=majority`;
 
+
+
 function pluralAndSingular(text) {
 	let isPlural = text.endsWith("s");
 	return {
