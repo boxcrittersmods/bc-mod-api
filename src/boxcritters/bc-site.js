@@ -9,7 +9,7 @@ const SSL = "https://",
 	BC_LIB = path.join(BC_URL, "lib");
 
 let bcWebsite = Website.Connect(SSL + BC_PLAY);
-//let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
+let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
 let bcCache = new Cache();
 
 let getPathParts = path => /^.*[\\\/](.*)\.(.*)/.exec(path);
@@ -37,7 +37,7 @@ async function getScripts() {
 }
 async function getInitScript() {
 	let scripts = await getScripts();
-	let script = scripts.find(s => s.text.includes("world.preload"));
+	let script = scripts.find(s => s.text.includes("function init() "));
 	//console.log("Chosen Script", script.outerHTML);
 	return script;
 }
@@ -96,17 +96,19 @@ async function GetLayers() {
 async function GetManifests() {
 	let manifests = bcCache.get("manifests");
 	if (manifests == undefined) {
-		let manstart = "world.preload([",
-			manend = "]);",
-			manifestRegex = getStringBetweenStrings(manstart, manend),
-			initScript = await getInitScript(),
-			initScriptText = initScript.text;
+		if (void 0 == bcManifests) {
+			let manstart = "world.preload([",
+				manend = "]);",
+				manifestRegex = getStringBetweenStrings(manstart, manend),
+				initScript = await getInitScript(),
+				initScriptText = initScript.text;
 
-		var manRaw = ("[" + initScriptText.match(manifestRegex)[0].split(manend)[0] + "]");
+			var manRaw = ("[" + initScriptText.match(manifestRegex)[0].split(manend)[0] + "]");
 
-		manifests = JSON.parse(manRaw);
-
-		//manifests = (await bcManifests.getJson()).manifest;
+			manifests = JSON.parse(manRaw);
+		} else {
+			manifests = (await bcManifests.getJson()).manifest;
+		}
 		manifests = manifests.reduce((manifests, m) => {
 			m.mod_api = "https://api.bcmc.ga/manifests/" + m.id;
 			m.textures = "https://api.bcmc.ga/textures/" + m.id;
