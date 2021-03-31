@@ -1,13 +1,16 @@
 "use strict";
-const Canvas = require('canvas');
-const Website = require('#src/util/website');
-const BC = require('./bc-site');
+const Canvas = require('canvas'),
+	fs = require('fs').promises,
+	ffmpeg = require("ffmpeg"),
+	Website = require('#src/util/website'),
+	BC = require('./bc-site'),
 
 
-const itemList = Website.Connect("https://api.bcmc.ga/manifests/items");
-
-let mediaRoot = "https://boxcritters.com/media/";
-let legacyMediaRoot = "https://media.boxcritters.com/";
+	itemList = Website.Connect("https://api.bcmc.ga/manifests/items"),
+	mediaRoot = "https://boxcritters.com/media/",
+	legacyMediaRoot = "https://media.boxcritters.com/",
+	TMP = "/tmp/bcmc/"
+	;
 
 //ITEM IN PRFILE:://boxcritters.com/media/items/toque_blue/front.png
 //Item min world: https://boxcritters.com/media/items/toque_blue/sprites.png
@@ -16,6 +19,38 @@ let legacyMediaRoot = "https://media.boxcritters.com/";
 
 async function loadImage(url) {
 	return await Canvas.loadImage(url);
+}
+
+async function loadVideo(url, number) {
+	let buffer = await Website.Connect(url).getBuffer(),
+		urlParts = url.split("/"),
+		videoName = urlParts[urlParts.length - 1],
+		folderPath = TMP + videoName + "/",
+		videoPath = folderPath + videoName,
+		video, frames = [];
+	//Create Folder for video
+	await fs.mkdir(folderPath, { recursive: true });
+	console.log("Created Folder", folderPath);
+	//Dpwnload Video
+	await fs.writeFile(videoPath, buffer);
+	console.log("Downloaded Video", videoPath);
+	//Split Frames
+	video = await (new ffmpeg(videoPath));
+	let f = await video.fnExtractFrameToJPG(folderPath, {
+		every_n_frames: 1,
+		number
+	});
+	number = number || f.length - 1;
+
+	console.log("SplitFrames", folderPath + videoName.split(".")[0] + "_(1..." + number + ").jpg");
+	for (let f = 0; f < number; f++) {
+		frames.push(await loadImage(folderPath + videoName.split(".")[0] + "_" + (f + 1) + ".jpg"));
+
+	}
+	return {
+		frames,
+		frame: 0
+	};
 }
 
 function drawURL(context, url, x, y, w, h) {
@@ -36,6 +71,13 @@ function drawImage(context, image, x, y, w, h) {
 }
 
 
+async function drawVideo(context, video, ...pos) {
+	drawImage(context, video.frames[video.frame], ...pos);
+	video.frame++;
+	video.frame %= video.frames.length;
+}
+
+
 function drawFrame(context, spriteSheet, frame, placement) {
 	//["x", "y", "width", "height", "imageIndex", "regX", "regY"]
 	let f = frame;
@@ -43,6 +85,7 @@ function drawFrame(context, spriteSheet, frame, placement) {
 	/*console.log({f,frame,placement})*/
 	context.drawImage(spriteSheet.images[frame[4]], frame[0]/* - frame[5]*/, frame[1]/*- frame[6]*/, frame[2], frame[3], placement.x - placement.regX - frame[5], placement.y - placement.regY - frame[6], frame[2], frame[3]);
 }
+
 
 async function displayGear(player) {
 	console.log("Player", player);
@@ -108,4 +151,4 @@ async function displayGear(player) {
 	return canvas.toBuffer();
 }
 
-module.exports = { loadImage, drawURL, drawImage, displayGear, drawFrame };
+module.exports = { loadImage, loadVideo, drawURL, drawImage, drawVideo, drawFrame, displayGear };

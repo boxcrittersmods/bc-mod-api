@@ -1,49 +1,42 @@
 "use strict";
-const fetch = require('node-fetch');
-const { JSDOM } = require("jsdom");
+const fetch = require('node-fetch'),
+	bent = require("bent"),
+	getText = bent("string"),
+	getJSON = bent("json"),
+	getBuffer = bent("buffer"),
+	{ JSDOM } = require("jsdom");
 
-function Website(body) {
+function Website(url) {
 	if (!new.target) return;
-	if (typeof body === "undefined") {
-		throw new Error("Cannot be called directly");
+	if (url === "undefined") {
+		throw new Error("URL is not defined");
 	}
-	//let w = this;
-	this.body = body;
-	//body.then(body => (w.body = body));
+	this.url = url;
 }
 
-Website.Connect = function (url, body, method = "GET") {
-	body = body ?
-		async () => fetch(url, {
-			method,
-			body: JSON.stringify(body),
-			headers: { 'Content-Type': 'application/json' }
-		}) :
-		async () => fetch(url);
-	let website = new Website(body);
-	website.url = url;
-	return website;
-};
-
-Website.prototype.getJson = async function () {
-	let body = await this.body();
-	let json = body.json();
-	return json;
+Website.Connect = function (url, body, method) {
+	if (body) throw new Error("There is use of the body param");
+	if (method) throw new Error("There is use of the method param");
+	return new Website(url);
 };
 
 Website.prototype.getText = async function () {
-	let body = await this.body();
-	return body.text();
+	let text = await getText(this.url);
+	return textl;
+};
+
+Website.prototype.getJson = async function () {
+	let json = await getJSON(this.url);
+	return json;
 };
 
 Website.prototype.getBuffer = async function () {
-	let body = await this.body();
-	return body.buffer();
+	let buffer = await getBuffer(this.url);
+	return buffer;
 };
 
 Website.prototype.getDocument = async function () {
 	let { window } = void 0 != this.url ? new JSDOM(await this.getText()) : JSDOM.fromURL(this.url);
-	//let { window } = new JSDOM(await this.getText());
 	let document = window.document;
 	return document;
 };
