@@ -1,4 +1,5 @@
 # BoxCritters Modding API
+![Status](https://github.com/boxcrittersmods/bc-mod-api/actions/workflows/main.yml/badge.svg)
 API server for retrieving information about box critters that is normaly hard to retrive and other useful information and tools.
 ## Installation
 Install Node js (>=7.x) for your operating system
