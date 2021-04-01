@@ -15,13 +15,14 @@ function camelize(str) {
 }
 
 
-var codes = [];
-codes[17] = "/freeitem";
-codes[18] = "/darkmode";
-codes[19] = "/tbt";
-codes[20] = "/explore";
+let codes = {
+	1: "/explore",
+	2: "/tbt",
+	3: "/darkmode",
+	26: "/freeitem"
+};
 
-var tableToJson = (table, t) => {
+var tableToJson = (table, t, { length: count }) => {
 	let keys;
 	let rowSpan = [];
 	return [].reduce.call(table.rows, (items, row, r) => {
@@ -45,7 +46,14 @@ var tableToJson = (table, t) => {
 				return item;
 			}, {});
 			delete items[r - 1].icon;
-			if (!items[r - 1].code) items[r - 1].code = codes[t];
+			if (!items[r - 1].code) {
+				console.log("Table:", t + 1, "/", count);
+				for (let i in codes) {
+					let min = count - i - 1;
+					console.log("--min", min, codes[i]);
+					if (min < t) items[r - 1].code = codes[i];
+				}
+			}
 		};
 		return items;
 	}, []);
