@@ -16,10 +16,10 @@ function camelize(str) {
 
 
 let codes = {
-	1: "/explore",
-	2: "/tbt",
-	3: "/darkmode",
-	26: "/freeitem"
+	"26": "/freeitem",
+	"3": "/darkmode",
+	"2": "/tbt",
+	"1": "/explore",
 };
 
 var tableToJson = (table, t, { length: count }) => {
@@ -48,7 +48,7 @@ var tableToJson = (table, t, { length: count }) => {
 			delete items[r - 1].icon;
 			if (!items[r - 1].code) {
 				console.log("Table:", t + 1, "/", count);
-				for (let i in codes) {
+				for (let i of Object.keys(codes).reverse()) {
 					let min = count - i - 1;
 					console.log("--min", min, codes[i]);
 					if (min < t) items[r - 1].code = codes[i];
