@@ -110,7 +110,7 @@ async function getSprites(spriteSheet, name) {
 }
 
 async function getAssetInfo(type, site = 'boxcritters', name) {
-	let host = getSiteUrl(site);
+	//let host = getSiteUrl(site);
 	let manifests = await BoxCritters.GetManifests();
 	let manifest = manifests[type];
 	if (Array.isArray(manifest)) {
@@ -146,9 +146,11 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 			break;
 	}
 
-	for (let thing of assetInfo) {
-		thing.wiki = await getWikiUrl(thing);
-	}
+	//console.log(Object.keys(assetInfo));
+	if (Array.isArray(assetInfo))
+		for (let thing of assetInfo) {
+			thing.wiki = await getWikiUrl(thing);
+		}
 
 	return assetInfo;
 }
@@ -186,7 +188,7 @@ async function getObjectSchematic(obj) {
 		}
 	}
 	if (typeof (obj) === "object") {
-		console.debug(obj);
+		//console.debug(obj);
 		let hmm = Object.assign({}, ...await Promise.all(
 			Object.keys(obj)
 				.map(async k =>
@@ -269,7 +271,7 @@ async function GetTextureData() {
 			mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData];
 		}
 		let mTypes = await getObjectSchematic(mData);
-		console.debug(mTypes);
+		//console.debug(mTypes);
 		//console.debug(assetInfo)
 		let mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
 

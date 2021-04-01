@@ -5,10 +5,10 @@ const path = require("path");
 
 const SSL = "https://",
 	BC_URL = "boxcritters.com",
-	BC_PLAY = path.join(BC_URL, "play/index.html"),
+	BC_PLAY = path.join(BC_URL, "play"),
 	BC_LIB = path.join(BC_URL, "lib");
 
-let bcWebsite = Website.Connect(SSL + BC_PLAY);
+let bcWebsite = Website.Connect(CleanURL("index.html"));
 let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
 let bcCache = new Cache();
 
@@ -116,6 +116,9 @@ async function GetManifests() {
 		manifests = manifests.reduce((manifests, m) => {
 			m.manifests = "https://api.bcmc.ga/manifests/" + m.id;
 			m.textures = "https://api.bcmc.ga/textures/" + m.id;
+			m.src = CleanURL(m.src);
+
+
 			if (manifests[m.id]) {
 				if (!Array.isArray(manifests[m.id])) {
 					manifests[m.id] = [manifests[m.id]];
