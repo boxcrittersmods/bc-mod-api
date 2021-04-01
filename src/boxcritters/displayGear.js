@@ -128,8 +128,9 @@ async function displayGear(player) {
 				if (layer == "ears" && rules.hideEars) break;
 				if (layer == "skin") layer = "body";
 				url = legacyMediaRoot + `critters/${player.critterId
-					|| "hamster"
+					//|| "hamster"
 					//|| "penguin"
+					|| "racoon"
 					}/${layer}.png`;
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
