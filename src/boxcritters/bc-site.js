@@ -8,17 +8,13 @@ const SSL = "https://",
 	BC_PLAY = path.join(BC_URL, "play"),
 	BC_LIB = path.join(BC_URL, "lib");
 
-let bcWebsite = Website.Connect(CleanURL("index.html"));
-let bcManifests = Website.Connect("https://boxcritters.com/play/manifest.json");
+let bcWebsite = Website.Connect(cleanURL("index.html"));
+let bcManifests = Website.Connect(cleanURL("manifest.json"));
 let bcCache = new Cache();
 
 let getPathParts = path => /^.*[\\\/](.*)\.(.*)/.exec(path);
 
-async function GetClientScriptURL() {
-	return path.join(SSL + BC_LIB, "client.min.js");
-}
-
-function CleanURL(url) {
+function cleanURL(url) {
 	if (!url.startsWith("http")) {
 		if (url.startsWith("/")) {
 			url = SSL + path.join(BC_URL, url);
@@ -30,9 +26,11 @@ function CleanURL(url) {
 }
 
 async function getScripts() {
+
 	let scripts = await bcWebsite.getScripts();
+
 	return await Promise.all(scripts.map(async s => {
-		s.text = await Website.Connect(CleanURL(s.src)).getText();
+		if (s.src) s.text = await new Website(cleanURL(s.src)).getText();
 		return s;
 	}));
 }
@@ -42,7 +40,6 @@ async function getInitScript() {
 	//console.log("Chosen Script", script.outerHTML);
 	return script;
 }
-let debug = 0;
 
 async function getWorldScript() {
 	let scripts = await getScripts();
@@ -116,7 +113,7 @@ async function GetManifests() {
 		manifests = manifests.reduce((manifests, m) => {
 			m.manifests = "https://api.bcmc.ga/manifests/" + m.id;
 			m.textures = "https://api.bcmc.ga/textures/" + m.id;
-			m.src = CleanURL(m.src);
+			m.src = cleanURL(m.src);
 
 
 			if (manifests[m.id]) {
@@ -147,7 +144,7 @@ async function GetManifests() {
 })();
 
 module.exports = {
-	CleanURL,
+	CleanURL: cleanURL,
 	GetManifests,
 	GetLayers,
 	ClearCache

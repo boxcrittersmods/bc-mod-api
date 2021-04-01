@@ -38,7 +38,7 @@ var tableToJson = (table, t, { length: count }) => {
 
 			items[r - 1] = [].reduce.call(row.cells, (item, cell, c) => {
 				cell.innerText = cell.innerHTML.split("\n").join("").replace(/<[^>]*>/g, "");
-				cell.innerText = cell.innerText == "Still available" ? false : cell.innerText;
+				cell.innerText = cell.innerText.toLowerCase() == "still available" ? false : cell.innerText;;;
 				item[keys[c]] = cell.innerText;
 				if (+cell.rowSpan && +cell.rowSpan > 1) {
 					rowSpan.push(cell);

@@ -1,6 +1,5 @@
 "use strict";
-const fetch = require('node-fetch'),
-	bent = require("bent"),
+const bent = require("bent"),
 	getText = bent("string"),
 	getJSON = bent("json"),
 	getBuffer = bent("buffer"),
