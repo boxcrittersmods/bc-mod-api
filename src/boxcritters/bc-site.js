@@ -5,7 +5,7 @@ const path = require("path");
 
 const SSL = "https://",
 	BC_URL = "boxcritters.com",
-	BC_PLAY = path.join(BC_URL, "play"),
+	BC_PLAY = path.join(BC_URL, "play/index.html"),
 	BC_LIB = path.join(BC_URL, "lib");
 
 let bcWebsite = Website.Connect(SSL + BC_PLAY);
@@ -30,8 +30,8 @@ function CleanURL(url) {
 }
 
 async function getScripts() {
-	return await Promise.all((await bcWebsite.getScripts()).map(async s => {
-		console.log();
+	let scripts = await bcWebsite.getScripts();
+	return await Promise.all(scripts.map(async s => {
 		s.text = await Website.Connect(CleanURL(s.src)).getText();
 		return s;
 	}));
@@ -42,11 +42,12 @@ async function getInitScript() {
 	//console.log("Chosen Script", script.outerHTML);
 	return script;
 }
+let debug = 0;
 
 async function getWorldScript() {
 	let scripts = await getScripts();
 	let script = scripts.find(s => s.text.includes("BOX CRITTERS CLIENT"));
-	//console.log("Chosen Script", script.outerHTML);
+	console.log("Chosen Script", script.outerHTML);
 	//return "https://boxcritters.com/play/" + script.src;
 	return script;
 }
@@ -76,8 +77,10 @@ function ClearCache() {
 	bcCache.clear();
 }
 
+
 async function GetLayers() {
 	let layers = bcCache.get("layers");
+
 	if (layers == undefined) {
 		let layersRegex = /this\.forward=\[(this(?:.[a-zA-Z]+)+)(?:,\1)*\]/,
 			worldScript = await getWorldScript(),

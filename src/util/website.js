@@ -22,7 +22,7 @@ Website.Connect = function (url, body, method) {
 
 Website.prototype.getText = async function () {
 	let text = await getText(this.url);
-	return textl;
+	return text;
 };
 
 Website.prototype.getJson = async function () {
@@ -36,9 +36,8 @@ Website.prototype.getBuffer = async function () {
 };
 
 Website.prototype.getDocument = async function () {
-	let { window } = void 0 != this.url ? new JSDOM(await this.getText()) : JSDOM.fromURL(this.url);
-	let document = window.document;
-	return document;
+	let { window } = await JSDOM.fromURL(this.url) || new JSDOM(await this.getText());
+	return window.document;
 };
 
 Website.prototype.getScripts = async function () {

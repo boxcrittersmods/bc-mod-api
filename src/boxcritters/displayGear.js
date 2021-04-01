@@ -90,6 +90,7 @@ function drawFrame(context, spriteSheet, frame, placement) {
 async function displayGear(player) {
 	console.log("Player", player);
 
+
 	let canvas = Canvas.createCanvas(340, 400);
 	let context = canvas.getContext('2d');
 	if (player.critterId == "snail") {
@@ -114,6 +115,7 @@ async function displayGear(player) {
 	//[this.backs.ride,this.tail,this.backs.hand,this.backs.eyes,this.backs.ears,this.backs.head,this.backs.neck,this.backs.fuzz,this.backs.pack,this.backs.belt,this.backs.body,this.backs.mask,this.backs.face,this.skin,this.ears,this.slots.face,this.face,this.slots.mask,this.slots.body,this.slots.belt,this.slots.pack,this.slots.fuzz,this.slots.neck,this.slots.head,this.slots.ears,this.slots.eyes,this.nose,this.slots.hand,this.slots.ride]
 
 	let layers = await BC.GetLayers(); //["backs.ride", "tail", "backs.hand", "backs.eyes", "backs.ears", "backs.head", "backs.neck", "backs.fuzz", "backs.pack", "backs.belt", "backs.body", "backs.mask", "backs.face", "skin", "ears", "slots.face", "face", "slots.mask", "slots.body", "slots.belt", "slots.pack", "slots.fuzz", "slots.neck", "slots.head", "slots.ears", "slots.eyes", "nose", "slots.hand", "slots.ride"];
+
 	for (let layer of layers) {
 		layer = layer.replace("backs", "back");
 		let url;
@@ -128,9 +130,8 @@ async function displayGear(player) {
 				if (layer == "ears" && rules.hideEars) break;
 				if (layer == "skin") layer = "body";
 				url = legacyMediaRoot + `critters/${player.critterId
-					//|| "hamster"
+					|| "hamster"
 					//|| "penguin"
-					|| "racoon"
 					}/${layer}.png`;
 				await drawURL(context, url, 0, 0, canvas.width, canvas.height);
 
