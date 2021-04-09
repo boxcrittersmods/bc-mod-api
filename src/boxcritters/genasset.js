@@ -128,7 +128,9 @@ async function getAssetInfo(type, site = 'boxcritters', name) {
 			for (let item of assetInfo) {
 				item.id = item.itemId;
 				item.sprites = "https://boxcritters.com/media/items/" + item.itemId + "/sprites.png";
-				item.icon = "https://boxcritters.com/media/items/" + item.itemId + "/icon_sm.png";
+				item.icon_sm = "https://boxcritters.com/media/items/" + item.itemId + "/icon_sm.png";
+				item.icon = "https://boxcritters.com/media/items/" + item.itemId + "/icon_md.png";
+				item.icon_lg = "https://boxcritters.com/media/items/" + item.itemId + "/icon_lg.png";
 				item.textures = "https://api.bcmc.ga/textures/items/" + item.itemId;
 				item.textures_sprites = "https://api.bcmc.ga/textures/items/" + item.itemId + "_sprites";
 			}
@@ -258,6 +260,16 @@ async function GetTextureData() {
 		return i.filter(e => e != blankChar).join('_');
 	}
 
+	function validURL(str) {
+		var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+			'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+			'((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+			'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+			'(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+			'(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+		return !!pattern.test(str) && str.includes("boxcritters.com");
+	}
+
 	async function parseManifest(tp, m, data) {
 		let mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
 		let mTitle = titleize(m);
@@ -307,15 +319,25 @@ async function GetTextureData() {
 				aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
 			}
 
-			//All textures tp the TP
-			for (let p in aData) {
-				if (typeof (aData[p]) !== "string")
-					continue;
-				let pAlias = getAlias(m, a, p);//propertyAlias[p] || "_"+p;
-				for (let ext in extentions)
-					if (aData[p].includes(extentions[ext]))
-						aTextureList[pAlias] = BoxCritters.CleanURL(aData[p]);
+			//look though entire array
+			function traverse(obj, prop) {
+				//console.log(prop, obj);
+				//All textures tp the TP
+				for (let p in obj) {
+					if (typeof obj[p] == "object") traverse(obj[p]);
+					if (typeof (obj[p]) !== "string")
+						continue;
+					if (m == "rooms")
+						debugger;
+					let pAlias = getAlias(m, a, p);//propertyAlias[p] || "_"+p;
+					/*for (let ext in extentions)
+						if (obj[p].includes(extentions[ext]))*/
+					if (validURL(obj[p]))
+						aTextureList[pAlias] = BoxCritters.CleanURL(obj[p]);
+				}
 			}
+
+			traverse(aData);
 
 			//Cheack for if theres one asset piece
 			if (Object.values(aTextureList).length == 1) aTextureList = Object.values(aTextureList)[0];
