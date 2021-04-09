@@ -19,10 +19,9 @@ async function displayRoom(room, length) {
 	let context = canvas.getContext('2d');
 	console.log("1");
 
-	let data = {};
 	let spriteSheet = typeof room.spriteSheet == "string" ? await Website.Connect(room.spriteSheet).getJson() : room.spriteSheet;
-	if (room.media.video) data.video = await loadVideo(room.media.video, length);
-	if (room.media.background) data.background = await loadImage(room.media.background);
+	if (room.media.video) room.video = await loadVideo(room.media.video, length);
+	if (room.media.background) room.background = await loadImage(room.media.background);
 	if (room.media.foreground) room.foreground = await loadImage(room.media.foreground);
 	if (spriteSheet.images) spriteSheet.images = await Promise.all(spriteSheet.images.map(async url => await loadImage(url)));
 
@@ -40,7 +39,7 @@ async function displayRoom(room, length) {
 	}
 
 	let gifLength = length || Object.values(spriteSheet.animations).map(a => a.frames.length).reduce((gifLength, frameCount) => lcm(gifLength, frameCount));
-	if (data.video) gifLength = lcm(gifLength, data.video.frames.length);
+	if (room.video) gifLength = lcm(gifLength, room.video.frames.length);
 	let max = 30;
 	if (!length) gifLength = gifLength > max ? max : gifLength;
 	console.log("GifLength:", gifLength);
@@ -52,8 +51,8 @@ async function displayRoom(room, length) {
 	for (let f = 0; f < gifLength; f++) {
 		console.debug("Frame: ", f + 1, "/", gifLength);
 		layout.playground.sort((a, b) => a.y - b.y);
-		if (data.video) await drawVideo(context, data.video, 0, 0, canvas.width, canvas.height);
-		if (data.background) drawImage(context, data.background, 0, 0, canvas.width, canvas.height);
+		if (room.video) await drawVideo(context, room.video, 0, 0, canvas.width, canvas.height);
+		if (room.background) drawImage(context, room.background, 0, 0, canvas.width, canvas.height);
 		if (layout && spriteSheet.images) {
 			for (let i in layout.playground) {
 				let placement = layout.playground[i];
@@ -75,7 +74,7 @@ async function displayRoom(room, length) {
 				drawFrame(context, spriteSheet, frame, placement);
 			}
 		}
-		if (data.foreground) drawImage(context, data.foreground, 0, 0, canvas.width, canvas.height);
+		if (room.foreground) drawImage(context, room.foreground, 0, 0, canvas.width, canvas.height);
 		gifEncoder.addFrame(context);
 	}
 	gifEncoder.finish();
