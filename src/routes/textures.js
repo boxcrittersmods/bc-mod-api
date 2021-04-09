@@ -13,7 +13,7 @@ let router = express.Router();
 
 
 // /getassets
-/*router.get('/download', async (req, res) => {
+router.get('/download', async (req, res) => {
 	let zip = archiver('zip', {
 		zlib: { level: 9 } // Sets the compression level.
 	});
@@ -65,7 +65,7 @@ let router = express.Router();
 	}
 	await zip.finalize();
 	//console.debug(urls);
-});*/
+});
 
 
 // /textures
