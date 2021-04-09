@@ -109,50 +109,47 @@ async function getSprites(spriteSheet, name) {
 	}, {});
 }
 
-async function getAssetInfo(type, site = 'boxcritters', name) {
-	//let host = getSiteUrl(site);
+async function getAssetInfo(type, name) {
 	let manifests = await BoxCritters.GetManifests();
 	let manifest = manifests[type];
 	if (Array.isArray(manifest)) {
-		if (typeof name == "undefined") return manifest;
+		if (typeof name == "undefined") return await Promise.all(manifest.map(m => getAssetInfo(type, m.name)));
 		manifest = manifest.find(m => m.name == name);
 	}
 	let url = BoxCritters.CleanURL(manifest.src);
-	console.log(url);
+	console.log(type + ":" + (name ? name + ":" : "") + url);
 	let website = Website.Connect(url);
 	let assetInfo = await website.getJson();
 
-	//add missing values that used to be there for backewards compatability
-	switch (type) {
-		case "items":
-			for (let item of assetInfo) {
-				item.id = item.itemId;
-				item.sprites = "https://boxcritters.com/media/items/" + item.itemId + "/sprites.png";
-				item.icon_sm = "https://boxcritters.com/media/items/" + item.itemId + "/icon_sm.png";
-				item.icon = "https://boxcritters.com/media/items/" + item.itemId + "/icon_md.png";
-				item.icon_lg = "https://boxcritters.com/media/items/" + item.itemId + "/icon_lg.png";
-				item.textures = "https://api.bcmc.ga/textures/items/" + item.itemId;
-				item.textures_sprites = "https://api.bcmc.ga/textures/items/" + item.itemId + "_sprites";
-			}
-			break;
-		case "rooms":
-			for (let room of assetInfo) {
-				room.id = room.roomId;
-				room.textures = "https://api.bcmc.ga/textures/rooms/rooms_" + room.roomId;
-			}
-			break;
-		case "critters":
-			for (let critter of assetInfo) {
-				critter.id = critter.critterId;
-			}
-			break;
+	async function modifyManifest(thing) {
+
+		//add missing values that used to be there for backewards compatability
+		switch (type) {
+			case "items":
+				thing.id = thing.itemId;
+				thing.sprites = "https://boxcritters.com/media/items/" + thing.itemId + "/sprites.png";
+				thing.icon_sm = "https://boxcritters.com/media/items/" + thing.itemId + "/icon_sm.png";
+				thing.icon = "https://boxcritters.com/media/items/" + thing.itemId + "/icon_md.png";
+				thing.icon_lg = "https://boxcritters.com/media/items/" + thing.itemId + "/icon_lg.png";
+				thing.textures = "https://api.bcmc.ga/textures/items/" + thing.itemId;
+				thing.textures_sprites = "https://api.bcmc.ga/textures/items/" + thing.itemId + "_sprites";
+				break;
+			case "rooms":
+				thing.id = thing.roomId;
+				thing.textures = "https://api.bcmc.ga/textures/rooms/rooms_" + thing.roomId;
+				break;
+			case "critters":
+				thing.id = thing.critterId;
+		}
+		(thing.id || thing.name) && (thing.wiki = await getWikiUrl(thing));
 	}
 
 	//console.log(Object.keys(assetInfo));
 	if (Array.isArray(assetInfo))
 		for (let thing of assetInfo) {
-			thing.wiki = await getWikiUrl(thing);
+			await modifyManifest(thing);
 		}
+	else await modifyManifest(assetInfo);
 
 	return assetInfo;
 }
@@ -273,7 +270,7 @@ async function GetTextureData() {
 	async function parseManifest(tp, m, data) {
 		let mSingular = m[m.length - 1] == PLURALIZER ? m.substr(0, m.length - 1) : m;
 		let mTitle = titleize(m);
-		let mSingleTitle = titleize(mSingular);
+		//let mSingleTitle = titleize(mSingular);
 		let mData = data || await getAssetInfo(m);
 		let mAlias = getAlias(m);
 		console.debug("== " + mTitle + " ==");
@@ -283,10 +280,10 @@ async function GetTextureData() {
 			}
 			mData = !mData.spriteSheet ? Object.keys(mData).map(k => Object.assign({ [mSingular + idMap.id]: k }, mData[k])) : [mData];
 		}
-		let mTypes = await getObjectSchematic(mData);
+		//let mTypes = await getObjectSchematic(mData);
 		//console.debug(mTypes);
 		//console.debug(assetInfo)
-		let mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
+		//let mIdKey = (idMap[mSingular] || mSingular) + idMap.id;
 
 		//SeperateSprites
 		let mSpritesAlias = getAlias(m, idMap.spriteSheet);//manifestAlias[m + "_sprites"]||m + "_sprites";
@@ -317,6 +314,7 @@ async function GetTextureData() {
 			if (mIncludeSprites && aData.spriteSheet) {
 				let aSpriteAlias = getAlias(m, a, idMap.spriteSheet);//propertyAlias[a + "_sprites"]||propertyAlias.spriteSheet||"_sprites"
 				aTextureList[aSpriteAlias] = await getSprites(aData.spriteSheet, a);
+				delete aData.spriteSheet;
 			}
 
 			//look though entire array

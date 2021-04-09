@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:type/:name?', async (req, res) => {
 	res.type("application/json");
-	let manifest = await Assets.getAssetInfo(req.params.type, undefined, req.params.name);
+	let manifest = await Assets.getAssetInfo(req.params.type, req.params.name);
 
 	res.json(manifest);
 
