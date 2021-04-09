@@ -1,0 +1,14 @@
+{
+    "collection": [
+        "chef_hat_white",
+        "bandana_neck_orange",
+        "goggles_blue",
+        "parka_red",
+        "soda_hat",
+        "robot_body",
+        "tiedye_shirt"
+    ],
+    "freeItem": "beret_yellow",
+    "nextItem": "polo_blue",
+    "lastItem": "tiedye_shirt"
+}
