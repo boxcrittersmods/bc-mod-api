@@ -239,7 +239,8 @@ async function GetTextureData() {
 	];
 	let extentions = {
 		texture: ".png",
-		audio: ".mp3"
+		audio: ".mp3",
+		video: ".mp4"
 	};
 
 	/**
