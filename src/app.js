@@ -22,6 +22,7 @@ const player = require('./routes/player');
 const gear = require('./routes/gear');
 const database = require('./routes/database');
 const itemcodes = require('./routes/itemcodes');
+const shop = require('./routes/shop');
 const clearCache = require('./routes/clearCache');
 
 //data
@@ -78,6 +79,7 @@ app.use("/player", player);
 app.use("/gear", gear);
 app.use("/database", database);
 app.use("/itemcodes", itemcodes);
+app.use("/shop", shop);
 app.use("/clear-cache", clearCache);
 /**
  * Paths
