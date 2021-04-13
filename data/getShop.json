@@ -1,14 +1,13 @@
 {
+    "lastItem": "beret_yellow",
+    "freeItem": "polo_blue",
+    "nextItem": "lifeguard_trunks",
     "collection": [
-        "chef_hat_white",
-        "bandana_neck_orange",
-        "goggles_blue",
+        "robot_body",
         "parka_red",
         "soda_hat",
-        "robot_body",
-        "tiedye_shirt"
-    ],
-    "freeItem": "beret_yellow",
-    "nextItem": "polo_blue",
-    "lastItem": "tiedye_shirt"
+        "glasses_blue",
+        "stubble_black",
+        "waiter_retro"
+    ]
 }
