@@ -9,7 +9,7 @@ const path = require('path');
 const textureMisc = require('#data/misc-textures.json');
 const sitesJson = require('#data/sites.json');
 const critterballJson = require('#data/critterball.json');
-const wikiPagesJson = require('#data/critterball.json');
+const wikiPagesJson = require('#data/wikiPages.json');
 
 //let SITE_URL = getSiteUrl();
 
@@ -125,6 +125,7 @@ async function getAssetInfo(type, name) {
 
 		//add missing values that used to be there for backewards compatability
 		switch (type) {
+			case "item":
 			case "items":
 				thing.id = thing.itemId;
 				thing.sprites = "https://boxcritters.com/media/items/" + thing.itemId + "/sprites.png";
@@ -134,10 +135,12 @@ async function getAssetInfo(type, name) {
 				thing.textures = "https://api.bcmc.ga/textures/items/" + thing.itemId;
 				thing.textures_sprites = "https://api.bcmc.ga/textures/items/" + thing.itemId + "_sprites";
 				break;
+			case "room":
 			case "rooms":
 				thing.id = thing.roomId;
 				thing.textures = "https://api.bcmc.ga/textures/rooms/rooms_" + thing.roomId;
 				break;
+			case "critter":
 			case "critters":
 				thing.id = thing.critterId;
 		}
