@@ -45,10 +45,7 @@ async function displayRoom(room, length) {
 	console.log("GifLength:", gifLength);
 
 
-	let gifEncoder = new CanvasGifEncoder(room.width, room.height, 'neuquant', true, gifLength);
-
-	gifEncoder.start();
-	for (let f = 0; f < gifLength; f++) {
+	async function pass(f = 0) {
 		console.debug("Frame: ", f + 1, "/", gifLength);
 		layout.playground.sort((a, b) => a.y - b.y);
 		if (room.video) await drawVideo(context, room.video, 0, 0, canvas.width, canvas.height);
@@ -75,10 +72,25 @@ async function displayRoom(room, length) {
 			}
 		}
 		if (room.foreground) drawImage(context, room.foreground, 0, 0, canvas.width, canvas.height);
-		gifEncoder.addFrame(context);
 	}
-	gifEncoder.finish();
-	return gifEncoder;
+
+	if (gifLength == 1) {
+		await pass();
+
+		return canvas.toBuffer();
+	} else {
+		let gifEncoder = new CanvasGifEncoder(room.width, room.height, 'neuquant', true, gifLength);
+
+		gifEncoder.start();
+		for (let f = 0; f < gifLength; f++) {
+
+			await pass(f);
+
+			gifEncoder.addFrame(context);
+		}
+		gifEncoder.finish();
+		gifEncoder.out.getData();
+	}
 }
 
 
@@ -95,10 +107,9 @@ router.get('/:frames/:room?', async function (req, res) {
 	let room = await getRoom(roomId);
 	if (!room) return res.status(404).send("No Room found");
 
-	let imgBuffer = await displayRoom(room, frames);
+	let data = await displayRoom(room, frames);
 
 	res.type('.' + fileParts[fileParts.length - 1]);
-	let data = imgBuffer.out.getData();
 	res.send(data);
 });
 
