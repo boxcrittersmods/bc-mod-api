@@ -16,7 +16,7 @@ function camelize(str) {
 
 
 let codes = {
-	"26": "/freeitem",
+	"28": "/freeitem",
 	"3": "/darkmode",
 	"2": "/tbt",
 	"1": "/explore",
@@ -26,10 +26,11 @@ var tableToJson = (table, t, { length: count }) => {
 	let keys;
 	let rowSpan = [];
 	return [].reduce.call(table.rows, (items, row, r) => {
-		if (!r) keys = [].map.call(row.cells, n => camelize(n.innerHTML.split("\n").join("")
-			.replace("Available from", "Date released")
-			.replace("Available until", "Date expired")));
+		if (!r) keys = [].map.call(row.cells, n => camelize(n.innerHTML.split("\n").join("").toLowerCase()
+			.replace("available from", "date released")
+			.replace("available until", "date expired")));
 		else {
+			console.log(keys);
 			//updateRowSpan
 			rowSpan = rowSpan.map(c => (c.rowSpan = c.rowSpan - 1 + "", c)).filter(c => +c.rowSpan);
 			row.prepend(...rowSpan);
@@ -38,7 +39,7 @@ var tableToJson = (table, t, { length: count }) => {
 
 			items[r - 1] = [].reduce.call(row.cells, (item, cell, c) => {
 				cell.innerText = cell.innerHTML.split("\n").join("").replace(/<[^>]*>/g, "");
-				cell.innerText = cell.innerText.toLowerCase() == "still available" ? false : cell.innerText;;;
+				cell.innerText = cell.innerText.toLowerCase() == "still available" ? false : cell.innerText;
 				item[keys[c]] = cell.innerText;
 				if (+cell.rowSpan && +cell.rowSpan > 1) {
 					rowSpan.push(cell);
