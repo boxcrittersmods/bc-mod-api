@@ -1,13 +1,13 @@
 {
-    "lastItem": "beret_yellow",
-    "freeItem": "polo_blue",
-    "nextItem": "lifeguard_trunks",
+    "lastItem": "polo_blue",
+    "freeItem": "lifeguard_trunks",
+    "nextItem": "clown_nose",
     "collection": [
-        "robot_body",
-        "parka_red",
-        "soda_hat",
         "glasses_blue",
         "stubble_black",
-        "waiter_retro"
+        "waiter_retro",
+        "bandana_yellow",
+        "rainhat_blue",
+        "chef_jacket_white"
     ]
 }
