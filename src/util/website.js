@@ -25,7 +25,10 @@ Website.prototype.getText = async function () {
 };
 
 Website.prototype.getJson = async function () {
-	let json = await getJSON(this.url);
+	let json = {};
+	try {
+		json = await getJSON(this.url);
+	} catch (e) { console.error(this.url + " " + e.message); }
 	return json;
 };
 
