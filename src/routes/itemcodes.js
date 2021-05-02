@@ -69,11 +69,13 @@ router.get('/', async function (req, res) {
 	let items = [].map.call(tables/*.slice(0, -4)*/, tableToJson).flat()
 		.sort((a, b) => {
 			let fixDate = date => date === "Date unknown" ? 0 : !date ? Date.now() : date;
-			let aExp = fixDate(a.dateExpired),
-				bExp = fixDate(b.dateExpired);
-			return new Date(b.dateReleased) - new Date(a.dateReleased) ||
-				new Date(bExp) - new Date(aExp);
+			return new Date(fixDate(b.dateReleased)) - new Date(fixDate(a.dateReleased)) ||
+				new Date(fixDate(a.dateExpired)) - new Date(fixDate(a.dateExpired));
 		});
+	for (const item of items) {
+		item.dateReleased = new Date(item.dateReleased || undefined) || false;
+		item.dateExpired = new Date(item.dateExpired || undefined) || false;
+	}
 	res.send(items);
 });
 
