@@ -16,7 +16,7 @@ function camelize(str) {
 
 
 let codes = {
-	"28": "/freeitem",
+	"29": "/freeitem",
 	"3": "/darkmode",
 	"2": "/tbt",
 	"1": "/explore",
