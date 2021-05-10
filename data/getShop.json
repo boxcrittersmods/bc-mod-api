@@ -1,13 +1,13 @@
 {
-    "lastItem": "clown_nose",
-    "freeItem": "fedora_green",
-    "nextItem": "beret_blue",
+    "lastItem": "fedora_green",
+    "freeItem": "beret_blue",
+    "nextItem": "princess_hat_pink",
     "collection": [
-        "pirate_capt_red",
-        "mermaid_hair_red",
-        "burger_suit",
         "pirate_hat_black",
         "mermaid_pink",
-        "burger_bun"
+        "burger_bun",
+        "scuba_suit_blue",
+        "glasses_heart",
+        "space_hunter_suit"
     ]
 }
