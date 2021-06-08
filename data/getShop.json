@@ -1,13 +1,11 @@
 {
-    "lastItem": "pirate_crew_grey",
-    "freeItem": "trunks_green",
-    "nextItem": "polo_red",
+    "lastItem": "trunks_green",
+    "freeItem": "polo_red",
+    "nextItem": "climb_helmet_pink",
     "collection": [
-        "space_orange",
-        "pirate_hair_blue",
-        "hoodie_yellow",
         "buster_suit",
         "army_helmet_pink",
-        "ninja_black"
+        "ninja_black",
+        "buster_pack"
     ]
 }
