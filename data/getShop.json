@@ -1,13 +1,13 @@
 {
-  "lastItem": "polo_red",
-  "freeItem": "climb_helmet_pink",
-  "nextItem": "goatee_red",
-  "collection": [
-    "buster_pack",
-    "swimsuit_yellow",
-    "giant_pencil",
-    "mermaid_blue",
-    "bandana_neck_green",
-    "ninja_orange"
-  ]
+	"lastItem": "climb_helmet_pink",
+	"freeItem": "goatee_red",
+	"nextItem": "bandana_neck_purple",
+	"collection": [
+		"mermaid_blue",
+		"bandana_neck_green",
+		"ninja_orange",
+		"roman_helmet",
+		"scuba_tank_green",
+		"pirate_dress_pink"
+	]
 }
