@@ -63,15 +63,16 @@ var tableToJson = (table, t, { length: count }) => {
 
 router.get('/', async function (req, res) {
 	//res.type("application/json");
-	let document = await itemCodeWiki.getDocument();
-	let page = document.getElementsByClassName("WikiaPage")[0];
-	let tables = Array.from(page.querySelectorAll("table"));
-	let items = [].map.call(tables/*.slice(0, -4)*/, tableToJson).flat()
-		.sort((a, b) => {
-			let fixDate = date => date === "Date unknown" ? 0 : !date ? Date.now() : date;
-			return new Date(fixDate(b.dateReleased)) - new Date(fixDate(a.dateReleased)) ||
-				new Date(fixDate(a.dateExpired)) - new Date(fixDate(a.dateExpired));
-		});
+	let document = await itemCodeWiki.getDocument(),
+		//page = document.getElementsByClassName("WikiaPage")[0],
+		page = document.getElementById("content"),
+		tables = Array.from(page.querySelectorAll("table")),
+		items = [].map.call(tables/*.slice(0, -4)*/, tableToJson).flat()
+			.sort((a, b) => {
+				let fixDate = date => date === "Date unknown" ? 0 : !date ? Date.now() : date;
+				return new Date(fixDate(b.dateReleased)) - new Date(fixDate(a.dateReleased)) ||
+					new Date(fixDate(a.dateExpired)) - new Date(fixDate(a.dateExpired));
+			});
 	for (const item of items) {
 		item.dateReleased = new Date(item.dateReleased || undefined) || false;
 		item.dateExpired = new Date(item.dateExpired || undefined) || false;
