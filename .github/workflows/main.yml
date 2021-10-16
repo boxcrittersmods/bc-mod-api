@@ -14,18 +14,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: "Heroku Login"
-        run: |
-          (
-            echo "${{ secrets.HEROKU_EMAIL }}"
-            echo "${{secrets.HEROKU_API_KEY}}"
-          ) | heroku login
+#      - name: "Heroku Login"
+ #       run: |
+ #         (
+ #           echo "${{ secrets.HEROKU_EMAIL }}"
+ #           echo "${{secrets.HEROKU_API_KEY}}"
+ #         ) | heroku login
 
 
       - name: Add remote origin
         run: |
            heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
            # git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+        env:
+          HEROKU_API_KEY: ${{ secrets.HERPKU_API_KEY }}
 
       - name: Deploy to Heroku
         run: |
