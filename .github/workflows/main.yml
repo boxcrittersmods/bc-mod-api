@@ -7,7 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
     steps:
       - uses: actions/checkout@v1
       - name: Setup Node.js >= 10
@@ -26,8 +29,6 @@ jobs:
         run: |
            heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
            # git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       - name: Deploy to Heroku
         run: |
