@@ -7,22 +7,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # env:
-    #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-    #   HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-    #   HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
     steps:
       - uses: actions/checkout@v1
       - name: Setup Node.js >= 10
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: "Heroku Login"
+      # - name: "Heroku Login"
+      #   run: |
+      #     (
+      #       echo "${{ secrets.HEROKU_EMAIL }}"
+      #       echo "${{ secrets.HEROKU_API_KEY }}"
+      #     ) | heroku login -l
+      - name: Heroku login credentials
         run: |
-          (
-            echo "${{ secrets.HEROKU_EMAIL }}"
-            echo "${{ secrets.HEROKU_API_KEY }}"
-          ) | heroku login -l
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
 
 
       - name: Add remote origin
