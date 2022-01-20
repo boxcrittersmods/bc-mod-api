@@ -1,13 +1,3 @@
 {
-	"lastItem": "goatee_red",
-	"freeItem": "bandana_neck_purple",
-	"nextItem": "lifering_red",
-	"collection": [
-	  "roman_helmet",
-	  "scuba_tank_green",
-	  "pirate_dress_pink",
-	  "shark_blue",
-	  "hero_cape_pink",
-	  "baseball_jersey_blue"
-	]
-  }
+	"collection": []
+}
