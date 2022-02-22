@@ -44,7 +44,7 @@
 		"module-alias": "^2.2.2",
 		"moment": "^2.24.0",
 		"mongodb": "^3.6.4",
-		"node-fetch": "^2.6.0",
+		"node-fetch": "^2.6.7",
 		"request": "^2.88.0",
 		"serve-index": "^1.9.1",
 		"tn-webserver": "^1.0.0",
