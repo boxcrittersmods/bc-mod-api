@@ -42,7 +42,7 @@
 		"mathjs": "^7.3.0",
 		"memory-cache": "^0.2.0",
 		"module-alias": "^2.2.2",
-		"moment": "^2.24.0",
+		"moment": "^2.29.2",
 		"mongodb": "^3.6.4",
 		"node-fetch": "^2.6.7",
 		"request": "^2.88.0",
