@@ -21,10 +21,15 @@ PORT=3000
 DISCORD_WEBHOOK=https://discordapp.com/api/webhooks/1234/abc123abc123abc123abc123
 GH_APP_ID=1234
 GH_APP_PK=ab1.123abc
-WS_ORIGIN=boxcritters.github.io
+WS_ORIGIN=bcmc.ga
 WS_OAUTH_CLIENT_ID=abc123abc123abc123abc123
 WS_OAUTH_CLIENT_SECRET=abc123abc123abc123abc123abc123abc123abc123
-WS_REDIRECT_URL=https://bc-mod-api.herokuapp.com/callback
+WS_REDIRECT_URL=https://api.bcmc.ga/callback
+SUBMIT_TOKEN=???
+SUBMIT_WEBHOOK=???
+DB_URL=dbURL
+DB_USER=username
+DB_PASSWORD=password
 ```
 ## starting
 Without `nodemon`:

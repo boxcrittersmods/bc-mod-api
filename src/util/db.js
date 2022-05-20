@@ -1,8 +1,6 @@
 "use strict";
 const { MongoClient } = require('mongodb');
-let dbUser = process.env.DB_USER || require("./config/token").dbUser;
-let dbPassword = process.env.DB_PASSWORD || require("./config/token").dbPassword;
-const uri = `mongodb+srv://${dbUser}:${dbPassword}@bcmcwebsiteitems.vkf2l.mongodb.net/items?w=majority`;
+const uri = `mongodb+srv://${ process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_URL}?w=majority`;
 
 
 

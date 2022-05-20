@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"watch":"nodemon"
+		"watch": "nodemon"
 	},
 	"repository": "git+https://github.com/boxcrittersmods/bc-mod-api.git",
 	"_moduleAliases": {
